@@ -5,5 +5,5 @@ by meeee ::3\
 * Main Page
 * Sbemail Songs (hopefully)
 * Bronco Trolleys (Needy)
-* Sid Hoffrenchman (Needy)\
-\All have TP support except Bronco Trolleys.
+* Sid Hoffrenchman (Needy)\ \
+All have TP support except Bronco Trolleys.
