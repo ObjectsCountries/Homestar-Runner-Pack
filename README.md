@@ -6,4 +6,4 @@ by meeee ::3 (ObjectsCountries)\
 * Sbemail Songs (hopefully)
 * Bronco Trolleys (Needy)
 * Sid Hoffrenchman (Needy)\
-All have TP support except Bronco Trolleys.
+All have TP support except for Bronco Trolleys.
