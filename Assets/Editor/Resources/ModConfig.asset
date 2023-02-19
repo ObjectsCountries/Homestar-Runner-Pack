@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615501dbe4f3fe94fbf4b564abb10237, type: 3}
+  m_Name: ModConfig
+  m_EditorClassIdentifier: 
+  id: theHRpack
+  title: The Homestar Runner Pack
+  author: ObjectsCountries
+  description: 'Five whole modules based off of my favorite webseries, Homestar Runner.
+
+
+    - Main Page (mainpage) ([url=https://ktane.timwi.de/HTML/Main Page.html]HTML[/url])
+    ([url=https://ktane.timwi.de/PDF/Main Page.pdf]PDF[/url])
+
+    - Sbemail Songs (sbemailsongs) ([url=https://ktane.timwi.de/HTML/Sbemail Songs.html]HTML[/url])
+    ([url=https://ktane.timwi.de/PDF/Sbemail Songs.pdf]PDF[/url])
+
+    - Strong Mad Talker (strongmadtalker) ([url=https://ktane.timwi.de/HTML/Strong
+    Mad Talker.html]HTML[/url]) ([url=https://ktane.timwi.de/PDF/Strong Mad Talker.pdf]PDF[/url])
+
+    - Needy: Sid Hoffrenchman (sidhoffrenchman) ([url=https://ktane.timwi.de/HTML/Sid
+    Hoffrenchman.html]HTML[/url]) ([url=https://ktane.timwi.de/PDF/Sid Hoffrenchman.pdf]PDF[/url])
+
+    - Needy: Bronco Trolleys (broncotrolleys) ([url=https://ktane.timwi.de/HTML/Bronco
+    Trolleys.html]HTML[/url]) ([url=https://ktane.timwi.de/PDF/Bronco Trolleys.pdf]PDF[/url])
+
+
+    All except Bronco Trolleys have TP support.
+
+    Strong Mad Talker has a TP-relevant setting that automatically resets inputs if
+    the user makes a typo; this can be disabled.
+
+    None have ruleseed support yet, so feel free to help with that.
+
+
+    Credits: myself, TheDarkSid3r for helping out here and there, boiaaang for Strong
+    Mad Talker''s design'
+  version: 1
+  outputFolder: C:\Program Files (x86)\Steam\steamapps\common\Keep Talking and Nobody
+    Explodes\mods
+  previewImage: {fileID: 0}
