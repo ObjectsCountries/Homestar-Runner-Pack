@@ -1,0 +1,24 @@
+Sbemail Songs:
+design:
+- background is tandy/compy/lappy/corpy/compe/lappier
+- interface says ">song 1 >song 2 >song 3 >song 4 >submit"
+- when ">submit" pressed, numpad appears
+manual:
+- take 4 numbers, convert to 32-bit binary string (include leading zeros if less than 128)
+- tandy: xor
+- compy: or
+- lappy: and
+- corpy: xnor
+- compe: nor
+- lappier: nand
+- perform on bits next to each other
+- should now have 16 bits
+- create 4x4 grid, bits in reading order
+
+old plan:
+- have grid of coordinates with numbers and "X"s in them
+- 4 sbemail songs randomly selected
+- corresponding numbers form quadrilateral in grid (make line/triangle/triangle with point inside impossible)
+- take area of quadrilateral and average of numbers and convert to binary
+- bg determines operation (and/or/xor/etc) modulo 206
+- submit resulting number when last 2 digits of timer are a multiple of no. of "X"s modulo 10 + 2
