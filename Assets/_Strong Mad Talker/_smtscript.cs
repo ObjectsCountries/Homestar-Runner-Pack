@@ -1,4 +1,6 @@
-﻿using KeepCoding;
+﻿using Wawa.Modules;
+using Wawa.Extensions;
+using Wawa.IO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Linq;
 using UnityEngine;
 using KModkit;
 
-public class _smtscript:ModuleScript{
+public class _smtscript:ModdedModule{
     public KMSelectable[] buttons;
     public KMSelectable PSToggle;
     public Material[] PSColors;
@@ -34,18 +36,18 @@ public class _smtscript:ModuleScript{
         public bool SMT_TPResetOnTypo=false;
     }
 
-    public override void OnAwake(){
+    protected override void OnActivate(){
         foreach(KMSelectable button in buttons){
-            button.Assign(onHighlight:()=>button.GetComponentInChildren<TextMesh>().color=buttonColors[1],
+            button.Add(onHighlight:()=>button.GetComponentInChildren<TextMesh>().color=buttonColors[1],
                 onHighlightEnded:()=>button.GetComponentInChildren<TextMesh>().color=buttonColors[0],
                 onInteract:()=>{Press(button);button.GetComponentInChildren<TextMesh>().color=buttonColors[2];},
                 onInteractEnded:()=>button.GetComponentInChildren<TextMesh>().color=buttonColors[1]);
         }
-        PSToggle.Assign(onInteract:PS);
+        PSToggle.Add(onInteract:PS);
     }
 
     void Start(){
-        ModSettings=new ModConfig<settings>().Read();
+        ModSettings=new Config<settings>().Read();
         foreach(GameObject star in stars)star.SetActive(false);
         onesylposition=UnityEngine.Random.Range(0,6);
         PlaceWords();
@@ -162,7 +164,8 @@ public class _smtscript:ModuleScript{
     }
 
     internal void Press(KMSelectable button){
-        PlaySound(button.GetComponentInChildren<TextMesh>().text,Sound.BigButtonPress);
+        Play(Sound.BigButtonPress);
+        Play(new Sound(button.GetComponentInChildren<TextMesh>().text));
         button.AddInteractionPunch();
         string word=button.GetComponentInChildren<TextMesh>().text;
         string message="Pressed "+word;
@@ -230,7 +233,7 @@ public class _smtscript:ModuleScript{
             wordlist=wordlist.OrderBy(x =>x.Length).ToList();
             if(decoy=="DIAPER"){
                 List<string>templist=new List<string>();
-                for(int i=0;i<4;i++)templist.Add(wordlist[(5-I)%4]);
+                for(int i=0;i<4;i++)templist.Add(wordlist[(5-i)%4]);
                 wordlist=templist;
             }
         }
@@ -239,5 +242,70 @@ public class _smtscript:ModuleScript{
             for(int i=6;i<18;i++)if(wordlist.Contains(multisylwords[i%12]))templist.Add(multisylwords[i%12]);
             wordlist=templist;
         }Log("Correct order: {0}",string.Join(", ",wordlist.ToArray()));
+    }
+
+    #pragma warning disable 414
+    private readonly string TwitchHelpMessage=@"!{0} words/positions/playall/playwords/playeach/r | List the words to press in the order of your message. tl, tr, cl/ml, cr/mr, bl and br can be used for positions. Additionally, use playall/playwords/playeach to hear each word. Upon making a typo, the module will automatically halt as well as reset input if enabled in the mod settings. The input can be manually reset with !{0} r.";
+    private readonly string TwitchManualCode="https://ktane.timwi.de/HTML/Strong%20Mad%20Talker.html";
+    #pragma warning restore 414
+
+    public IEnumerator ProcessTwitchCommand(string command){
+        command=command.ToUpperInvariant().Trim();
+        if(command=="PLAYALL"||command=="PLAYWORDS"||command=="PLAYEACH"){
+            yield return null;
+            yield return "sendtochat The words read: "+string.Join(", ",fulllist.ToArray());
+            if(!playing)PS();
+            for(int i=0;i<6;i++){
+                yield return new[]{buttons[i]};
+                buttons[i].OnHighlightEnded();
+                yield return new WaitForSeconds(1.25f);
+            } PS();
+            yield break;
+        } if (command == "R"){
+            yield return null;
+            if (playing || stage == 0) yield return "sendtochaterror The input currently cannot be reset.";
+            else{
+                PS();
+                PS();
+            } yield break;
+        } string[] words = command.Split(' ');
+        List<KMSelectable> buttonlist = new List<KMSelectable>();
+        if (playing) PS();
+        bool typomade = false;
+        int currentamount;
+        foreach (string word in words){
+            currentamount=buttonlist.Count;
+            if (word == "TL") buttonlist.Add(buttons[0]);
+            if (word == "TR") buttonlist.Add(buttons[1]);
+            if (word == "CL" || word == "ML") buttonlist.Add(buttons[2]);
+            if (word == "CR" || word == "MR") buttonlist.Add(buttons[3]);
+            if (word == "BL") buttonlist.Add(buttons[4]);
+            if (word == "BR") buttonlist.Add(buttons[5]);
+            if (fulllist.Contains(word)) buttonlist.Add(buttons.First(b => b.GetComponentInChildren<TextMesh>().text == word));
+            if (buttonlist.Count == currentamount){
+                //if the sender makes a typo, such as "!# working proxmiity sweetycakes movie", it'll stop when it reaches the typo and not press the rest of the buttons
+                yield return null;
+                yield return "sendtochaterror {0}, you made a typo.";
+                typomade = true;
+                break;
+            }
+        } yield return null;
+        foreach (KMSelectable BB in buttonlist){
+            yield return new[] {BB};
+            BB.OnHighlightEnded();
+        }
+        if (ModSettings.SMT_TPResetOnTypo && typomade){
+            PS();
+            PS();
+        }
+    }
+
+    public IEnumerator TwitchHandleForcedSolve(){
+        //i just made it look like it's solved bc it really makes no difference
+        Solve("Force solved by Twitch mod.");
+        if(!playing)PS();
+        moduleSolved = true;
+        foreach(GameObject star in stars)star.SetActive(true);
+        yield return null;
     }
 }
