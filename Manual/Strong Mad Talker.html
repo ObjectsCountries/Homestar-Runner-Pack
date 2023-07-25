@@ -19,31 +19,40 @@
           <img src="img/Component/Strong Mad Talker.svg" class="diagram">
           <h2>On the Subject of Strong Mad Talker</h2>
           <p class="flavour-text">SOLVE THE BOMB!!!! <b>SOLVE THE BOMB!!!!!!!</b></p>
-
-          <p>This module will appear with six words, a Playing/Solving toggle, and Strong Mad in the center. When in Playing mode, all buttons are free to be pressed without consequence. When in Solving mode, they must be pressed in a specific order, only involving four of the six buttons. A star will appear along the bottom of the module for each correct word, being cleared if an incorrect word is pressed or the module is changed to Playing mode.</p>
-          <h3>Finding the Decoy</h3>
-          <p>One of the words will have only one syllable, and another will be a "decoy", excluded from the correct sequence. The word with one syllable determines the order in which to check each word. Start with the word in the position labeled 1, then in the position labeled 2, and continue until a true condition is reached that declares the decoy. If the word declared as the decoy is the one-syllable word, the decoy is the next word in reading order, looping around. If none of the five conditions are true, the decoy is on the opposite side of the one-syllable word.</p>
-          <table><tbody>
+          <p>This module will appear with six words, a Playing/Solving toggle and Strong Mad in the center. When in Playing mode, all buttons are free to be pressed without consequence. When in Solving mode, they must be pressed in a specific order that includes only four of the six buttons. A star will appear along the bottom of the module for each correct word, being cleared if an incorrect word is pressed or the module is changed to Playing mode.</p>
+          <p>One of the words will have only one syllable, and another will be a decoy excluded from the correct sequence. The word with one syllable determines the order in which to check each word. Start with the word in the position labeled 1, then in the position labeled 2, and continue until a true condition is reached that declares the decoy. If the word declared as the decoy is the one-syllable word, the decoy is the next word in reading order looping around. If none of the conditions are true, the decoy is the word horizontally adjacent to the one-syllable word.</p>
+          <table style="margin-left:auto;margin-right:auto;text-align:center"><tbody>
             <tr>
-              <td>
-                <b>JUICE</b>
-                <table><tbody><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr><tr><td>5</td><td>6</td></tr></tbody></table>
+              <td><b>JUICE</b>
+                <table><tbody>
+                  <tr><td>1</td><td>2</td></tr>
+                  <tr><td>3</td><td>4</td></tr>
+                  <tr><td>5</td><td>6</td></tr>
+                </tbody></table>
               </td>
-              <td>
-                <b>PULSE</b>
-                <table><tbody><tr><td>1</td><td>4</td></tr><tr><td>2</td><td>5</td></tr><tr><td>3</td><td>6</td></tr></tbody></table>
+              <td><b>PULSE</b>
+                <table><tbody>
+                  <tr><td>1</td><td>4</td></tr>
+                  <tr><td>2</td><td>5</td></tr>
+                  <tr><td>3</td><td>6</td></tr>
+                </tbody></table>
               </td>
-              <td>
-                <b>CAKE</b>
-                <table><tbody><tr><td>3</td><td>4</td></tr><tr><td>5</td><td>2</td></tr><tr><td>1</td><td>6</td></tr></tbody></table>
+              <td><b>CAKE</b>
+                <table><tbody>
+                  <tr><td>3</td><td>4</td></tr>
+                  <tr><td>5</td><td>2</td></tr>
+                  <tr><td>1</td><td>6</td></tr>
+                </tbody></table>
               </td>
-              <td>
-                <b>CHARM</b>
-                <table><tbody><tr><td>3</td><td>4</td></tr><tr><td>2</td><td>1</td></tr><tr><td>6</td><td>5</td></tr></tbody></table>
+              <td><b>CHARM</b>
+                <table><tbody>
+                  <tr><td>3</td><td>4</td></tr>
+                  <tr><td>2</td><td>1</td></tr>
+                  <tr><td>6</td><td>5</td></tr>
+                </tbody></table>
               </td>
             </tr>
-            </tbody>
-          </table>
+          </tbody></table>
         </div>
         <div class="page-footer relative-footer">Page 1 of 3</div>
       </div>
@@ -55,88 +64,40 @@
         <div class="page-content"> <table>
           <tbody>
             <tr>
-              <th>
-                <p>SWEETYCAKES</p>
-              </th>       
-              <td>
-                <p>If there are at least 2 lit indicators, the top right word is the decoy.</p>
-              </td>
-              <th>
-                <p>PROXIMITY</p>
-              </th>       
-              <td>
-                <p>If the one-syllable word is orthogonally adjacent to this word <i>not</i> looping around, the bottom right word is the decoy.</p>
-              </td>
+              <th>SWEETYCAKES</th>       
+              <td>If there are at least 2 lit indicators, the top right word is the decoy.</td>
+              <th>PROXIMITY</th>       
+              <td>If the one-syllable word is orthogonally adjacent to this word <i>not</i> looping around, the bottom right word is the decoy.</td>
             </tr>
             <tr>
-              <th>
-                <p>CHEDDAR</p>
-              </th>       
-              <td>
-                <p>If "JUICE", "CAKE", "SWEETYCAKES" or "CASSEROLE" are present, this word is the decoy.</p>
-              </td>
-              <th>
-                <p>MOVIE</p>
-              </th>       
-              <td>
-                <p style="font-size:10pt">If the serial number shares any letters with the one-syllable word, the word above "MOVIE" is the decoy (looping around).</p>
-              </td>
+              <th>CHEDDAR</th>       
+              <td>If "JUICE", "CAKE", "SWEETYCAKES" or "CASSEROLE" are present, this word is the decoy.</td>
+              <th>MOVIE</th>       
+              <td>If the serial number shares any letters with the one-syllable word, the word above "MOVIE" is the decoy (looping around).</td>
             </tr>
             <tr>
-              <th>
-                <p>DOUGLAS</p>
-              </th>       
-              <td>
-                <p style="font-size:10pt">If the top-left word is shorter than the bottom-right word, the word in position (the sum of the serial number's digits modulo 6) + 1 of the one-syllable word's checking order is the decoy.</p>
-              </td>
-              <th>
-                <p>CASSEROLE</p>
-              </th>       
-              <td>
-                <p>If the word below "CASSEROLE" on the module (looping around) has already been checked, this word is the decoy.</p>
-              </td>
+              <th>DOUGLAS</th>       
+              <td style="font-size:10pt">If the top-left word is shorter than the bottom-right word, the word in position (the sum of the serial number's digits modulo 6) + 1 of the one-syllable word's checking order is the decoy.</td>
+              <th>CASSEROLE</th>       
+              <td>If the word below "CASSEROLE" on the module (looping around) has already been checked, this word is the decoy.</td>
             </tr>
             <tr>
-              <th>
-                <p>GARBLEDINA</p>
-              </th>       
-              <td>
-                <p>This word is the decoy.</p>
-              </td>
-              <th>
-                <p>WORKING</p>
-              </th>       
-              <td>
-                <p>If the top-left word and bottom-left word are equal in length, the middle-left word is the decoy.</p>
-              </td>
+              <th>GARBLEDINA</th>       
+              <td>This word is the decoy.</td>
+              <th>WORKING</th>       
+              <td>If the top-left word and bottom-left word are equal in length, the middle-left word is the decoy.</td>
             </tr>
             <tr>
-              <th>
-                <p>MANTIS</p>
-              </th>       
-              <td>
-                <p>If the word opposite this word on the module is in the left column of this table, that word is the decoy.</p>
-              </td>
-              <th>
-                <p>AROUND</p>
-              </th>       
-              <td>
-                <p style="font-size:10pt">If any word on the module is at least 10 letters long, the last word checked is the decoy. If this is the first word to be checked and the above condition applies, this word is the decoy.</p>
-              </td>
+              <th>MANTIS</th>       
+              <td>If the word opposite this word on the module is in the left column of this table, that word is the decoy.</td>
+              <th>AROUND</th>       
+              <td style="font-size:10pt">If any word on the module is at least 10 letters long, the last word checked is the decoy. If this is the first word to be checked and the above condition applies, this word is the decoy.</td>
             </tr>
             <tr>
-              <th>
-                <p>DIAPER</p>
-              </th>       
-              <td>
-                <p>If this is word 3, 4 or 5, the middle-left word is the decoy.</p>
-              </td>
-              <th>
-                <p>HORSES</p>
-              </th>       
-              <td>
-                <p>If the one-syllable word is in the left column of the module, word 4 is the decoy.</p>
-              </td>
+              <th>DIAPER</th>       
+              <td>If this is word 3, 4 or 5, the middle-left word is the decoy.</td>
+              <th>HORSES</th>       
+              <td>If the one-syllable word is in the left column of the module, word 4 is the decoy.</td>
             </tr>
           </tbody>
           </table>
@@ -149,84 +110,53 @@
           <span class="page-header-section-title">Strong Mad Talker</span>
         </div>
         <div class="page-content">
-          <table><tbody>
-
-            </tbody>
-          </table>
           <h3>Determining the Order</h3>
           <p>The decoy serves to determine the order in which the other four words should be pressed.</p>
           <table>
             <tbody>
               <tr>
-                <th>
-                  <p>SWEETYCAKES</p>
-                </th>       
-                <td>
-                  <p>Reading Order (left to right, top to bottom) <u>On Module</u></p>
-                </td>
-                <th>
-                  <p>PROXIMITY</p>
-                </th>       
-                <td>
-                  <p>Alphabetical Order</p>
-                </td>
+                <th>SWEETYCAKES</th>       
+                <td>Reading Order (left to right, top to bottom) <u>On Module</u></td>
+                <th>PROXIMITY</th>       
+                <td>Alphabetical Order</td>
               </tr>
               <tr>
-                <th>
-                  <p>CHEDDAR</p>
-                </th>       
-                <td>
-                  <p>Increasing Word Length (for ties, use alphabetical order)</p>
-                </td>
-                <th>
-                  <p>MOVIE</p>
-                </th>
+                <th>CHEDDAR</th>       
+                <td>Increasing Word Length (for ties, use alphabetical order)</td>
+                <th>MOVIE</th>
                 <td>Clockwise On Module Starting from Decoy</td>
               </tr>
               <tr>
-                <th>
-                  <p>DOUGLAS</p>
-                </th>
+                <th>DOUGLAS</th>
                 <td><p>Chinese Reading Order (top to bottom, right to left) <u>On Table</u></p></td>
-                <th>
-                  <p>CASSEROLE</p>
-                </th>
+                <th>CASSEROLE</th>
                 <td>Use the order determined by the one-syllable word.</td>
               </tr>
               <tr>
-                <th>
-                  <p>GARBLEDINA</p>
-                </th><td>Use the order determined by the one-syllable word rearranged in the order of 2, 6, 4, 5, 3, 1.</td>
-                <th>
-                  <p>WORKING</p>
-                </th>       
-                <td>
-                  <p>Reverse Alphabetical Order</p>
-                </td>
+                <th>GARBLEDINA</th><td>Use the order determined by the one-syllable word rearranged in the order of 2, 6, 4, 5, 3, 1.</td>
+                <th>WORKING</th>       
+                <td>Reverse Alphabetical Order</td>
               </tr>
               <tr>
-                <th>
-                  <p>MANTIS</p>
-                </th>       
+                <th>MANTIS</th>       
                 <td>
-                  <p style="font-size:11pt">Use the order from the word that determined the decoy. If none of the conditions were true, press the words in reading order. <b>Note that "MANTIS" is still considered the decoy in this case.</b></p>
-                </td>
-                <th>
-                  <p>AROUND</p>
-                </th>
-                <td><table><tbody><tr><td>1</td><td>2</td></tr><tr><td>6</td><td>3</td></tr><tr><td>5</td><td>4</td></tr></tbody></table></td>
+                  <p>Use the order from the word that determined the decoy. If none of the conditions were true, press the words in reading order. <b>Note that "MANTIS" is still considered the decoy in this case.</b></td>
+                <th>AROUND</th>
+                <td><table><tbody>
+                  <tr><td>1</td><td>2</td></tr>
+                  <tr><td>6</td><td>3</td></tr>
+                  <tr><td>5</td><td>4</td></tr>
+                </tbody></table></td>
               </tr>
               <tr>
-                <th>
-                  <p>DIAPER</p>
-                </th>       
-                <td>
-                  <p>Increasing Word Length, then rearrange the resulting sequence in the order of 2, 1, 4, 3.</p>
-                </td>
-                <th>
-                  <p>HORSES</p>
-                </th>
-                <td><table><tbody><tr><td>5</td><td>4</td></tr><tr><td>6</td><td>3</td></tr><tr><td>2</td><td>1</td></tr></tbody></table></td>
+                <th>DIAPER</th>       
+                <td>Increasing Word Length, then rearrange the resulting sequence in the order of 2, 1, 4, 3.</td>
+                <th>HORSES</th>
+                <td><table><tbody>
+                  <tr><td>5</td><td>4</td></tr>
+                  <tr><td>6</td><td>3</td></tr>
+                  <tr><td>2</td><td>1</td></tr>
+                </tbody></table></td>
               </tr>
             </tbody>
           </table>
