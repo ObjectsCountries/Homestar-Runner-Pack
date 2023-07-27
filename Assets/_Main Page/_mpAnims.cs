@@ -190,11 +190,15 @@ public class _mpAnims : MonoBehaviour {
         yield return new WaitUntil(() => h.done);
         sayingAnims(h.HSnumber);
     }
-
+    
+    private IEnumerator nothing(){yield return null;}
     internal void sayingAnims(int hs){
         switch (hs){
             case 9:
                 sayAnims = new IEnumerator[] { oldTimeySay(1), oldTimeySay(.5f), oldTimeySay(1), oldTimeySay(1), oldTimeySay(1), oldTimeySay(1) };
+                break;
+            case 11:
+                sayAnims=new IEnumerator[]{nothing(),nothing(),nothing(),nothing(),nothing(),nothing()};
                 break;
             default:
                 //store and e-mail use the same mouth movements as toons and downloads respectively

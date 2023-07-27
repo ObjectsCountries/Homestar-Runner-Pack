@@ -1,10 +1,11 @@
-﻿using KeepCoding;
+﻿using Wawa.Modules;
+using Wawa.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class _sidhoffrenchmanscript : ModuleScript{
+public class _sidhoffrenchmanscript:ModdedModule{
     public Material[] chars;
     public Material empty;
     public Renderer[] bgChars;
@@ -32,12 +33,12 @@ public class _sidhoffrenchmanscript : ModuleScript{
         Get<KMNeedyModule>().OnNeedyDeactivation += HideChars;
         TextMesh hoffText = hoffButton.GetComponentInChildren<TextMesh>();
         TextMesh frenchText = frenchButton.GetComponentInChildren<TextMesh>();
-        hoffButton.Assign(
+        hoffButton.Add(
                 onHighlight: () => ColorChange(hoffText, 1),
                 onHighlightEnded: () => ColorChange(hoffText, 0),
                 onInteract: () => ColorChange(hoffText, 2),
                 onInteractEnded: () => { ColorChange(hoffText, 1); StartCoroutine(Submitting(correct(), true)); });
-        frenchButton.Assign(
+        frenchButton.Add(
                 onHighlight: () => ColorChange(frenchText, 1),
                 onHighlightEnded: () => ColorChange(frenchText, 0),
                 onInteract: () => ColorChange(frenchText, 2),
@@ -123,7 +124,7 @@ public class _sidhoffrenchmanscript : ModuleScript{
     private bool playing = true;
 
     IEnumerator SayHoff(){
-        PlaySound("AUDIO_sid_hoffLine");
+        Play(new Sound("AUDIO_sid_hoffLine"));
         hrBackdrop.material = hrAnim[1];
         yield return new WaitForSeconds(.25f);
         hrBackdrop.material = hrAnim[0];
@@ -138,7 +139,7 @@ public class _sidhoffrenchmanscript : ModuleScript{
     }
 
     IEnumerator SayFrench(){
-        PlaySound("AUDIO_sid_frenchLine");
+        Play(new Sound("AUDIO_sid_frenchLine"));
         hrBackdrop.material = hrAnim[1];
         yield return new WaitForSeconds(.25f);
         hrBackdrop.material = hrAnim[0];
@@ -155,7 +156,7 @@ public class _sidhoffrenchmanscript : ModuleScript{
     }
 
     IEnumerator Asking(){
-        PlaySound("AUDIO_sid_ask");
+        Play(new Sound("AUDIO_sid_ask"));
         hrBackdrop.material = hrAnim[0];
         yield return new WaitForSeconds(.15f);
         hrBackdrop.material = hrAnim[1];
@@ -208,9 +209,26 @@ public class _sidhoffrenchmanscript : ModuleScript{
             }else{
                 score++;
                 scoreCount.text = "score:" + score;
-                PlaySound("AUDIO_sid_ding");
+                Play(new Sound("AUDIO_sid_ding"));
                 Log("Hooway!");
             } Solve();
         }
+    }
+
+    IEnumerator TwitchHandleForcedSolve(){
+        if (active) yield return correct()?hoffButton:frenchButton;
+        else yield return "sendtochaterror {0}, the module isn't currently active.";
+        yield return null;
+    }
+    IEnumerator ProcessTwitchCommand(string command){
+        command = command.ToLowerInvariant().Trim();
+        yield return null;
+        if (!active){
+            yield return "sendtochaterror {0}, the module isn't currently active.";
+            yield break;
+        }
+        if (command.Equals("h")) yield return Submitting(correct(), true);
+        else if (command.Equals("f")) yield return Submitting(correct(), false);
+        else yield return "sendtochaterror {0}, your command must consist of only the letter h or f.";
     }
 }

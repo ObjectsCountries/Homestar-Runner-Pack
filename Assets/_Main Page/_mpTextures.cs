@@ -24,7 +24,7 @@ public class _mpTextures : MonoBehaviour {
     public Texture[] FR19;
     public Texture[] FR20;
     public Texture[] FR21;
-    //main page 22's effect is special; the button increases in width slightly and homestar's head moves to the right while his body stays in place
+    //main page 22's effect is special; the button increases in width slightly rather than a background effect occuring
     public Texture[] FR23;
     public Texture[] FR24;
     public Texture[] FR25;

@@ -1648,7 +1648,6 @@ GameObject:
   - component: {fileID: 114445816197079716}
   - component: {fileID: 114212643484987562}
   - component: {fileID: 114487428647521780}
-  - component: {fileID: 114592311845711266}
   m_Layer: 0
   m_Name: _mainpage
   m_TagString: Untagged
@@ -3473,8 +3472,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1032778650458138}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.04, y: 0.0106, z: 0.024}
-  m_LocalScale: {x: 0.054, y: 0.0001, z: 0.054}
+  m_LocalPosition: {x: 0.0462, y: 0.0106, z: 0.0275}
+  m_LocalScale: {x: 0.06, y: 0.0001, z: 0.06}
   m_Children:
   - {fileID: 4920981895444548}
   m_Father: {fileID: 4653476823303250}
@@ -4942,7 +4941,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 2d76d45915b954e4f98ca05358faecae, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7526,7 +7525,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 360b796d8233f8545927005bc045ab25, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10509,6 +10508,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: d3186d5890001fd4d9a0af1592b5301f, type: 3}
   - {fileID: 2800000, guid: dbef964fa897f7f4f8e62751d5af1cf5, type: 3}
   - {fileID: 2800000, guid: cf8c1c0e75fc42841a58cfa257bf4fb2, type: 3}
+  - {fileID: 2800000, guid: aa27fc0eec3a52a4e80063a4b49870fb, type: 3}
   homestars:
   - {fileID: 2800000, guid: 966cdb1cf4b33054090efd44d0cf67d7, type: 3}
   - {fileID: 2800000, guid: af822ca66613b3b4da40175f1c8564e5, type: 3}
@@ -10521,6 +10521,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 66dfdf05c1d109a4ab105095cf64ddcb, type: 3}
   - {fileID: 2800000, guid: 0a93519cc7dcc2f4687bc9915cdfb855, type: 3}
   - {fileID: 2800000, guid: 62a19d62b23d09a43a264d95ff85c1aa, type: 3}
+  - {fileID: 2800000, guid: 2c4ecd5195335294f968130574b3a739, type: 3}
   menus:
   - {fileID: 2800000, guid: ff578b95936559b40ab31c24469171c6, type: 3}
   - {fileID: 2800000, guid: b019593801406e7458e08d85fbdd9f24, type: 3}
@@ -10559,7 +10560,9 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 26b5d1ff3bcd7ba40bbd15137a75f6c3, type: 3}
   - {fileID: 2800000, guid: 2c591f477f17fb24d820291788dc67da, type: 3}
   - {fileID: 2800000, guid: 215f589ff94c35146b1a52c24f1fb1f2, type: 3}
-  aJuly: []
+  aJuly:
+  - {fileID: 2800000, guid: 48fa55cdf9ed2e24bb9caa0e3c10dee2, type: 3}
+  - {fileID: 2800000, guid: 2c591f477f17fb24d820291788dc67da, type: 3}
   aAtari: []
   aShower: []
   aPBTC: []
@@ -11113,7 +11116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4e9b7c4f315a74f8977d0db0add12c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _editorRuleSeed: 1
   numberButtons:
   - {fileID: 114146331620641566}
   - {fileID: 114341675123817212}
@@ -11581,23 +11583,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - GUI/KT 3D Text Diffuse
---- !u!114 &114592311845711266
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1719333481944704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9378768183822e438cd7eb9a96a892e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TwitchHelpMessage: '!# cycle to view all effects, !# t/g/c/d/s/e to view specific
-    buttons'' effects (can be stringed together with no spaces), and !# (number) to
-    press a number button. !# unwiden to hover over the button with menu effect 22
-    repeatedly until it returns to its normal width.'
-  TwitchManualCode: 
-  TwitchAbandonModule: []
 --- !u!114 &114593339750499720
 MonoBehaviour:
   m_ObjectHideFlags: 1

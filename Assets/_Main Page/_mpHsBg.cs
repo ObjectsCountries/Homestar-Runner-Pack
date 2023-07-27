@@ -26,7 +26,6 @@ public class _mpHsBg : MonoBehaviour{
     public _mpTextures t;
     internal bool done = false;
     internal char lines;
-
     void m(Texture[] t, bool semitransparency){
         //the shader that allows for semitransparency has errors where objects will appear over each other when looked at at certain angles
         //but this one makes semitransparent parts of a texture look weird
@@ -97,6 +96,12 @@ public class _mpHsBg : MonoBehaviour{
                 break;
             case 11:
                 m(t.aJuly,false);
+                hsBody.transform.localPosition = new Vector3(.043f,.0108f,-.015f);
+                hsHead.transform.localPosition = new Vector3(.0462f,.0106f,.0275f);
+                bl.transform.localPosition = new Vector3(0,1,0);
+                hsBody.transform.localScale = new Vector3(.05f,.0001f,.035f);
+                hsHead.transform.localScale = new Vector3(.06f,.0001f,.06f);
+                bl.transform.localScale = new Vector3(.01f,1,.01f);
                 break;
             case 12:
                 m(t.aAtari,false);

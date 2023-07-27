@@ -184,7 +184,6 @@ GameObject:
   - component: {fileID: 114061060770732486}
   - component: {fileID: 114753447477012624}
   - component: {fileID: 114340374512085094}
-  - component: {fileID: 114648976029531048}
   m_Layer: 0
   m_Name: _strongmadtalker
   m_TagString: Untagged
@@ -2269,7 +2268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656a2cbe6e54f7c488307f07af589774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _editorRuleSeed: 1
   buttons:
   - {fileID: 114859790576553410}
   - {fileID: 114197317522482492}
@@ -2485,24 +2483,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
---- !u!114 &114648976029531048
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1195034595088968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bda6d0038e76ad547a9358fee1d35d6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TwitchHelpMessage: '!{0} words/positions/playall/playwords/playeach/r | List the
-    words to press in the order of your message. For positions; tl, tr, cl/ml, cr/mr,
-    bl and br can be used. Additionally, to hear each word, use playall, playwords
-    or playeach. Upon making a typo, the module will automatically halt, and, if enabled
-    in the mod settings, reset input. The input can be manually reset with !{0} r.'
-  TwitchManualCode: 
-  TwitchAbandonModule: []
 --- !u!114 &114655436896561004
 MonoBehaviour:
   m_ObjectHideFlags: 1

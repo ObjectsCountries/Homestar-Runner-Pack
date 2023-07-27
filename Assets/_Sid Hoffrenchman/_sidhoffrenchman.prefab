@@ -112,7 +112,6 @@ GameObject:
   - component: {fileID: 95114625085972884}
   - component: {fileID: 114741973867383514}
   - component: {fileID: 114812320736438848}
-  - component: {fileID: 114935348263295772}
   m_Layer: 0
   m_Name: _sidhoffrenchman
   m_TagString: Untagged
@@ -153,7 +152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1440007446179152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,7 +1600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc080ae4d8eed244a1510382555c1d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _editorRuleSeed: 1
   chars:
   - {fileID: 2100000, guid: e52503b831f30f54091200d93e990e2c, type: 2}
   - {fileID: 2100000, guid: 1657507b827991d4eb8101b9a9aa11ce, type: 2}
@@ -1682,21 +1680,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Transparent/Mobile Diffuse Underlay200
---- !u!114 &114935348263295772
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1305926363940130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 606cd73b23bcfc94181bb925eae83091, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TwitchHelpMessage: '!{0} h/f [Presses the Sid Hoffman or Sid Frenchman button.]
-    | Commands must consist of the one singular letter.'
-  TwitchManualCode: 
-  TwitchAbandonModule: []
 --- !u!114 &114970177834517490
 MonoBehaviour:
   m_ObjectHideFlags: 1

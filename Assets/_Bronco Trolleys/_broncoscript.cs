@@ -1,4 +1,6 @@
-﻿using KeepCoding;
+﻿using Wawa.Modules;
+using Wawa.Extensions;
+using Wawa.IO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Linq;
 using UnityEngine;
 using KModkit;
 
-public class _broncoscript : ModuleScript{
+public class _broncoscript:ModdedModule{
     public GameObject button;
     public KMSelectable buttonpressing;
     public GameObject[] madeTrolleys;
@@ -15,21 +17,21 @@ public class _broncoscript : ModuleScript{
     public Material[] cycle;
     private int matcycle = 0;
     private int scoreNum = 0;
-    private settings moduleSettings;
+    private settings broncoSettings;
     private int scoreNeeded;
 
     public sealed class settings{public int MinimumNumberRequired = 10;}
     
-    public override void OnAwake(){
+    protected override void Awake(){
         Get<KMNeedyModule>().OnNeedyActivation += OnNeedyActivation;
         Get<KMNeedyModule>().OnNeedyDeactivation += OnNeedyDeactivation;
         Get<KMNeedyModule>().OnTimerExpired += OnTimerExpired;
-        buttonpressing.Assign(onInteract: Press);
+        buttonpressing.Add(onInteract: Press);
     }
 
     private void Start(){
-        moduleSettings = new ModConfig<settings>().Read();
-        scoreNeeded = moduleSettings.MinimumNumberRequired;
+        broncoSettings=new Config<settings>().Read();
+        scoreNeeded = broncoSettings.MinimumNumberRequired;
         if (scoreNeeded < 10) scoreNeeded = 10;
         if (scoreNeeded > 15) scoreNeeded = 15;
         score.SetActive(false);
@@ -41,8 +43,7 @@ public class _broncoscript : ModuleScript{
     }
 
     protected void OnNeedyActivation(){
-        //to separate activations in the log
-        Log("---");
+        Log("---");//to separate activations in the log
         matcycle = 0;
         scoreNum = 0;
         scoreCount.GetComponent<TextMesh>().text = "0";
@@ -66,7 +67,7 @@ public class _broncoscript : ModuleScript{
     }
 
     void Press(){
-        PlaySound("AUDIO_bronco_"+(matcycle%3).ToString());
+        Play(new Sound("AUDIO_bronco_"+(matcycle%3).ToString()));
         matcycle++;
         button.GetComponent<Renderer>().material = cycle[matcycle%3];
         if (matcycle%3 == 0){

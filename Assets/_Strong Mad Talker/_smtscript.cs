@@ -28,7 +28,7 @@ public class _smtscript:ModdedModule{
     public GameObject[] stars;
     public Color[] buttonColors;
     private int decoyPos;
-    internal settings ModSettings;
+    internal settings SMTSettings;
 
     public sealed class settings{
         public bool SMT_LogPlayingModeInteractions=true;
@@ -47,7 +47,7 @@ public class _smtscript:ModdedModule{
     }
 
     void Start(){
-        ModSettings=new Config<settings>().Read();
+        SMTSettings=new Config<settings>().Read();
         foreach(GameObject star in stars)star.SetActive(false);
         onesylposition=UnityEngine.Random.Range(0,6);
         PlaceWords();
@@ -72,7 +72,7 @@ public class _smtscript:ModdedModule{
             PSToggle.GetComponent<Renderer>().material=PSColors[1];
             PSText.text="Solving";
         }
-        if(ModSettings.SMT_LogPlayingSolvingSwitch)Log("Switched to {0} mode.",PSText.text);
+        if(SMTSettings.SMT_LogPlayingSolvingSwitch)Log("Switched to {0} mode.",PSText.text);
     }
 
     void PlaceWords(){
@@ -128,8 +128,10 @@ public class _smtscript:ModdedModule{
     int DecoyChecking(string word,int currentPos,int count){
         switch(word){
             case"SWEETYCAKES":return Get<KMBombInfo>().GetOnIndicators().ToArray().Length>=2?1:6;
-            case"CHEDDAR":return usedWords.Contains(0)|| usedWords.Contains(10)|| onesylword=="CAKE"||onesylword=="JUICE"?currentPos:6;
-            case"DOUGLAS":return buttons[0].GetComponentInChildren<TextMesh>().text.Length>=buttons[5].GetComponentInChildren<TextMesh>().text.Length?6:OrderCheck(onesylword)[Get<KMBombInfo>().GetSerialNumberNumbers().Sum()%6];
+            case"CHEDDAR":return (usedWords.Contains(0)||usedWords.Contains(10)||onesylword=="CAKE"||onesylword=="JUICE")?currentPos:6;
+            case"DOUGLAS":return buttons[0].GetComponentInChildren<TextMesh>().text.Length
+                               >=buttons[5].GetComponentInChildren<TextMesh>().text.Length
+                               ? 6 : OrderCheck(onesylword)[Get<KMBombInfo>().GetSerialNumberNumbers().Sum()%6];
             case"GARBLEDINA":return currentPos;
             case"MANTIS":
                      if(currentPos%2==0&&multisylwords.Take(6).Contains(buttons[currentPos+1].GetComponentInChildren<TextMesh>().text))
@@ -139,10 +141,10 @@ public class _smtscript:ModdedModule{
                 else return 6;
             case"DIAPER":return count>=2&&count<=4?2:6;
             case"PROXIMITY":return
-                      (onesylposition<4&&currentPos==onesylposition+2)
-                    ||(onesylposition>1&&currentPos==onesylposition-2)
-                    ||(currentPos%2==0&&currentPos==onesylposition-1)
-                    ||(currentPos%2==1&&currentPos==onesylposition+1)?5:6;
+                      ((onesylposition<4&&currentPos==onesylposition+2)
+                     ||(onesylposition>1&&currentPos==onesylposition-2)
+                     ||(currentPos%2==0&&currentPos==onesylposition-1)
+                     ||(currentPos%2==1&&currentPos==onesylposition+1))?5:6;
             case"MOVIE":return Get<KMBombInfo>().GetSerialNumberLetters().Any(onesylword.Contains)?(currentPos+4)%6:6;
             case"HORSES":return onesylposition%2==0?OrderCheck(onesylword)[3]:6;
             case"WORKING":return buttons[0].GetComponentInChildren<TextMesh>().text.Length
@@ -155,8 +157,10 @@ public class _smtscript:ModdedModule{
                             return currentPos;
                 return 6;
             case"AROUND":if(usedWords.Contains(0)||usedWords.Contains(3)){
-                    if(count==0||(count==1&&OrderCheck(onesylword)[0]==onesylposition))return currentPos;
-                    if(OrderCheck(onesylword)[count-1]==onesylposition)return OrderCheck(onesylword)[count-2];
+                    if(count==0||(count==1&&OrderCheck(onesylword)[0]==onesylposition))
+                        return currentPos;
+                    if(OrderCheck(onesylword)[count-1]==onesylposition)
+                        return OrderCheck(onesylword)[count-2];
                     return OrderCheck(onesylword)[count-1];
                 }return 6;
             default:return 6;
@@ -170,7 +174,7 @@ public class _smtscript:ModdedModule{
         string word=button.GetComponentInChildren<TextMesh>().text;
         string message="Pressed "+word;
         if(moduleSolved||playing){
-            if(ModSettings.SMT_LogPlayingModeInteractions)Log(message+" in Playing mode.");
+            if(SMTSettings.SMT_LogPlayingModeInteractions)Log(message+" in Playing mode.");
             return;
         }
         message+=", which was ";
@@ -294,7 +298,7 @@ public class _smtscript:ModdedModule{
             yield return new[] {BB};
             BB.OnHighlightEnded();
         }
-        if (ModSettings.SMT_TPResetOnTypo && typomade){
+        if (SMTSettings.SMT_TPResetOnTypo && typomade){
             PS();
             PS();
         }
