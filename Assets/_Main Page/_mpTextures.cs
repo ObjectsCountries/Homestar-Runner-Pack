@@ -1,4 +1,4 @@
-﻿//texture lists are stored here, script automatically converts them to materials (referred to as t in other scripts)
+﻿//texture lists are stored here, script automatically converts them to materials
 using UnityEngine;
 
 public class _mpTextures : MonoBehaviour {

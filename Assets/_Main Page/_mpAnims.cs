@@ -1,4 +1,4 @@
-﻿//this script is assigned to each of the 6 effect buttons, and handles the animation (referred to as J in other scripts)
+﻿//this script is assigned to each of the 6 effect buttons, and handles the animation of background objects
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +7,9 @@ using System.Linq;
 public class _mpAnims : MonoBehaviour {
     
     public GameObject b;
-    public _mainpagescript v;
-    public _mpTextures t;
-    public _mpHsBg h;
+    public _mainpagescript MP;
+    public _mpTextures TXTRs;
+    public _mpHsBg HSBG;
     KMAudio Audio;
     internal Material bmat;
     internal char Letter;
@@ -26,7 +26,7 @@ public class _mpAnims : MonoBehaviour {
     internal Texture[] FRs;
 
     void Awake(){
-        Audio = v.GetComponent<KMAudio>();
+        Audio = MP.GetComponent<KMAudio>();
         b.SetActive(false);
         setups = new List<IEnumerator>{
             setup(0,.01f,.16f,0.06391645f,1,1,0,0,false,true),
@@ -43,27 +43,27 @@ public class _mpAnims : MonoBehaviour {
         };
 
         animations = new List<IEnumerator>{
-            A(1/12f,true,t.FR1),
-            A(.1f,false,t.FR2),
-            A(.05f,true,t.FR3),
-            A(.05f,false,t.FR4),
-            A(.05f,true,t.FR5),
-            A(.05f,true,t.FR6),
-            A(.05f,false,t.FR7),
-            A(.05f,false,t.FR8),
-            A(.075f,false,t.FR9),
-            A(.075f,false,t.FR10),
-            stillImages(t.FR11)
+            A(1/12f,true,TXTRs.FR1),
+            A(.1f,false,TXTRs.FR2),
+            A(.05f,true,TXTRs.FR3),
+            A(.05f,false,TXTRs.FR4),
+            A(.05f,true,TXTRs.FR5),
+            A(.05f,true,TXTRs.FR6),
+            A(.05f,false,TXTRs.FR7),
+            A(.05f,false,TXTRs.FR8),
+            A(.075f,false,TXTRs.FR9),
+            A(.075f,false,TXTRs.FR10),
+            stillImages(TXTRs.FR11)
         };
         animNum = Random.Range(0, animations.Count);
-        while (v.takenAnims.Contains(animNum)) animNum = Random.Range(0, animations.Count);
-        v.takenAnims.Add(animNum);
+        while (MP.takenAnims.Contains(animNum)) animNum = Random.Range(0, animations.Count);
+        MP.takenAnims.Add(animNum);
         assignedAnim = animations[animNum];
         StartCoroutine(setups[animNum]);
         StartCoroutine(san());
     }
 
-    public IEnumerator A(float wait, bool sound, Texture[] FRs){
+    private IEnumerator A(float wait, bool sound, Texture[] FRs){
         assignedAnim = A(wait, sound, FRs);
         running = true;
         b.SetActive(true);
@@ -109,7 +109,7 @@ public class _mpAnims : MonoBehaviour {
         disappear = dis;
         b.transform.localScale = new Vector3(xScale, .0001f, zScale);
         b.transform.localPosition = new Vector3(xPos, 0.0105f, zPos);
-        bmat = semi ? new Material(h.semi) : new Material(v.transparentshader);
+        bmat = semi ? new Material(HSBG.semi) : new Material(MP.transparentshader);
         bmat.mainTextureScale = new Vector2(xCrop, yCrop);
         bmat.mainTextureOffset = new Vector2(xOffset, yOffset);
         b.GetComponent<Renderer>().material = bmat;
@@ -118,77 +118,77 @@ public class _mpAnims : MonoBehaviour {
 
     public IEnumerator toonsSay(){
         assignedSay = toonsSay();
-        h.hsHead.material = h.animMats[3];
+        HSBG.hsHead.material = HSBG.animMats[3];
         yield return new WaitForSeconds(1);
-        h.hsHead.material = h.animMats[0];
+        HSBG.hsHead.material = HSBG.animMats[0];
         yield return new WaitForSeconds(.3f);
     }
 
     public IEnumerator gamesSay(){
         assignedSay = gamesSay();
-        h.hsHead.material = h.animMats[2];
-        h.bl.SetActive(true);
+        HSBG.hsHead.material = HSBG.animMats[2];
+        HSBG.bl.SetActive(true);
         yield return new WaitForSeconds(.5f);
-        h.hsHead.material = h.animMats[0];
+        HSBG.hsHead.material = HSBG.animMats[0];
         yield return new WaitForSeconds(.1f);
-        h.bl.SetActive(false);
+        HSBG.bl.SetActive(false);
         yield return new WaitForSeconds(.3f);
     }
 
     public IEnumerator charsSay(){
         assignedSay = charsSay();
-        h.hsHead.material = h.animMats[2];
+        HSBG.hsHead.material = HSBG.animMats[2];
         yield return new WaitForSeconds(.15f);
-        h.hsHead.material = h.animMats[3];
+        HSBG.hsHead.material = HSBG.animMats[3];
         yield return new WaitForSeconds(.15f);
-        h.hsHead.material = h.animMats[2];
+        HSBG.hsHead.material = HSBG.animMats[2];
         yield return new WaitForSeconds(.15f);
-        h.hsHead.material = h.animMats[0];
+        HSBG.hsHead.material = HSBG.animMats[0];
         yield return new WaitForSeconds(.15f);
-        h.hsHead.material = h.animMats[3];
+        HSBG.hsHead.material = HSBG.animMats[3];
         yield return new WaitForSeconds(.15f);
-        h.hsHead.material = h.animMats[0];
+        HSBG.hsHead.material = HSBG.animMats[0];
         yield return new WaitForSeconds(.3f);
     }
 
     public IEnumerator downloadsSay(){
         assignedSay = downloadsSay();
         StartCoroutine(Nblink());
-        h.hsHead.material = h.animMats[2];
+        HSBG.hsHead.material = HSBG.animMats[2];
         yield return new WaitForSeconds(.4f);
-        h.hsHead.material = h.animMats[0];
+        HSBG.hsHead.material = HSBG.animMats[0];
         yield return new WaitForSeconds(.2f);
-        h.hsHead.material = h.animMats[2];
+        HSBG.hsHead.material = HSBG.animMats[2];
         yield return new WaitForSeconds(.8f);
-        h.hsHead.material = h.animMats[3];
+        HSBG.hsHead.material = HSBG.animMats[3];
         yield return new WaitForSeconds(.2f);
-        h.hsHead.material = h.animMats[0];
+        HSBG.hsHead.material = HSBG.animMats[0];
         yield return new WaitForSeconds(.3f);
     }
 
     public IEnumerator oldTimeySay(float openTime){
         assignedSay = oldTimeySay(openTime);
-        h.oldtimeysay.GetComponentInChildren<TextMesh>().text = "\"" + v.buttonNames[num].ToUpper() + "\"";
-        h.oldtimeysay.SetActive(true);
-        h.hsHead.material = h.animMats[2];
+        HSBG.oldtimeysay.GetComponentInChildren<TextMesh>().text = "\"" + MP.buttonNames[num].ToUpper() + "\"";
+        HSBG.oldtimeysay.SetActive(true);
+        HSBG.hsHead.material = HSBG.animMats[2];
         yield return new WaitForSeconds(openTime);
-        h.hsHead.material = h.animMats[0];
-        h.oldtimeysay.SetActive(false);
+        HSBG.hsHead.material = HSBG.animMats[0];
+        HSBG.oldtimeysay.SetActive(false);
     }
 
     public IEnumerator Nblink(){
-        h.bl.SetActive(true);
+        HSBG.bl.SetActive(true);
         yield return new WaitForSeconds(1);
-        h.bl.SetActive(false);
+        HSBG.bl.SetActive(false);
         yield return new WaitForSeconds(.15f);
-        h.bl.SetActive(true);
+        HSBG.bl.SetActive(true);
         yield return new WaitForSeconds(.1f);
-        h.bl.SetActive(false);
+        HSBG.bl.SetActive(false);
     }
 
     internal IEnumerator san(){
-        yield return new WaitUntil(() => h.done);
-        sayingAnims(h.HSnumber);
+        yield return new WaitUntil(() => HSBG.done);
+        sayingAnims(HSBG.HSnumber);
     }
     
     private IEnumerator nothing(){yield return null;}

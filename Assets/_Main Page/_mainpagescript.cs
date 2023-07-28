@@ -1,4 +1,4 @@
-﻿//main script and interactions are handled here (referred to as v in other scripts)
+﻿//main script and interactions
 using Wawa.Modules;
 using Wawa.Extensions;
 using System;
@@ -12,8 +12,8 @@ public class _mainpagescript:ModdedModule{
     public KMSelectable[] numberButtons;
     public KMSelectable[] menuButtons;
     public Shader transparentshader;
-    public _mpHsBg h;
-    public _mpTextures t;
+    public _mpHsBg HSBG;
+    public _mpTextures TXTRs;
     internal bool speaking;
     internal bool moduleSolved = false;
     internal string[] buttonNames = { "Toons", "Games", "Characters", "Downloads", "Store", "E-mail" };
@@ -22,20 +22,20 @@ public class _mainpagescript:ModdedModule{
     internal List<int> takenAnims = new List<int>(){};
 
     void Start(){
-        Log("The background is from menu {0}.", (h.BGnumber + 1).ToString());
-        Log("Homestar is from menu {0}.", (h.HSnumber + 1).ToString());
+        Log("The background is from menu {0}.", (HSBG.BGnumber + 1).ToString());
+        Log("Homestar is from menu {0}.", (HSBG.HSnumber + 1).ToString());
         foreach (KMSelectable button in menuButtons){
-            button.GetComponent<Renderer>().material = h.bluemat;
+            button.GetComponent<Renderer>().material = HSBG.bluemat;
             _mpAnims fx = button.GetComponent<_mpAnims>();
             int num = fx.num;
             Log("The {0} button has the menu {1} animation.", buttonNames[num].ToString(), (fx.animNum+1).ToString());
             button.Set(onHighlight: () => {
-                if (h.HSnumber != 9 && h.HSnumber != 11) Play(new Sound(h.lines.ToString() + buttonLetters[num].ToString()));
-                button.GetComponent<Renderer>().material = h.redmat;
+                if (HSBG.HSnumber != 9 && HSBG.HSnumber != 11) Play(new Sound(HSBG.lines.ToString() + buttonLetters[num].ToString()));
+                button.GetComponent<Renderer>().material = HSBG.redmat;
                 if (!fx.running) StartCoroutine(fx.assignedAnim);
                 StartCoroutine(fx.assignedSay);
             },onHighlightEnded: () => {
-                button.GetComponent<Renderer>().material = h.bluemat;
+                button.GetComponent<Renderer>().material = HSBG.bluemat;
                 if (fx.disappear){
                     fx.b.SetActive(false);
                     fx.running = false;
@@ -43,10 +43,12 @@ public class _mainpagescript:ModdedModule{
         }
     
         foreach (KMSelectable button in numberButtons){
-            button.Add(onInteract: () => {
+            button.Set(onInteract: () => {
                 Log("Menu {0} selected.", button.GetComponentInChildren<TextMesh>().text);
                 blinkstop = true;
-                h.BgHsSetup(int.Parse(button.GetComponentInChildren<TextMesh>().text)-1,int.Parse(button.GetComponentInChildren<TextMesh>().text)-1);
+                HSBG.HSnumber=int.Parse(button.GetComponentInChildren<TextMesh>().text)-1;
+                HSBG.BGnumber=int.Parse(button.GetComponentInChildren<TextMesh>().text)-1;
+                HSBG.BgHsSetup(HSBG.HSnumber,HSBG.BGnumber);
                 foreach (KMSelectable bu in menuButtons)bu.GetComponent<_mpAnims>().sayingAnims(int.Parse(button.GetComponentInChildren<TextMesh>().text) - 1);});
         }
     }
