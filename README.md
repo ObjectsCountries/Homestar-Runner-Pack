@@ -6,7 +6,7 @@ by meeee ::3 (ObjectsCountries)
 
 5 modules:
 
-* Strong Mad Talker: **Done** (Note to self: Credit boiaaang for color design)
+* Strong Mad Talker: **Finished** (Note to self: Credit boiaaang for color design)
 * Main Page: **In progress** (14/27 main pages added, module itself still not fleshed out)
 * Sbemail Songs: **Not started** (Vague idea of what to do for the module)
 * Bronco Trolleys (Needy): **Finished**
