@@ -24,7 +24,7 @@ public class _mainpagescript:ModdedModule{
     ///<value>Messages to be displayed in the top-right bubble (soon-to-come). For the purposes of solving the module, the messages in <c>messages[0]</c> are considered the "real" messages.</value>
     ///<remarks>how do i get rid of the backslashes</remarks>
     private string[][]messages=new string[][]
-                                {new string[]{"play a game" ,"new strong bad email","new toon soon"    ,"more biz cas fri","short shorts!"   },
+                                {new string[]{"play a game" ,"new strong bad email","new toon soon"    ,"more biz cas fri","short shorts!"    },
                                  new string[]{"latest toon" ,"new sbemail a-comin'","new cartoon!"     ,"biz cas fri"     ,"new short shortly"},
                                  new string[]{"latest merch","email soon"          ,"hey, a new toon!!","new biz cas fri!","new short!"       }};
 
