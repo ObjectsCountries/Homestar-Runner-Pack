@@ -1,9 +1,9 @@
-﻿//this script handles homestar and the background (referred to as h in other scripts)
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 
+///<summary>This script handles Homestar and the background.</summary>
 public class _mpHsBg : MonoBehaviour{
 
     internal List<Material> animMats;
@@ -24,11 +24,13 @@ public class _mpHsBg : MonoBehaviour{
     public GameObject oldtimeysay;
     public GameObject bl;
     public _mpTextures TXTRs;
-    internal bool done = false;
     internal char lines;
+
+    ///<summary>Chooses which shader (semitransparent or not) to use for Homestar.</summary>
+    ///<param name="t">The textures to assign to Homestar.</param>
+    ///<param name="semitransparency">Whether the instance of Homestar requires semitransparency.</param>
+    ///<remarks>The shader that allows for semitransparency has errors where objects will appear over each other when looked at at certain angles, but the other shader makes semitransparent parts of a texture look weird.</remarks>
     void chooseShader(Texture[] t, bool semitransparency){
-        //the shader that allows for semitransparency has errors where objects will appear over each other when looked at at certain angles
-        //but this one makes semitransparent parts of a texture look weird
         for (int i = 0; i < t.Length; i++){
             animMats.Add(semitransparency?new Material(semi):new Material(MP.transparentshader));
             animMats[i].mainTexture = t[i];
@@ -42,6 +44,10 @@ public class _mpHsBg : MonoBehaviour{
             yield return new WaitForSeconds(3);
         }
     }
+
+    ///<summary>Sets up the positioning of Homestar and the background, as well as voice lines. This is used both in initial setup and in changing the menu.</summary>
+    ///<param name="HS">The menu number that Homestar comes from.</param>
+    ///<param name="BG">The menu number that the background comes from.</param>
     public void BgHsSetup(int HS, int BG){
         animMats = new List<Material>() { };
         switch (HS){
@@ -106,6 +112,12 @@ public class _mpHsBg : MonoBehaviour{
             case 12:
                 chooseShader(TXTRs.aAtari,false);
                 lines = 'a';
+                hsBody.transform.localPosition = new Vector3(.0435f,.0108f,-.01f);
+                hsHead.transform.localPosition = new Vector3(.0435f,.0106f,.0345f);
+                bl.transform.localPosition = new Vector3(0,1,0);
+                hsBody.transform.localScale = new Vector3(.045f,.0001f,.045f);
+                hsHead.transform.localScale = new Vector3(.045f,.0001f,.045f);
+                bl.transform.localScale = new Vector3(.01f,1,.01f);
                 break;
             case 13:
                 chooseShader(TXTRs.aShower,true);
@@ -166,10 +178,10 @@ public class _mpHsBg : MonoBehaviour{
                 bl.transform.localScale = new Vector3(0.2162404f, 1, 0.1833194f);
                 /*hsBody.transform.localPosition = new Vector3(,.0108f,);
                 hsHead.transform.localPosition = new Vector3(,.0106f,);
-                bl.transform.localPosition = new Vector3(,1,);
+                bl.transform.localPosition = new Vector3(.01f,1,.01f);
                 hsBody.transform.localScale = new Vector3(,.0001f,);
                 hsHead.transform.localScale = new Vector3(,.0001f,);
-                bl.transform.localScale = new Vector3(,1,);*/
+                bl.transform.localScale = new Vector3(.01f,1,.01f);*/
                 break;
         }
         switch (BG){
@@ -190,8 +202,6 @@ public class _mpHsBg : MonoBehaviour{
                 else hsBody.transform.localPosition = new Vector3(-1 * hsBody.transform.localPosition.x, hsBody.transform.localPosition.y, hsBody.transform.localPosition.z);
                 break;
             case 23:
-                menumat.mainTexture = TXTRs.menus[5]; //shiny
-                break;
             case 24:
                 menumat.mainTexture = TXTRs.menus[5]; //shiny
                 break;
@@ -222,6 +232,5 @@ public class _mpHsBg : MonoBehaviour{
         bluemat = new Material(MP.transparentshader);
         redmat = new Material(MP.transparentshader);
         BgHsSetup(HSnumber, BGnumber);
-        done = true;
     }
 }

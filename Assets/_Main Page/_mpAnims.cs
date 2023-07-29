@@ -1,48 +1,52 @@
-﻿//this script is assigned to each of the 6 effect buttons, and handles the animation of background objects
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class _mpAnims : MonoBehaviour {
-    
+///<summary>This script is assigned to each of the 6 effect buttons, and handles the animation of background objects.</summary>
+public class _mpAnims:MonoBehaviour{
+    ///<value>The <c>GameObject</c> in the background to control.</value>
     public GameObject b;
     public _mainpagescript MP;
     public _mpTextures TXTRs;
     public _mpHsBg HSBG;
     KMAudio Audio;
     internal Material bmat;
+    ///<value>The letter assigned to each of the six menu buttons.</value>
     internal char Letter;
     internal bool speaking = false;
+    ///<value>The number assigned to each of the six menu buttons.</value>
     public int num;
     internal bool disappear = false;
     internal bool running;
     internal int animNum;
     internal IEnumerator assignedAnim;
     internal IEnumerator assignedSay;
-    internal List<IEnumerator> animations;
-    internal IEnumerator[] sayAnims;
-    internal List<IEnumerator> setups;
+    internal IEnumerator[]animations;
+    internal IEnumerator[]sayAnims;
+    internal IEnumerator[]setups;
     internal Texture[] FRs;
 
     void Awake(){
         Audio = MP.GetComponent<KMAudio>();
         b.SetActive(false);
-        setups = new List<IEnumerator>{
-            setup(0,.01f,.16f,0.06391645f,1,1,0,0,false,true),
-            setup(0,0.0455f,.16f,0.02070288f,1,1,0,0,false,false),
-            setup(0,.05f,.16f,.015f,.5f,1,.25f,0,false,false),
-            setup(.0085f,-.0025f,.04f,.06f,1,.75f,0,.25f,false,false),
-            setup(0,.004f,.0625f,.0725f,1,.9f,0,.1f,false,true),
-            setup(.0075f,.032f,.10946f,.1f,1,1,0,0,false,true),
-            setup(.009f,-.016f,1/18f,1/30f,1,.56f,0,.43f,false,false),
-            setup(0,0,.16f,.05f,2/3f,1,.15f,0,false,false),
-            setup(.02f,.005f,.12f,.06f,.88f,1,0,0,false,true),
-            setup(-.03f,.0275f,.1f,.08f,1,.7f,0,0,false,false),
-            setup(-.02f,.025f,.05f,.0425f,1,1,0,0,true,true)
+        setups = new IEnumerator[]{
+            setup(0,.01f,.16f,0.06391645f,true),
+            setup(0,0.0455f,.16f,0.02070288f,false),
+            setup(0,.05f,.16f,.015f,false,.5f,1,.25f,0),
+            setup(.0085f,-.0025f,.04f,.06f,false,1,.75f,0,.25f),
+            setup(0,.004f,.0625f,.0725f,true,1,.9f,0,.1f),
+            setup(.0075f,.032f,.10946f,.1f,true),
+            setup(.009f,-.016f,1/18f,1/30f,false,1,.56f,0,.43f),
+            setup(0,0,.16f,.05f,false,2/3f,1,.15f,0),
+            setup(.02f,.005f,.12f,.06f,true,.88f,1,0,0),
+            setup(-.03f,.0275f,.1f,.08f,false,1,.7f,0,0),
+            setup(-.02f,.025f,.05f,.0425f,true,dis:true),
+            setup(.008f,1/1500f,.25f,.25f,false),
+            setup(.0085f,.016f,.175f,.0225f,false)
         };
 
-        animations = new List<IEnumerator>{
+        animations = new IEnumerator[]{
             A(1/12f,true,TXTRs.FR1),
             A(.1f,false,TXTRs.FR2),
             A(.05f,true,TXTRs.FR3),
@@ -53,16 +57,23 @@ public class _mpAnims : MonoBehaviour {
             A(.05f,false,TXTRs.FR8),
             A(.075f,false,TXTRs.FR9),
             A(.075f,false,TXTRs.FR10),
-            stillImages(TXTRs.FR11)
+            stillImages(TXTRs.FR11),
+            A(.085f,true,TXTRs.FR12),
+            A(.05f,true,TXTRs.FR13)
         };
-        animNum = Random.Range(0, animations.Count);
-        while (MP.takenAnims.Contains(animNum)) animNum = Random.Range(0, animations.Count);
+        animNum = Random.Range(0, animations.Length);
+        while (MP.takenAnims.Contains(animNum)) animNum = Random.Range(0, animations.Length);
         MP.takenAnims.Add(animNum);
         assignedAnim = animations[animNum];
         StartCoroutine(setups[animNum]);
-        StartCoroutine(san());
+        sayingAnims(HSBG.HSnumber);
     }
 
+    ///<summary>A method that handles animation in the background.</summary>
+    ///<param name="wait">How long to wait between each frame in seconds. A higher value leads to a slower frame rate.</param>
+    ///<param name="sound">Whether the animation requires sound. The names of the sound files are standardized for convenience.</param>
+    ///<param name="FRs">The frames used in the animation.</param>
+    ///<returns>An animation that is played when hovering over a side button.</returns>
     private IEnumerator A(float wait, bool sound, Texture[] FRs){
         assignedAnim = A(wait, sound, FRs);
         running = true;
@@ -76,6 +87,11 @@ public class _mpAnims : MonoBehaviour {
         running = false;
     }
 
+    ///<summary>A method that handles looping animation in the background.</summary>
+    ///<param name="wait">How long to wait between each frame in seconds. A higher value leads to a slower frame rate.</param>
+    ///<param name="sound">Whether the animation requires sound. The names of the sound files are standardized for convenience.</param>
+    ///<param name="FRs">The frames used in the animation.</param>
+    ///<returns>An animation that is played when hovering over a side button.</returns>
     public IEnumerator aLoop(float wait, bool sound, Texture[] FRs){
         assignedAnim = aLoop(wait, sound, FRs);
         running = true;
@@ -102,10 +118,20 @@ public class _mpAnims : MonoBehaviour {
         yield return null;
     }
 
-    public IEnumerator setup(float xPos, float zPos, float xScale, float zScale,
-                             float xCrop, float yCrop, float xOffset, float yOffset, bool dis, bool semi){
-    //starting x & z positions and scales,
-    //cropping dimensions, offset for material, if the effect disappears when the button is unhighlighted
+    ///<summary>Sets up the background objects to be the right size and be in the right position.</summary>
+    ///<param name="xPos">X position of the object.</param>
+    ///<param name="zPos">Z position of the object.</param>
+    ///<param name="xScale">X scale of the object.</param>
+    ///<param name="zScale">Z scale of the object.</param>
+    ///<param name="semi">Whether the object will use a shader that allows for semitransparency.</param>
+    ///<param name="xCrop">X value for cropping the texture.</param>
+    ///<param name="yCrop">Y value for cropping the texture.</param>
+    ///<param name="xOffset">X value for off-setting the material.</param>
+    ///<param name="yOffset">Y value for off-setting the material.</param>
+    ///<param name="dis">If <c>true</c>, the object will disappear once the button stops being highlighted. If <c>false</c>, the object will play out its full animation even when the button is no longer highlighted.</param>
+    ///<returns>The properly-configured positioning of the chosen animation.</returns>
+    public IEnumerator setup(float xPos, float zPos, float xScale, float zScale, bool semi,
+                            float xCrop=1, float yCrop=1, float xOffset=0, float yOffset=0,bool dis=false){
         disappear = dis;
         b.transform.localScale = new Vector3(xScale, .0001f, zScale);
         b.transform.localPosition = new Vector3(xPos, 0.0105f, zPos);
@@ -166,14 +192,14 @@ public class _mpAnims : MonoBehaviour {
         yield return new WaitForSeconds(.3f);
     }
 
-    public IEnumerator oldTimeySay(float openTime){
-        assignedSay = oldTimeySay(openTime);
-        HSBG.oldtimeysay.GetComponentInChildren<TextMesh>().text = "\"" + MP.buttonNames[num].ToUpper() + "\"";
-        HSBG.oldtimeysay.SetActive(true);
+    public IEnumerator simpleMouthOpen(float openTime){
+        assignedSay = simpleMouthOpen(openTime);
+        if(HSBG.HSnumber==9)HSBG.oldtimeysay.GetComponentInChildren<TextMesh>().text = "\"" + MP.buttonNames[num].ToUpper() + "\"";
+        if(HSBG.HSnumber==9)HSBG.oldtimeysay.SetActive(true);
         HSBG.hsHead.material = HSBG.animMats[2];
         yield return new WaitForSeconds(openTime);
         HSBG.hsHead.material = HSBG.animMats[0];
-        HSBG.oldtimeysay.SetActive(false);
+        if(HSBG.HSnumber==9)HSBG.oldtimeysay.SetActive(false);
     }
 
     public IEnumerator Nblink(){
@@ -185,20 +211,18 @@ public class _mpAnims : MonoBehaviour {
         yield return new WaitForSeconds(.1f);
         HSBG.bl.SetActive(false);
     }
-
-    internal IEnumerator san(){
-        yield return new WaitUntil(() => HSBG.done);
-        sayingAnims(HSBG.HSnumber);
-    }
     
     private IEnumerator nothing(){yield return null;}
     internal void sayingAnims(int hs){
         switch (hs){
             case 9:
-                sayAnims = new IEnumerator[] { oldTimeySay(1), oldTimeySay(.5f), oldTimeySay(1), oldTimeySay(1), oldTimeySay(1), oldTimeySay(1) };
+                sayAnims = new IEnumerator[] { simpleMouthOpen(1), simpleMouthOpen(.5f), simpleMouthOpen(1), simpleMouthOpen(1), simpleMouthOpen(1), simpleMouthOpen(1) };
                 break;
             case 11:
                 sayAnims=new IEnumerator[]{nothing(),nothing(),nothing(),nothing(),nothing(),nothing()};
+                break;
+            case 12:
+                sayAnims = new IEnumerator[] { simpleMouthOpen(1), simpleMouthOpen(1), simpleMouthOpen(1), simpleMouthOpen(.5f), simpleMouthOpen(1), simpleMouthOpen(1) };
                 break;
             default:
                 //store and e-mail use the same mouth movements as toons and downloads respectively

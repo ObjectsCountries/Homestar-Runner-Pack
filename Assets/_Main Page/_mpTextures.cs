@@ -1,6 +1,6 @@
-﻿//texture lists are stored here, script automatically converts them to materials
-using UnityEngine;
+﻿using UnityEngine;
 
+///<summary>Texture arrays are stored here, the other scripts automatically convert them to materials.</summary>
 public class _mpTextures : MonoBehaviour {
     //effects
     public Texture[] FR1;

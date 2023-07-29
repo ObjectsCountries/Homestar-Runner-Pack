@@ -1,4 +1,4 @@
-﻿//main script and interactions
+﻿
 using Wawa.Modules;
 using Wawa.Extensions;
 using System;
@@ -8,6 +8,7 @@ using System.Linq;
 using UnityEngine;
 using KModkit;
 
+///<summary>Main script and interactions.</summary>
 public class _mainpagescript:ModdedModule{
     public KMSelectable[] numberButtons;
     public KMSelectable[] menuButtons;
@@ -20,6 +21,12 @@ public class _mainpagescript:ModdedModule{
     internal char[] buttonLetters = { 'T', 'G', 'C', 'D', 'S', 'E' };
     internal bool blinkstop = false;
     internal List<int> takenAnims = new List<int>(){};
+    ///<value>Messages to be displayed in the top-right bubble (soon-to-come). For the purposes of solving the module, the messages in <c>messages[0]</c> are considered the "real" messages.</value>
+    ///<remarks>how do i get rid of the backslashes</remarks>
+    private string[][]messages=new string[][]
+                                {new string[]{"play a game" ,"new strong bad email","new toon soon"    ,"more biz cas fri","short shorts!"   },
+                                 new string[]{"latest toon" ,"new sbemail a-comin'","new cartoon!"     ,"biz cas fri"     ,"new short shortly"},
+                                 new string[]{"latest merch","email soon"          ,"hey, a new toon!!","new biz cas fri!","new short!"       }};
 
     void Start(){
         Log("The background is from menu {0}.", (HSBG.BGnumber + 1).ToString());
