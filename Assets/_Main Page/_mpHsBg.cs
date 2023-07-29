@@ -25,6 +25,7 @@ public class _mpHsBg : MonoBehaviour{
     public GameObject bl;
     public _mpTextures TXTRs;
     internal char lines;
+    internal bool done=false;
 
     ///<summary>Chooses which shader (semitransparent or not) to use for Homestar.</summary>
     ///<param name="t">The textures to assign to Homestar.</param>
@@ -120,8 +121,14 @@ public class _mpHsBg : MonoBehaviour{
                 bl.transform.localScale = new Vector3(.01f,1,.01f);
                 break;
             case 13:
-                chooseShader(TXTRs.aShower,true);
+                chooseShader(TXTRs.aShower,false);
                 lines = 'n';
+                hsBody.transform.localPosition = new Vector3(.045f,.0108f,-.014f);
+                hsHead.transform.localPosition = new Vector3(.0412f,.0106f,.0258f);
+                bl.transform.localPosition = new Vector3(.122f,1,-.024f);
+                hsBody.transform.localScale = new Vector3(0.06322949f,.0001f, 0.03793771f);
+                hsHead.transform.localScale = new Vector3(1/18f,.0001f,1/18f);
+                bl.transform.localScale = new Vector3(0.2162404f, 1, 0.1833194f);
                 break;
             case 14:
                 chooseShader(TXTRs.aPBTC,false);
@@ -224,7 +231,7 @@ public class _mpHsBg : MonoBehaviour{
     private void Awake(){
         bl.SetActive(false);
         oldtimeysay.SetActive(false);
-        HSnumber = Random.Range(0, TXTRs.backgrounds.Length);
+        HSnumber = Random.Range(0, TXTRs.homestars.Length);
         BGnumber = Random.Range(0, TXTRs.homestars.Length);
         bgmat = new Material(MP.transparentshader);
         hsmat = new Material(MP.transparentshader);
@@ -232,5 +239,6 @@ public class _mpHsBg : MonoBehaviour{
         bluemat = new Material(MP.transparentshader);
         redmat = new Material(MP.transparentshader);
         BgHsSetup(HSnumber, BGnumber);
+        done=true;
     }
 }

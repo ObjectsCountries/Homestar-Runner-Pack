@@ -17,16 +17,17 @@ public class _mainpagescript:ModdedModule{
     public _mpTextures TXTRs;
     internal bool speaking;
     internal bool moduleSolved = false;
-    internal string[] buttonNames = { "Toons", "Games", "Characters", "Downloads", "Store", "E-mail" };
-    internal char[] buttonLetters = { 'T', 'G', 'C', 'D', 'S', 'E' };
+    internal string[] buttonNames={"Toons","Games","Characters","Downloads","Store","E-mail"};
+    internal char[] buttonLetters={'T','G','C','D','S','E'};
     internal bool blinkstop = false;
-    internal List<int> takenAnims = new List<int>(){};
+    /*commented out so i don't get a warning for an unused variable
     ///<value>Messages to be displayed in the top-right bubble (soon-to-come). For the purposes of solving the module, the messages in <c>messages[0]</c> are considered the "real" messages.</value>
     ///<remarks>how do i get rid of the backslashes</remarks>
     private string[][]messages=new string[][]
                                 {new string[]{"play a game" ,"new strong bad email","new toon soon"    ,"more biz cas fri","short shorts!"    },
                                  new string[]{"latest toon" ,"new sbemail a-comin'","new cartoon!"     ,"biz cas fri"     ,"new short shortly"},
                                  new string[]{"latest merch","email soon"          ,"hey, a new toon!!","new biz cas fri!","new short!"       }};
+    */
 
     void Start(){
         Log("The background is from menu {0}.", (HSBG.BGnumber + 1).ToString());
@@ -34,10 +35,9 @@ public class _mainpagescript:ModdedModule{
         foreach (KMSelectable button in menuButtons){
             button.GetComponent<Renderer>().material = HSBG.bluemat;
             _mpAnims fx = button.GetComponent<_mpAnims>();
-            int num = fx.num;
-            Log("The {0} button has the menu {1} animation.", buttonNames[num].ToString(), (fx.animNum+1).ToString());
+            Log("The {0} button has the menu {1} animation.", buttonNames[fx.num].ToString(), (fx.animNum+1).ToString());
             button.Set(onHighlight: () => {
-                if (HSBG.HSnumber != 9 && HSBG.HSnumber != 11) Play(new Sound(HSBG.lines.ToString() + buttonLetters[num].ToString()));
+                if (HSBG.HSnumber != 9 && HSBG.HSnumber != 11) Play(new Sound(HSBG.lines.ToString() + buttonLetters[fx.num].ToString()));
                 button.GetComponent<Renderer>().material = HSBG.redmat;
                 if (!fx.running) StartCoroutine(fx.assignedAnim);
                 StartCoroutine(fx.assignedSay);
