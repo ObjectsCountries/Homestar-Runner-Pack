@@ -51,7 +51,7 @@ public class _mpAnims:MonoBehaviour{
             setup(-.02f  , .025f ,.05f  ,.0425f,true                 ,dis:true),
             setup( .008f ,1/1500f,.25f  ,.25f  ,false                         ),
             setup( .0085f, .016f ,.175f ,.0225f,false                         ),
-            setup( .004f , -1/90f,.15f  ,.04f  ,true ,.8f ,.3f ,0   ,2/3f,true)
+            setup( .004f , .02f  ,.15f  ,.1f   ,true ,                dis:true)
         };
         b.SetActive(false);
         animations = new IEnumerator[]{
