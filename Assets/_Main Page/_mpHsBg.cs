@@ -199,6 +199,8 @@ public class _mpHsBg : MonoBehaviour{
                 break;
             case 14:
                 menumat.mainTexture = TXTRs.menus[2]; //pbtc
+                bluemat.mainTexture = TXTRs.blueButtons[2];
+                redmat.mainTexture = TXTRs.redButtons[2];
                 break;
             case 21:
                 menumat.mainTexture = TXTRs.menus[3]; //virus

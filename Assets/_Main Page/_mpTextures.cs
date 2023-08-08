@@ -36,6 +36,7 @@ public class _mpTextures : MonoBehaviour {
     public Texture[] menus;
     public Texture[] blueButtons;
     public Texture[] redButtons;
+    public Texture[] PBTCwords;
 
     //animations for homestar
     public Texture[] aNormal; //closed mouth, blink, a, o
