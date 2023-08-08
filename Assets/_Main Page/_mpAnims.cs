@@ -38,20 +38,21 @@ public class _mpAnims:MonoBehaviour{
     void Awake(){
         Audio = MP.GetComponent<KMAudio>();
         setups=new IEnumerator[]{
-            setup(0      , .01f  ,.16f  ,.064f ,true                          ),
-            setup(0      , .0455f,.16f  ,.02f  ,false                         ),
-            setup(0      , .05f  ,.16f  ,.015f ,false,.5f ,1   ,.25f,0        ),
-            setup( .0085f,-.0025f,.04f  ,.06f  ,false,1   ,.75f,0   ,.25f     ),
-            setup(0      , .004f ,.0625f,.0725f,true ,1   ,.9f ,0   ,.1f      ),
-            setup( .0075f, .032f ,.11f  ,.1f   ,true                          ),
-            setup( .009f ,-.016f , 1/18f,1/30f ,false,1   ,.56f,0   ,.43f     ),
-            setup(0      ,0      ,.16f  ,.05f  ,false,2/3f,1   ,.15f,0        ),
-            setup( .02f  , .005f ,.12f  ,.06f  ,true ,.88f,1   ,0   ,0        ),
-            setup(-.03f  , .0275f,.1f   ,.08f  ,false,1   ,.7f ,0   ,0        ),
-            setup(-.02f  , .025f ,.05f  ,.0425f,true                 ,dis:true),
-            setup( .008f ,1/1500f,.25f  ,.25f  ,false                         ),
-            setup( .0085f, .016f ,.175f ,.0225f,false                         ),
-            setup( .004f , .02f  ,.15f  ,.1f   ,true ,                dis:true)
+            setup(0      , .01f  ,.16f  ,.064f ,true                             ),
+            setup(0      , .0455f,.16f  ,.02f  ,false                            ),
+            setup(0      , .05f  ,.16f  ,.015f ,false, .5f ,1    , .25f          ),
+            setup( .0085f,-.0025f,.04f  ,.06f  ,false,1    , .75f,0    ,.25f     ),
+            setup(0      , .004f ,.0625f,.0725f,true ,1    , .9f ,0    ,.1f      ),
+            setup( .0075f, .032f ,.11f  ,.1f   ,true                             ),
+            setup( .009f ,-.016f , 1/18f,1/30f ,false,1    , .56f,0    ,.43f     ),
+            setup(0      ,0      ,.16f  ,.05f  ,false, 2/3f,1    , .15f          ),
+            setup( .02f  , .005f ,.12f  ,.06f  ,true , .88f                      ),
+            setup(-.03f  , .0275f,.1f   ,.08f  ,false,  yCrop:.7f                ),
+            setup(-.02f  , .025f ,.05f  ,.0425f,true ,                   dis:true),
+            setup( .008f ,1/1500f,.25f  ,.25f  ,false                            ),
+            setup( .0085f, .016f ,.175f ,.0225f,false                            ),
+            setup( .004f , .02f  ,.15f  ,.1f   ,true ,                   dis:true),
+            setup(0      , .015f ,.1575f,.09f  ,false, .75f, .75f                )
         };
         b.SetActive(false);
         animations = new IEnumerator[]{
@@ -68,7 +69,8 @@ public class _mpAnims:MonoBehaviour{
   stillImages(TXTRs.FR11),
             A(TXTRs.FR12,true,.085f),
             A(TXTRs.FR13,true),
-        aLoop(TXTRs.FR14,false)
+        aLoop(TXTRs.FR14,false),
+            A(TXTRs.FR15,false)
         };
         animNum = Random.Range(0, animations.Length);
         while (takenAnims.Contains(animNum)) animNum = Random.Range(0, animations.Length);
@@ -201,6 +203,37 @@ public class _mpAnims:MonoBehaviour{
         yield return new WaitForSeconds(.3f);
     }
 
+    public IEnumerator gamesSayPBTC(){
+        assignedSay = gamesSayPBTC();
+        HSBG.hsHead.material = HSBG.animMats[2];
+        yield return new WaitForSeconds(.6f);
+        HSBG.hsHead.material = HSBG.animMats[0];
+    }
+
+    public IEnumerator charsSayPBTC(){
+        assignedSay = charsSayPBTC();
+        for(int i=0;i<8;i++){
+            HSBG.hsHead.material = HSBG.animMats[2];
+            yield return new WaitForSeconds(.1f);
+            HSBG.hsHead.material = HSBG.animMats[0];
+            yield return new WaitForSeconds(.1f);
+        }
+        
+    }
+
+    public IEnumerator downloadsSayPBTC(){
+        assignedSay = downloadsSayPBTC();
+        HSBG.hsHead.material = HSBG.animMats[2];
+        yield return new WaitForSeconds(.2f);
+        HSBG.hsHead.material = HSBG.animMats[0];
+        yield return new WaitForSeconds(.1f);
+        HSBG.hsHead.material = HSBG.animMats[2];
+        yield return new WaitForSeconds(.6f);
+        HSBG.hsHead.material = HSBG.animMats[3];
+        yield return new WaitForSeconds(.1f);
+        HSBG.hsHead.material = HSBG.animMats[0];
+    }
+
     public IEnumerator simpleMouthOpen(float openTime){
         assignedSay = simpleMouthOpen(openTime);
         if(HSBG.HSnumber==9)HSBG.oldtimeysay.GetComponentInChildren<TextMesh>().text = "\"" + MP.buttonNames[num].ToUpper() + "\"";
@@ -237,6 +270,9 @@ public class _mpAnims:MonoBehaviour{
                 break;
             case 12:
                 sayAnims = new IEnumerator[] { simpleMouthOpen(1), simpleMouthOpen(1), simpleMouthOpen(1), simpleMouthOpen(.5f), simpleMouthOpen(1), simpleMouthOpen(1) };
+                break;
+            case 14:
+                sayAnims=new IEnumerator[]{toonsSay(), gamesSayPBTC(), charsSayPBTC(), downloadsSayPBTC(), toonsSay(), downloadsSayPBTC()};
                 break;
             default:
                 //store and e-mail use the same mouth movements as toons and downloads respectively
