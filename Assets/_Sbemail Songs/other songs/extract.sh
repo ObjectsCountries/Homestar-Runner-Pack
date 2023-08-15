@@ -9,11 +9,11 @@ total_parts=0
 
 for i in ${sbemails[@]}; do
   start_time=$(date +%s.%N)
-  echo "Downloading sbemail $i..."
+  echo "Downloading sbemail $i…"
   wget "https://old.homestarrunner.com/sbemail$i.swf"
-  echo "Extracting audio..."
+  echo "Extracting audio…"
   swfextract -m -o AUDIO_ss_$i.mp3 sbemail$i.swf
-  echo "Converting to ogg..."
+  echo "Converting to ogg…"
   ffmpeg -i AUDIO_ss_$i.mp3 -c:a libvorbis -q:a 4 -t 5 AUDIO_ss_$i.ogg
   rm sbemail$i.swf
   end_time=$(date +%s.%N)
@@ -23,11 +23,11 @@ for i in ${sbemails[@]}; do
 done
 
 start_time=$(date +%s.%N)
-echo "Downloading sbemail 201..."
+echo "Downloading sbemail 201…"
 wget "https://old.homestarrunner.com/hremail3184.swf"
-echo "Extracting audio..."
+echo "Extracting audio…"
 swfextract -m -o AUDIO_ss_201.mp3 hremail3184.swf
-echo "Converting to ogg..."
+echo "Converting to ogg…"
 ffmpeg -i AUDIO_ss_201.mp3 -c:a libvorbis -q:a 4 -t 5 AUDIO_ss_201.ogg
 rm hremail3184.swf
 end_time=$(date +%s.%N)
