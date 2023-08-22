@@ -20,7 +20,7 @@ public class _broncoscript:ModdedModule{
     private settings broncoSettings;
     private int scoreNeeded;
 
-    public sealed class settings{public int MinimumNumberRequired = 10;}
+    public sealed class settings{public int BT_MinimumNumberRequired = 10;}
     
     protected override void Awake(){
         Get<KMNeedyModule>().OnNeedyActivation += OnNeedyActivation;
@@ -31,7 +31,7 @@ public class _broncoscript:ModdedModule{
 
     private void Start(){
         broncoSettings=new Config<settings>().Read();
-        scoreNeeded = broncoSettings.MinimumNumberRequired;
+        scoreNeeded = broncoSettings.BT_MinimumNumberRequired;
         if (scoreNeeded < 10) scoreNeeded = 10;
         if (scoreNeeded > 15) scoreNeeded = 15;
         score.SetActive(false);

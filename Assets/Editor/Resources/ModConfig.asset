@@ -23,11 +23,14 @@ MonoBehaviour:
     - Sbemail Songs (sbemailsongs) ([url=https://ktane.timwi.de/HTML/Sbemail%20Songs.html]HTML[/url])
     ([url=https://ktane.timwi.de/PDF/Sbemail%20Songs.pdf]PDF[/url])
 
-    - Strong Mad Talker (strongmadtalker) ([url=https://ktane.timwi.de/HTML/Strong%20Mad%20Talker.html]HTML[/url]) ([url=https://ktane.timwi.de/PDF/Strong%20Mad%20Talker.pdf]PDF[/url])
+    - Strong Mad Talker (strongmadtalker) ([url=https://ktane.timwi.de/HTML/Strong%20Mad%20Talker.html]HTML[/url])
+    ([url=https://ktane.timwi.de/PDF/Strong%20Mad%20Talker.pdf]PDF[/url])
 
-    - Needy: Sid Hoffrenchman (sidhoffrenchman) ([url=https://ktane.timwi.de/HTML/Sid%20Hoffrenchman.html]HTML[/url]) ([url=https://ktane.timwi.de/PDF/Sid%20Hoffrenchman.pdf]PDF[/url])
+    - Needy: Sid Hoffrenchman (sidhoffrenchman) ([url=https://ktane.timwi.de/HTML/Sid%20Hoffrenchman.html]HTML[/url])
+    ([url=https://ktane.timwi.de/PDF/Sid%20Hoffrenchman.pdf]PDF[/url])
 
-    - Needy: Bronco Trolleys (broncotrolleys) ([url=https://ktane.timwi.de/HTML/Bronco%20Trolleys.html]HTML[/url]) ([url=https://ktane.timwi.de/PDF/Bronco%20Trolleys.pdf]PDF[/url])
+    - Needy: Bronco Trolleys (broncotrolleys) ([url=https://ktane.timwi.de/HTML/Bronco%20Trolleys.html]HTML[/url])
+    ([url=https://ktane.timwi.de/PDF/Bronco%20Trolleys.pdf]PDF[/url])
 
 
     All except Bronco Trolleys have TP support.
@@ -39,8 +42,14 @@ MonoBehaviour:
 
 
     Credits: myself, TheDarkSid3r for helping out here and there, boiaaang for Strong
-    Mad Talker''s design'
+    Mad Talker''s design
+
+
+    C:\Program Files (x86)\Steam\steamapps\common\Keep Talking and Nobody Explodes\mods
+
+    /home/objectscountries/.local/share/Steam/steamapps/common/Keep Talking and Nobody
+    Explodes/mods'
   version: 1
-  outputFolder: C:\Program Files (x86)\Steam\steamapps\common\Keep Talking and Nobody
-    Explodes\mods
+  outputFolder: /home/objectscountries/.local/share/Steam/steamapps/common/Keep Talking
+    and Nobody Explodes/mods
   previewImage: {fileID: 0}

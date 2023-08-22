@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 4842153167529854}
   - component: {fileID: 23309308318995864}
   - component: {fileID: 102735697658677950}
+  - component: {fileID: 114577850989616694}
   m_Layer: 0
   m_Name: text
   m_TagString: Untagged
@@ -486,6 +487,7 @@ GameObject:
   - component: {fileID: 33997438981024312}
   - component: {fileID: 65457177834834006}
   - component: {fileID: 23266188066638398}
+  - component: {fileID: 114115937157516522}
   m_Layer: 0
   m_Name: oldtimeysay
   m_TagString: Untagged
@@ -9584,8 +9586,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - Unlit/Transparent Cutout
+  ShaderNames: []
 --- !u!114 &114043395735183142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9610,8 +9611,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - Unlit/Transparent Cutout
+  ShaderNames: []
 --- !u!114 &114047830418876278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9658,7 +9658,8 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames: []
+  ShaderNames:
+  - KT/Transparent/Mobile Diffuse Underlay200
 --- !u!114 &114077327018921118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9793,6 +9794,19 @@ MonoBehaviour:
   m_Script: {fileID: -381104716, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114115937157516522
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1221826925032262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShaderNames:
+  - Unlit/Transparent
 --- !u!114 &114116886960725678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9830,8 +9844,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - Unlit/Transparent Cutout
+  ShaderNames: []
 --- !u!114 &114129194952254000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9920,8 +9933,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - Unlit/Transparent
+  ShaderNames: []
 --- !u!114 &114164281197059592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9996,7 +10008,8 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames: []
+  ShaderNames:
+  - KT/Transparent/Mobile Diffuse Underlay200
 --- !u!114 &114186018113501206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10797,8 +10810,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - Unlit/Transparent Cutout
+  ShaderNames: []
 --- !u!114 &114241332458283446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10921,8 +10933,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - Unlit/Transparent Cutout
+  ShaderNames: []
 --- !u!114 &114277413164921034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11578,8 +11589,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - Unlit/Transparent Cutout
+  ShaderNames: []
 --- !u!114 &114535570777670336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11707,6 +11717,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames: []
+--- !u!114 &114577850989616694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1089579646462216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShaderNames:
+  - GUI/Text Shader
 --- !u!114 &114582199280070614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11996,7 +12019,8 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames: []
+  ShaderNames:
+  - KT/Transparent/Mobile Diffuse Underlay200
 --- !u!114 &114656833735887330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12021,8 +12045,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - Unlit/Transparent Cutout
+  ShaderNames: []
 --- !u!114 &114668491238256726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12047,8 +12070,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - Unlit/Transparent Cutout
+  ShaderNames: []
 --- !u!114 &114678997009352120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12191,8 +12213,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - Unlit/Transparent Cutout
+  ShaderNames: []
 --- !u!114 &114742008125689632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12415,8 +12436,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - Unlit/Transparent Cutout
+  ShaderNames: []
 --- !u!114 &114803326848086630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12663,8 +12683,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - Unlit/Transparent Cutout
+  ShaderNames: []
 --- !u!114 &114910435605025984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12733,7 +12752,8 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames: []
+  ShaderNames:
+  - Standard
 --- !u!114 &114933838318573990
 MonoBehaviour:
   m_ObjectHideFlags: 1
