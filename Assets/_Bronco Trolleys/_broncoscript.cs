@@ -17,11 +17,21 @@ public class _broncoscript:ModdedModule{
     public Material[] cycle;
     private int matcycle = 0;
     private int scoreNum = 0;
-    private settings broncoSettings;
+    private Config<settings>broncoSettings;
     private int scoreNeeded;
 
     public sealed class settings{public int BT_MinimumNumberRequired = 10;}
-    
+
+    public static Dictionary<string,object>[]TweaksEditorSettings=new Dictionary<string,object>[]{
+    new Dictionary<string,object>{
+        {"Filename","broncotrolleys-settings.json"},
+        {"Name","Bronco Trolleys"},
+        {"Listings",new List<Dictionary<string,object>>{
+            new Dictionary<string,object>{{"Key","BT_MinimumNumberRequired"},{"Text","Minimum Number of Bronco Trolleys Required"},{"Description","Can range from 10 to 15."}}
+            }
+        }}
+    };
+
     protected override void Awake(){
         Get<KMNeedyModule>().OnNeedyActivation += OnNeedyActivation;
         Get<KMNeedyModule>().OnNeedyDeactivation += OnNeedyDeactivation;
@@ -30,8 +40,9 @@ public class _broncoscript:ModdedModule{
     }
 
     private void Start(){
-        broncoSettings=new Config<settings>().Read();
-        scoreNeeded = broncoSettings.BT_MinimumNumberRequired;
+        broncoSettings=new Config<settings>();
+        scoreNeeded = Mathf.Clamp(broncoSettings.Read().BT_MinimumNumberRequired,10,15);
+        broncoSettings.Write("{\"BT_MinimumNumberRequired\":"+scoreNeeded+"}");
         if (scoreNeeded < 10) scoreNeeded = 10;
         if (scoreNeeded > 15) scoreNeeded = 15;
         score.SetActive(false);

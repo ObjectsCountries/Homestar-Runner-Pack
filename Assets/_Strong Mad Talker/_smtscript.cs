@@ -36,6 +36,18 @@ public class _smtscript:ModdedModule{
         public bool SMT_TPResetOnTypo=false;
     }
 
+    public static Dictionary<string,object>[]TweaksEditorSettings=new Dictionary<string,object>[]{
+    new Dictionary<string,object>{
+        {"Filename","strongmadtalker-settings.json"},
+        {"Name","Strong Mad Talker"},
+        {"Listings",new List<Dictionary<string,object>>{
+            new Dictionary<string,object>{{"Key","SMT_LogPlayingModeInteractions"},{"Text","Log Interactions in Playing Mode"}},
+            new Dictionary<string,object>{{"Key","SMT_LogPlayingSolvingSwitch"},{"Text","Log Switching Between Playing and Solving Modes"}},
+            new Dictionary<string,object>{{"Key","SMT_TPResetOnTypo"},{"Text","Twitch Plays: Reset Input on Typo"}}
+            }
+        }}
+    };
+
     protected override void OnActivate(){
         foreach(KMSelectable button in buttons){
             button.Add(onHighlight:()=>button.GetComponentInChildren<TextMesh>().color=buttonColors[1],
