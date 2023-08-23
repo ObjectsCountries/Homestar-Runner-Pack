@@ -40,7 +40,7 @@ public class _broncoscript:ModdedModule{
     }
 
     private void Start(){
-        broncoSettings=new Config<settings>();
+        broncoSettings=new Config<settings>("broncotrolleys-settings.json");
         scoreNeeded = Mathf.Clamp(broncoSettings.Read().BT_MinimumNumberRequired,10,15);
         broncoSettings.Write("{\"BT_MinimumNumberRequired\":"+scoreNeeded+"}");
         if (scoreNeeded < 10) scoreNeeded = 10;

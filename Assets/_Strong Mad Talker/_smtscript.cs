@@ -59,7 +59,7 @@ public class _smtscript:ModdedModule{
     }
 
     void Start(){
-        SMTSettings=new Config<settings>().Read();
+        SMTSettings=new Config<settings>("strongmadtalker-settings.json").Read();
         foreach(GameObject star in stars)star.SetActive(false);
         onesylposition=UnityEngine.Random.Range(0,6);
         PlaceWords();
