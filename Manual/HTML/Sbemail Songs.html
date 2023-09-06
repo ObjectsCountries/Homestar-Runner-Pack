@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/font.css">
-    <link rel="stylesheet" type="text/css" href="css/tableformatting.css">
+    <link rel="stylesheet" type="text/css" href="css/Sbemail Songs/Sbemail Songs.css">
     <script src="js/ktane-utils.js"></script>
 </head>
 <body>
@@ -19,11 +19,10 @@
                 <span class="page-header-section-title">Sbemail Songs — Concept 1</span>
             </div>
             <div class="page-content">
-                <img src="img/Component/Placeholder.svg" class="diagram">
+                <img src="img/Component/Sbemail Songs 1.svg" class="diagram">
                 <h2>On the Subject of Sbemail Songs</h2>
                 <p class="flavour-text">Where would I be without my Sbemail Songs?</p>
-
-                <table style="float:left;margin-right:20px;margin-bottom:10px"><tbody>
+                <table style="float:left;margin-right:20px;margin-bottom:30px"><tbody>
                     <tr><td>Tandy 400</td><td>XOR</td></tr>
                     <tr><td>Compy 386</td><td>OR</td></tr>
                     <tr><td>Lappy 486</td><td>AND</td></tr>
@@ -31,37 +30,57 @@
                     <tr><td>Compé</td><td>NOR</td></tr>
                     <tr><td>Lappier</td><td>NAND</td></tr>
                 </tbody></table>
-
-                <p>This module will have a computer-like background. There are four buttons labeled song 1-4, four more orthogonal arrow buttons, and two buttons labeled "flip" and "submit".</p>
-                <p>Each of the song buttons will play a short song, called a "sbemail song", that has a number associated with it. See <a href="http://hrwiki.org/wiki/Strong_Bad_Email_Intros">here</a> for a full list of sbemail song transcriptions. <b>NOTE: In the case of more than one of the same number, such as 122a/122b or 193/193½ where the transcriptions are completely different, only the first of each can appear on the module.</b></p>
+                <div style="font-size:10pt"><p>This module will have a computer-like background. There are four buttons labeled song 1-4, a small screen under each diplaying a digit in hexadecimal accompanied by two arrows, and a button labeled "submit".</p>
+                <p>When clicked, each of the song buttons will play a short song, called a "sbemail song", that has a number associated with it. See <a href="http://hrwiki.org/wiki/Strong_Bad_Email_Intros">here</a> for a full list of sbemail song transcriptions. <b>NOTE: In the case of more than one of the same number, such as 122a/122b or 193/193½ where the transcriptions are completely different, only the first of each can appear on the module.</b></p>
                 <p>Take the number associated with each sbemail song and convert it to binary, with zeros added to the left to make it 8 bits long if needed. Concatenate these to get a 32-bit string, and perform the operation associated with the background on each pair of bits (i.e. the 1st and 2nd bit, the 3rd and 4th bit, etc.; use the table above and to the left for reference). Arrange the resulting 16 bits into a 4x4 grid in reading order to get the initial grid.</p>
-                <p>Using the table on the next page, create another 4x4 grid of bits, placing a 1 in every true condition's spot and a 0 in every false condition's spot. Then apply one of the following patterns to it, depending on t</p>
-            </div>
-            <div class="page-footer relative-footer">Page 1 of 3</div>
-        </div>
-        <div class="page page-bg-02">
-            <div class="page-header">
-                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
-                <span class="page-header-section-title">Sbemail Songs — Concept 1</span>
-            </div>
-            <div class="page-content">
-                <table style="text-align:center"><thead><tr><th>There are at least:</th><th>The serial number contains:</th><th>The module contains:</th><th>The initial grid contains:</th></tr></thead><tbody>
+                <table style="text-align:center;font-size:11pt"><thead class="concept1table"><tr><th>There are at least:</th><th>The serial number contains:</th><th>The module contains:</th><th>The initial grid contains:</th></tr></thead><tbody>
                     <tr><td>2 lit indicators</td><td>Any vowels</td><td>A prime-numbered sbemail song</td><td>A 0 in the top-left corner</td></tr>
                     <tr><td>5 modules</td><td>More numbers than letters</td><td>A sbemail song from the Compy era (41-118)</td><td>Two 1s horizontally adjacent to each other</td></tr>
                     <tr><td>3 battery holders</td><td>Any letter in "SBEMAIL"</td><td>A sbemail song in which Strong Bad does not say "email" or "sbemail"</td><td>Five or more 1s</td></tr>
                     <tr><td>3 different port types</td><td>Digits that add up to 15 or more</td><td>Two sbemail song numbers that both end in the same digit</td><td>A row or column with two of each digit</td></tr>
                 </tbody></table>
+                <p>Using the table above, create another 4x4 grid of bits, placing a 1 in every true condition's spot and a 0 in every false condition's spot. Then overlay the two tables, applying the same operation as before on every two bits to get a final 4x4 grid.</p>
+                <p>Take the numbers of the each quadrant of the final grid in reading order, concatenate them, and convert them to a hexadecimal digit. Change each display to the resulting number and then submit.</p></div>
             </div>
-            <div class="page-footer relative-footer">Page 2 of 3</div>
+            <div class="page-footer relative-footer">Page 1 of 1</div>
         </div>
-        <div class="page page-bg-03">
+        <div class="page page-bg-01">
             <div class="page-header">
                 <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
-                <span class="page-header-section-title">Sbemail Songs — Concept 1</span>
+                <span class="page-header-section-title">Sbemail Songs — Concept 2</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Component/Sbemail Songs 2.svg" class="diagram">
+                <h2>On the Subject of Sbemail Songs</h2>
+                <p class="flavour-text">Where would I be without my Sbemail Songs?</p>
+                <table style="float:left;margin-right:20px;margin-bottom:10px;text-align:center"><tbody>
+                    <tr><td>Wires</td><td>56781234</td></tr>
+                    <tr><td>Maze</td><td>21436587</td></tr>
+                    <tr><td>Simon</td><td>56341278</td></tr>
+                    <tr><td>Morse</td><td>12785634</td></tr>
+                    <tr><td>Button</td><td>87654321</td></tr>
+                    <tr><td>Other</td><td>12345678</td></tr>
+                    <tr><td>0-40</td><td>AND</td></tr>
+                    <tr><td>41-118</td><td>OR</td></tr>
+                    <tr><td>119-205</td><td>XOR</td></tr>
+                    <tr><td>209-220</td><td>NAND</td></tr>
+                    <tr><td>220-240</td><td>NOR</td></tr>
+                    <tr><td>240-255</td><td>XNOR</td></tr>
+                </tbody></table>
+                <p>On this module will be a stage display, a larger rectangular display below and a 4x4 grid of hexadecimal digits. Pressing the stage display will play a short song called a "sbemail song". Every time a <a href="https://ktane.timwi.de/More/Ignore%20Table.html#mod=sbemailsongs">non-ignored module</a> is solved, this module will change which sbemail song is played.</p>
+                <p>See <a href="http://hrwiki.org/wiki/Strong_Bad_Email_Intros">here</a> for a full list of sbemail song transcriptions. <b>NOTE: In the case of more than one of the same number, such as 122a/122b or 193/193½ where the transcriptions are completely different, only the first of each can appear on the module.</b></p>
+                <p>At each stage, take the number associated with each sbemail song and convert them to binary. Rearrange the binary number as shown in the table to the left depending on the name of the last solved module. On each pair of bits, perform the operation associated with the resulting number to make the sequence 4 bits long, then convert it to a hexadecimal digit. Modify the hexadecimal digit depending on conditions. After all modules are solved, submit the sequence of hexadecimal codes obtained.</p>
+            </div>
+            <div class="page-footer relative-footer">Page 1 of 2</div>
+        </div>
+        <div class="page page-bg-02">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Sbemail Songs — Concept 2</span>
             </div>
             <div class="page-content">
             </div>
-            <div class="page-footer relative-footer">Page 3 of 3</div>
+            <div class="page-footer relative-footer">Page 2 of 2</div>
         </div>
     </div>
 </body>
