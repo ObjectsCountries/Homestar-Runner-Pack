@@ -53,23 +53,32 @@
                 <img src="img/Component/Sbemail Songs 2.svg" class="diagram">
                 <h2>On the Subject of Sbemail Songs</h2>
                 <p class="flavour-text">Where would I be without my Sbemail Songs?</p>
-                <table style="float:left;margin-right:20px;margin-bottom:10px;text-align:center"><tbody>
-                    <tr><td>Wires</td><td>56781234</td></tr>
-                    <tr><td>Maze</td><td>21436587</td></tr>
-                    <tr><td>Simon</td><td>56341278</td></tr>
-                    <tr><td>Morse</td><td>12785634</td></tr>
-                    <tr><td>Button</td><td>87654321</td></tr>
-                    <tr><td>Other</td><td>12345678</td></tr>
-                    <tr><td>0-40</td><td>AND</td></tr>
-                    <tr><td>41-118</td><td>OR</td></tr>
-                    <tr><td>119-205</td><td>XOR</td></tr>
-                    <tr><td>209-220</td><td>NAND</td></tr>
-                    <tr><td>220-240</td><td>NOR</td></tr>
-                    <tr><td>240-255</td><td>XNOR</td></tr>
+                <table style="float:left;margin-right:20px;margin-bottom:0px;text-align:center"><tbody>
+                    <tr><th>Wire</th><td>56781234</td></tr>
+                    <tr><th>Maze</th><td>21436587</td></tr>
+                    <tr><th>Simon</th><td>56341278</td></tr>
+                    <tr><th>Morse</th><td>12785634</td></tr>
+                    <tr><th>Button</th><td>87654321</td></tr>
+                    <tr><th>Other</th><td>12345678</td></tr>
                 </tbody></table>
-                <p>On this module will be a stage display, a larger rectangular display below and a 4x4 grid of hexadecimal digits. Pressing the stage display will play a short song called a "sbemail song". Every time a <a href="https://ktane.timwi.de/More/Ignore%20Table.html#mod=sbemailsongs">non-ignored module</a> is solved, this module will change which sbemail song is played.</p>
+                <table style="float:left;margin-right:20px;margin-bottom:5px;text-align:center"><tbody>
+                    <tr><th>0-40</th><td>AND</td></tr>
+                    <tr><th>41-118</th><td>OR</td></tr>
+                    <tr><th>119-205</th><td>XOR</td></tr>
+                    <tr><th>205-220</th><td>NAND</td></tr>
+                    <tr><th>220-240</th><td>NOR</td></tr>
+                    <tr><th>240-255</th><td>XNOR</td></tr>
+                </tbody></table>
+                <table style="float:left;margin-right:20px;margin-bottom:0px;text-align:center"><tbody>
+                    <tr><th>Previous<br>digit was A-F</th><td>Add 5</td></tr>
+                    <tr><th>Stage<br>divisible by 6</th><td>Subtract 2</td></tr>
+                    <tr><th>Majority of<br>sequence is<br>even</th><td>Modulo 12</td></tr>
+                    <tr><th>Digit at this<br>point is odd</th><td>Multiply by 3</td></tr>
+                    <tr><th>No changes<br>have been made</th><td>Change digit to<br>10<sub>hexadecimal</sub><br>minus digit</td></tr>
+                </tbody></table>
+                <p>On this module will be a stage display, a larger rectangular display below, a play button and a 4x4 grid of hexadecimal digits. Pressing the play button will play a short song called a "sbemail song". Every time a <a href="https://ktane.timwi.de/More/Ignore%20Table.html#mod=sbemailsongs">non-ignored module</a> is solved, this module will change which sbemail song is played.</p>
                 <p>See <a href="http://hrwiki.org/wiki/Strong_Bad_Email_Intros">here</a> for a full list of sbemail song transcriptions. <b>NOTE: In the case of more than one of the same number, such as 122a/122b or 193/193½ where the transcriptions are completely different, only the first of each can appear on the module.</b></p>
-                <p>At each stage, take the number associated with each sbemail song and convert them to binary. Rearrange the binary number as shown in the table to the left depending on the name of the last solved module. On each pair of bits, perform the operation associated with the resulting number to make the sequence 4 bits long, then convert it to a hexadecimal digit. Modify the hexadecimal digit depending on conditions. After all modules are solved, submit the sequence of hexadecimal codes obtained.</p>
+                <p>At each stage, take the number associated with each sbemail song and convert it to binary. Rearrange the binary number as shown in the first table depending on what is in the name of the last solved module. For stage 1, before any modules are solved, do not make any changes. For modules that contain more than one of these names (e.g. Morse-A-Maze), apply all applicable transformations from the top down. Perform the appropriate bitwise operation on each pair of bits of the bitwise number using the second table to make the sequence 4 bits long, then convert it to a hexadecimal digit. Modify this digit according to the third table. If the digit exceeds 10<sub>hexadecimal</sub> at any point, modulo 10<sub>hexadecimal</sub> before continuing.</p>
             </div>
             <div class="page-footer relative-footer">Page 1 of 2</div>
         </div>
