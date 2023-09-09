@@ -143,10 +143,22 @@ public class _mpHsBg : MonoBehaviour{
             case 15:
                 chooseShader(TXTRs.aWinter,false);
                 lines = 'n';
+                hsBody.transform.localPosition = new Vector3(2/45f,.0108f,-.015f);
+                hsHead.transform.localPosition = new Vector3(.0235f,.0106f,.02f);
+                bl.transform.localPosition = new Vector3(-.115f,1,-.065f);
+                hsBody.transform.localScale = new Vector3(.05f,.0001f,.035f);
+                hsHead.transform.localScale = new Vector3(.145f,.0001f,.06f);
+                bl.transform.localScale = new Vector3(.0725f,1,.175f);
                 break;
             case 16:
                 chooseShader(TXTRs.aAnime,false);
                 lines = 'j'; //j for japanese cartoon
+                hsBody.transform.localPosition = new Vector3(2/45f,.0106f,-.01f);
+                hsHead.transform.localPosition = new Vector3(7/150f,.0108f,.025f);
+                bl.transform.localPosition = new Vector3(.01f,1,.01f);
+                hsBody.transform.localScale = new Vector3(.05f,.0001f,.045f);
+                hsHead.transform.localScale = new Vector3(.045f,.0001f,.05f);
+                bl.transform.localScale = new Vector3(.01f,1,.01f);
                 break;
             case 19:
                 chooseShader(TXTRs.aStory,false);
@@ -189,12 +201,12 @@ public class _mpHsBg : MonoBehaviour{
                 hsBody.transform.localScale = new Vector3(0.06322949f,.0001f, 0.03793771f);
                 hsHead.transform.localScale = new Vector3(1/18f,.0001f,1/18f);
                 bl.transform.localScale = new Vector3(0.2162404f, 1, 0.1833194f);
-                /*hsBody.transform.localPosition = new Vector3(,.0108f,);
-                hsHead.transform.localPosition = new Vector3(,.0106f,);
-                bl.transform.localPosition = new Vector3(.01f,1,.01f);
-                hsBody.transform.localScale = new Vector3(,.0001f,);
-                hsHead.transform.localScale = new Vector3(,.0001f,);
-                bl.transform.localScale = new Vector3(.01f,1,.01f);*/
+                //hsBody.transform.localPosition = new Vector3(,.0108f,);
+                //hsHead.transform.localPosition = new Vector3(,.0106f,);
+                //bl.transform.localPosition = new Vector3(.01f,1,.01f);
+                //hsBody.transform.localScale = new Vector3(,.0001f,);
+                //hsHead.transform.localScale = new Vector3(,.0001f,);
+                //bl.transform.localScale = new Vector3(.01f,1,.01f);
                 break;
         }
         switch (BG){

@@ -53,7 +53,8 @@ public class _mpAnims:MonoBehaviour{
             setup( .0085f, .016f ,.175f ,.0225f,false                            ),
             setup( .004f , .02f  ,.15f  ,.1f   ,true ,                   dis:true),
             setup(0      , .015f ,.1575f,.09f  ,false, .75f, .75f                ),
-            setup(0      , .025f ,.1575f,.1f   ,false,                   dis:true)
+            setup(0      , .025f ,.1575f,.1f   ,false,                   dis:true),
+            setup(0      , .0235f,.16f  ,.075f ,false, .85f                      )
         };
         b.SetActive(false);
         animations = new IEnumerator[]{
@@ -72,7 +73,8 @@ public class _mpAnims:MonoBehaviour{
             A(TXTRs.FR13,true),
             A(TXTRs.FR14,false),
             A(TXTRs.FR15,false),
-        aLoop(TXTRs.FR16,true)
+        aLoop(TXTRs.FR16,true),
+            A(TXTRs.FR17,true)
         };
         animNum = Random.Range(0, animations.Length);
         while (takenAnims.Contains(animNum)) animNum = Random.Range(0, animations.Length);
@@ -236,6 +238,45 @@ public class _mpAnims:MonoBehaviour{
         HSBG.hsHead.material = HSBG.animMats[0];
     }
 
+    public IEnumerator toonsSayAnime(){
+        assignedSay = toonsSayAnime();
+        HSBG.hsHead.material = HSBG.animMats[2];
+        yield return new WaitForSeconds(.25f);
+        HSBG.hsHead.material = HSBG.animMats[3];
+        yield return new WaitForSeconds(1/12f);
+        HSBG.hsHead.material = HSBG.animMats[2];
+        yield return new WaitForSeconds(.25f);
+        HSBG.hsHead.material = HSBG.animMats[0];
+    }
+
+    public IEnumerator gamesSayAnime(){
+        assignedSay = gamesSayAnime();
+        HSBG.hsHead.material = HSBG.animMats[2];
+        yield return new WaitForSeconds(1/12f);
+        HSBG.hsHead.material = HSBG.animMats[3];
+        yield return new WaitForSeconds(1/12f);
+        HSBG.hsHead.material = HSBG.animMats[2];
+        yield return new WaitForSeconds(1/12f);
+        HSBG.hsHead.material = HSBG.animMats[0];
+    }
+
+    public IEnumerator charsSayAnime(){
+        assignedSay = charsSayAnime();
+        HSBG.hsHead.material = HSBG.animMats[3];
+        yield return new WaitForSeconds(1/12f);
+        HSBG.hsHead.material = HSBG.animMats[2];
+        yield return new WaitForSeconds(1/12f);
+        HSBG.hsHead.material = HSBG.animMats[3];
+        yield return new WaitForSeconds(1/12f);
+        HSBG.hsHead.material = HSBG.animMats[2];
+        yield return new WaitForSeconds(1/6f);
+        HSBG.hsHead.material = HSBG.animMats[0];
+        yield return new WaitForSeconds(.25f);
+        HSBG.hsHead.material = HSBG.animMats[3];
+        yield return new WaitForSeconds(1/6f);
+        HSBG.hsHead.material = HSBG.animMats[0];
+    }
+
     public IEnumerator simpleMouthOpen(float openTime){
         assignedSay = simpleMouthOpen(openTime);
         if(HSBG.HSnumber==9)HSBG.oldtimeysay.GetComponentInChildren<TextMesh>().text = "\"" + MP.buttonNames[num].ToUpper() + "\"";
@@ -275,6 +316,9 @@ public class _mpAnims:MonoBehaviour{
                 break;
             case 14:
                 sayAnims=new IEnumerator[]{toonsSay(), gamesSayPBTC(), charsSayPBTC(), downloadsSayPBTC(), toonsSay(), downloadsSayPBTC()};
+                break;
+            case 16:
+                sayAnims=new IEnumerator[]{toonsSayAnime(),gamesSayAnime(),charsSayAnime(),charsSayAnime(),toonsSayAnime(),toonsSayAnime()};
                 break;
             default:
                 //store and e-mail use the same mouth movements as toons and downloads respectively
