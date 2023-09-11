@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 95114625085972884}
   - component: {fileID: 114741973867383514}
   - component: {fileID: 114812320736438848}
+  - component: {fileID: 114175404512923754}
   m_Layer: 0
   m_Name: _sidhoffrenchman
   m_TagString: Untagged
@@ -1359,6 +1360,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/DiffuseTint
+--- !u!114 &114175404512923754
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1305926363940130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf69c2de51bd3c43bbd9bc22578ee08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _seed: 1
 --- !u!114 &114202278779072512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1619,6 +1632,7 @@ MonoBehaviour:
   - {fileID: 23710168852182404}
   hoffButton: {fileID: 114733640208225754}
   frenchButton: {fileID: 114605956463085302}
+  ruleseed: {fileID: 114175404512923754}
   scoreCount: {fileID: 102802018599134490}
   hrAnim:
   - {fileID: 2100000, guid: ca4a08426b1820b4497524e6e64e2eb7, type: 2}

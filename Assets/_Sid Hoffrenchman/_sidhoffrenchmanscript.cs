@@ -26,25 +26,43 @@ public class _sidhoffrenchmanscript:ModdedModule{
     public GameObject blink;
     public Color[] colors;
     internal bool active;
+    private int tiebreakerSwapped=0;
 
 
     private void Start(){
         var RND=ruleseed.GetRNG();
-        Get<KMNeedyModule>().OnNeedyActivation += OnNeedyActivation;
-        Get<KMNeedyModule>().OnTimerExpired += OnTimerExpired;
-        Get<KMNeedyModule>().OnNeedyDeactivation += HideChars;
+        if(RND.Seed != 1) {
+            int n = 10;
+            while (n > 1) {
+                n--;
+                int k = RND.Next(n+1);
+                Material m=chars[k];
+                chars[k]=chars[n];
+                chars[n]=m;
+                string name=charNames[k];
+                charNames[k]=charNames[n];
+                charNames[n]=name;
+            }
+            tiebreakerSwapped = RND.Next(2);
+        }
+        Get<KMNeedyModule>().Add(
+            onNeedyActivation: () => OnNeedyActivation(),
+            onNeedyDeactivation: () => HideChars(),
+            onPass: () => HideChars(),
+            onStrike: () => HideChars(),
+            onTimerExpired: () => OnTimerExpired());
         TextMesh hoffText = hoffButton.GetComponentInChildren<TextMesh>();
         TextMesh frenchText = frenchButton.GetComponentInChildren<TextMesh>();
         hoffButton.Add(
-                onHighlight: () => ColorChange(hoffText, 1),
-                onHighlightEnded: () => ColorChange(hoffText, 0),
-                onInteract: () => ColorChange(hoffText, 2),
-                onInteractEnded: () => { ColorChange(hoffText, 1); StartCoroutine(Submitting(correct(), true)); });
+            onHighlight: () => ColorChange(hoffText, 1),
+            onHighlightEnded: () => ColorChange(hoffText, 0),
+            onInteract: () => ColorChange(hoffText, 2),
+            onInteractEnded: () => { ColorChange(hoffText, 1); StartCoroutine(Submitting(correct(), true)); });
         frenchButton.Add(
-                onHighlight: () => ColorChange(frenchText, 1),
-                onHighlightEnded: () => ColorChange(frenchText, 0),
-                onInteract: () => ColorChange(frenchText, 2),
-                onInteractEnded: () => { ColorChange(frenchText, 1); StartCoroutine(Submitting(correct(), false)); });
+            onHighlight: () => ColorChange(frenchText, 1),
+            onHighlightEnded: () => ColorChange(frenchText, 0),
+            onInteract: () => ColorChange(frenchText, 2),
+            onInteractEnded: () => { ColorChange(frenchText, 1); StartCoroutine(Submitting(correct(), false)); });
         hrBackdrop.material = hrAnim[0];
         HideChars();
         StartCoroutine(Blink());
@@ -57,6 +75,7 @@ public class _sidhoffrenchmanscript:ModdedModule{
         for (int i = 0; i < 4; i++) bgChars[i].material = empty;
         hoffB.SetActive(false);
         frenchB.SetActive(false);
+        playing = true;
     }
 
     IEnumerator Blink(){
@@ -67,19 +86,12 @@ public class _sidhoffrenchmanscript:ModdedModule{
             blink.SetActive(false);
         }
     }
-
-    protected bool Solve(){
-        GetComponent<KMNeedyModule>().OnPass();
-        HideChars();
-        playing = true;
-        return false;
-    }
-
-    protected void OnNeedyActivation(){
+    void OnNeedyActivation(){
         active = true;
         StartCoroutine(Asking());
         //to separate activations in the log
-        Log("---\nThe score is {0}.", score);
+        Log("---");
+        Log("The score is "+score+".");
         chosenChars.Clear();
         chosenSpots.Clear();
         hoffCount = 0;
@@ -88,21 +100,23 @@ public class _sidhoffrenchmanscript:ModdedModule{
         DetermineOption();
     }
 
-    protected void OnTimerExpired(){
+    void OnTimerExpired(){
         active = false;
-        Log("I'm sorry, we're out of time. Ding board? *BUZZ*");
-        GetComponent<KMNeedyModule>().OnStrike();
-        Solve();
+        Strike("I'm sorry, we're out of time. Ding board? *BUZZ*");
     }
 
     void chooseChars(){
         List<string> presentChars = new List<string>();
-        for (int i = 0; i < UnityEngine.Random.Range(1, 5); i++){
-            int index = UnityEngine.Random.Range(0, 4);
-            while (chosenSpots.Contains(index)) index = UnityEngine.Random.Range(0, 4);
+        int index,characterPresent;
+        int times = UnityEngine.Random.Range(1, 5);
+        for (int i = 0; i < times; i++){
+            do {
+                index = UnityEngine.Random.Range(0, 4);
+            } while (chosenSpots.Contains(index));
             chosenSpots.Add(index);
-            int characterPresent = UnityEngine.Random.Range(0, 10);
-            while (chosenChars.Contains(characterPresent)) characterPresent = UnityEngine.Random.Range(0, 10);
+            do{
+                characterPresent = UnityEngine.Random.Range(0, 10);
+            } while (chosenChars.Contains(characterPresent));
             chosenChars.Add(characterPresent);
             bgChars[index].material = chars[characterPresent];
             presentChars.Add(charNames[characterPresent]);
@@ -115,11 +129,11 @@ public class _sidhoffrenchmanscript:ModdedModule{
             if (chosenChars[i] < 5) hoffCount++;
             else frenchCount++;
         }
-        Log("Correct Answer: Sid {0}man",(hoffCount == frenchCount && score % 2 == 0) || hoffCount > frenchCount ? "Hoff" : "French");
+        Log("Correct Answer: Sid {0}man",(hoffCount == frenchCount && score % 2 == tiebreakerSwapped) || hoffCount > frenchCount ? "Hoff" : "French");
     }
 
     internal bool correct(){
-        if (hoffCount == frenchCount) return (score % 2 == 0);
+        if (hoffCount == frenchCount) return (score % 2 == tiebreakerSwapped);
         return (hoffCount > frenchCount);
     }
 
@@ -206,14 +220,14 @@ public class _sidhoffrenchmanscript:ModdedModule{
             playing = false;
             Log("Selected Sid {0}man.",chosen?"Hoff":"French");
             if (hoff != chosen){
-                GetComponent<KMNeedyModule>().HandleStrike();
-                Log("No, I'm sorry. The correct answer... was \"E-mail\".");
+                Strike("No, I'm sorry. The correct answer... was \"E-mail\".");
             }else{
                 score++;
                 scoreCount.text = "score:" + score;
                 Play(new Sound("AUDIO_sid_ding"));
-                Log("Hooway!");
-            } Solve();
+                Solve("Hooway!");
+            }
+            HideChars();
         }
     }
 
