@@ -8,11 +8,14 @@ by meeee ::3 (ObjectsCountries)
 
 * Strong Mad Talker: **Finished**
   * Note to self: Credit boiaaang for color design
+  * Will have to completely rewrite code for ruleseed support
 * Main Page: **In Progress**
-  * 15/27 main pages implemented
+  * 17/27 main pages implemented
+  * Still have opportunity to design manual with ruleseed support in mind
 * Sbemail Songs: **Not Started**
-  * Only a vague idea of what to do for the module, next step is to figure out what to do with a 4x4 grid of ones and zeros
+  * Decide between boss and non-boss concepts (musing [here](https://discord.com/channels/160061833166716928/1138212224050147388))
 * Bronco Trolleys (Needy): **Finished**
+  * Perhaps get rid of parameter to change number required
 * Sid Hoffrenchman (Needy): **Finished**
-
-All have TP support except for Bronco Trolleys (and technically Sbemail Songs since I haven't started making that one yet). None have ruleseed support, so feel free to help out with that.
+  * Add color references for characters in manual
+  * Try implementing ruleseed support
