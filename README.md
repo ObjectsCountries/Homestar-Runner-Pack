@@ -17,5 +17,4 @@ by meeee ::3 (ObjectsCountries)
 * Bronco Trolleys (Needy): **Finished**
   * Perhaps get rid of parameter to change number required
 * Sid Hoffrenchman (Needy): **Finished**
-  * Add color references for characters in manual
   * Try implementing ruleseed support

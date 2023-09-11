@@ -11,6 +11,7 @@ public class _sidhoffrenchmanscript:ModdedModule{
     public Renderer[] bgChars;
     public KMSelectable hoffButton;
     public KMSelectable frenchButton;
+    public KMRuleSeedable ruleseed;
     public TextMesh scoreCount;
     public Material[] hrAnim;
     public Renderer hrBackdrop;
@@ -28,6 +29,7 @@ public class _sidhoffrenchmanscript:ModdedModule{
 
 
     private void Start(){
+        var RND=ruleseed.GetRNG();
         Get<KMNeedyModule>().OnNeedyActivation += OnNeedyActivation;
         Get<KMNeedyModule>().OnTimerExpired += OnTimerExpired;
         Get<KMNeedyModule>().OnNeedyDeactivation += HideChars;
