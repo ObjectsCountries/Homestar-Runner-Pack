@@ -19,7 +19,6 @@ public class _smtscript:ModdedModule{
     public List<string>multisylwords;
     private int onesylposition;
     private string TheDecoy;
-    internal bool moduleSolved;
     List<int>usedWords=new List<int>();
     internal List<string>wordlist=new List<string>();
     internal List<string>fulllist=new List<string>();
@@ -55,7 +54,7 @@ public class _smtscript:ModdedModule{
                 onInteract:()=>{Press(button);button.GetComponentInChildren<TextMesh>().color=buttonColors[2];},
                 onInteractEnded:()=>button.GetComponentInChildren<TextMesh>().color=buttonColors[1]);
         }
-        PSToggle.Add(onInteract:PS);
+        PSToggle.Set(onInteract:PS);
     }
 
     void Start(){
@@ -71,12 +70,13 @@ public class _smtscript:ModdedModule{
     }
 
     internal void PS(){
-        if(moduleSolved)return;
+        if(Status.IsSolved)
+            return;
         playing=!playing;
         if(playing){
             PSToggle.GetComponent<Renderer>().material=PSColors[0];
             PSText.text="Playing";
-            if(!moduleSolved){
+            if(!Status.IsSolved){
                 stage=0;
                 foreach(GameObject star in stars)star.SetActive(false);
             }
@@ -185,7 +185,7 @@ public class _smtscript:ModdedModule{
         button.AddInteractionPunch();
         string word=button.GetComponentInChildren<TextMesh>().text;
         string message="Pressed "+word;
-        if(moduleSolved||playing){
+        if(Status.IsSolved||playing){
             if(SMTSettings.SMT_LogPlayingModeInteractions)Log(message+" in Playing mode.");
             return;
         }
@@ -197,7 +197,6 @@ public class _smtscript:ModdedModule{
             if(stage==4){
                 Solve("SOLVED!");
                 PS();
-                moduleSolved=true;
                 foreach(GameObject star in stars)star.SetActive(true);
             } return;
         }
@@ -320,7 +319,6 @@ public class _smtscript:ModdedModule{
         //i just made it look like it's solved bc it really makes no difference
         Solve("Force solved by Twitch mod.");
         if(!playing)PS();
-        moduleSolved = true;
         foreach(GameObject star in stars)star.SetActive(true);
         yield return null;
     }

@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/font.css">
+    <script src="js/ktane-utils.js"></script>
   </head>
   <body>
     <div class="section">
@@ -20,7 +21,7 @@
           <h2>On the Subject of Strong Mad Talker</h2>
           <p class="flavour-text">SOLVE THE BOMB!!!! <b>SOLVE THE BOMB!!!!!!!</b></p>
           <p>This module will appear with six words, a Playing/Solving toggle and Strong Mad in the center. When in Playing mode, all buttons are free to be pressed without consequence. When in Solving mode, they must be pressed in a specific order that includes only four of the six buttons. A star will appear along the bottom of the module for each correct word, being cleared if an incorrect word is pressed or the module is changed to Playing mode.</p>
-          <p>One of the words will have only one syllable, and another will be a decoy excluded from the correct sequence. The word with one syllable determines the order in which to check each word. Start with the word in the position labeled 1, then in the position labeled 2, and continue until a true condition is reached that declares the decoy. If the word declared as the decoy is the one-syllable word, the decoy is the next word in reading order looping around. If none of the conditions are true, the decoy is the word horizontally adjacent to the one-syllable word.</p>
+          <p>One of the words will have only one syllable, and another will be a decoy excluded from the correct sequence. The decoy serves to determine the order in which the other four words should be pressed. The word with one syllable determines the order in which to check each word. Start with the word in the position labeled 1, then in the position labeled 2, and continue until a true condition is reached that declares the decoy. Skip over the one-syllable word during this process. If the word declared as the decoy is the one-syllable word, the decoy is the next word in reading order looping around. If none of the conditions are true, the decoy is the word horizontally adjacent to the one-syllable word.</p>
           <table style="margin-left:auto;margin-right:auto;text-align:center"><tbody>
             <tr>
               <td><b>JUICE</b>
@@ -62,7 +63,7 @@
           <span class="page-header-section-title">Strong Mad Talker</span>
         </div>
         <div class="page-content"> <table>
-          <tbody>
+          <tbody style="font-size:11.5pt">
             <tr>
               <th>SWEETYCAKES</th>       
               <td>If there are at least 2 lit indicators, the top right word is the decoy.</td>
@@ -77,7 +78,7 @@
             </tr>
             <tr>
               <th>DOUGLAS</th>       
-              <td style="font-size:10pt">If the top-left word is shorter than the bottom-right word, the word in position (the sum of the serial number's digits modulo 6) + 1 of the one-syllable word's checking order is the decoy.</td>
+              <td>If the top-left word is shorter than the bottom-right word, the word in position (the sum of the serial number's digits modulo 6) + 1 of the one-syllable word's checking order is the decoy.</td>
               <th>CASSEROLE</th>       
               <td>If the word below "CASSEROLE" on the module (looping around) has already been checked, this word is the decoy.</td>
             </tr>
@@ -91,7 +92,7 @@
               <th>MANTIS</th>       
               <td>If the word opposite this word on the module is in the left column of this table, that word is the decoy.</td>
               <th>AROUND</th>       
-              <td style="font-size:10pt">If any word on the module is at least 10 letters long, the last word checked is the decoy. If this is the first word to be checked and the above condition applies, this word is the decoy.</td>
+              <td>If any word on the module is at least 10 letters long, the last word checked is the decoy. If this is the first word to be checked and the above condition applies, this word is the decoy.</td>
             </tr>
             <tr>
               <th>DIAPER</th>       
@@ -110,8 +111,6 @@
           <span class="page-header-section-title">Strong Mad Talker</span>
         </div>
         <div class="page-content">
-          <h3>Determining the Order</h3>
-          <p>The decoy serves to determine the order in which the other four words should be pressed.</p>
           <table>
             <tbody>
               <tr>
