@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 114061060770732486}
   - component: {fileID: 114753447477012624}
   - component: {fileID: 114340374512085094}
+  - component: {fileID: 114629190801876716}
   m_Layer: 0
   m_Name: _strongmadtalker
   m_TagString: Untagged
@@ -2459,6 +2460,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Transparent/Mobile Diffuse Underlay200
+--- !u!114 &114629190801876716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1195034595088968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9546ac7e733214b6cbf9f432c6c2f658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TwitchHelpMessage: '!{0} words/positions/playall/playwords/playeach/r/reset/tl/tr/cl/ml/cr/mr/bl/br/(any
+    word on the module) | List the words to press in the order of your message. tl,
+    tr, cl/ml, cr/mr, bl and br can be used for positions, and mixed among the words.
+    Additionally, use !{0} playall/playwords/playeach to hear each word. Upon making
+    a typo, the module will automatically halt, as well as reset input if enabled
+    in the mod settings. The input can be manually reset with !{0} r/reset.'
+  TwitchManualCode: 
+  TwitchAbandonModule: []
 --- !u!114 &114634228085163220
 MonoBehaviour:
   m_ObjectHideFlags: 1
