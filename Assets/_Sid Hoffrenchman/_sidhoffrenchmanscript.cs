@@ -230,21 +230,4 @@ public class _sidhoffrenchmanscript:ModdedModule{
             HideChars();
         }
     }
-
-    IEnumerator TwitchHandleForcedSolve(){
-        if (active) yield return correct()?hoffButton:frenchButton;
-        else yield return "sendtochaterror {0}, the module isn't currently active.";
-        yield return null;
-    }
-    IEnumerator ProcessTwitchCommand(string command){
-        command = command.ToLowerInvariant().Trim();
-        yield return null;
-        if (!active){
-            yield return "sendtochaterror {0}, the module isn't currently active.";
-            yield break;
-        }
-        if (command.Equals("h")) yield return Submitting(correct(), true);
-        else if (command.Equals("f")) yield return Submitting(correct(), false);
-        else yield return "sendtochaterror {0}, your command must consist of only the letter h or f.";
-    }
 }
