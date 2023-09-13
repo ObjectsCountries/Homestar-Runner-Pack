@@ -12,7 +12,7 @@ using KModkit;
 public class _mainpagescript:ModdedModule{
     public KMSelectable[] numberButtons;
     public KMSelectable[] menuButtons;
-    public KMSelectable messageButton;
+    public Renderer messageButton;
     public Material[] messageColors;
     private string[] messageColorNames=new string[]{"blue","green","red","yellow"};
     public Shader transparentshader;
@@ -90,13 +90,13 @@ public class _mainpagescript:ModdedModule{
 
     IEnumerator coloredButtonCycle(){
         while(true){
-            messageButton.GetComponent<Renderer>().material=messageColors[color1];
+            messageButton.material=messageColors[color1];
             messageButton.GetComponentInChildren<TextMesh>().text=messages[0][message1];
             yield return new WaitForSeconds(2);
-            messageButton.GetComponent<Renderer>().material=messageColors[color2];
+            messageButton.material=messageColors[color2];
             messageButton.GetComponentInChildren<TextMesh>().text=messages[1][message2];
             yield return new WaitForSeconds(2);
-            messageButton.GetComponent<Renderer>().material=messageColors[color3];
+            messageButton.material=messageColors[color3];
             messageButton.GetComponentInChildren<TextMesh>().text=messages[2][message3];
             yield return new WaitForSeconds(2);
         }

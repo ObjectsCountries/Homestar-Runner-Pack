@@ -1823,7 +1823,6 @@ GameObject:
   - component: {fileID: 33247447445810426}
   - component: {fileID: 136175985075941086}
   - component: {fileID: 23128476045056678}
-  - component: {fileID: 114141841691677018}
   m_Layer: 0
   m_Name: messageButton
   m_TagString: Untagged
@@ -2074,25 +2073,6 @@ GameObject:
   - component: {fileID: 114043395735183142}
   m_Layer: 0
   m_Name: button (10)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1903767995518286
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4858987925175300}
-  - component: {fileID: 33902588764569612}
-  - component: {fileID: 136968989371255610}
-  - component: {fileID: 23943149260960358}
-  - component: {fileID: 114184893087528388}
-  m_Layer: 0
-  m_Name: messageButtonHL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2569,7 +2549,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1728681500045388}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: -0.03, y: 5, z: 0.01}
+  m_LocalPosition: {x: 0, y: 5, z: 0.01}
   m_LocalScale: {x: 0.02, y: 0.075, z: 1}
   m_Children: []
   m_Father: {fileID: 4782155436926558}
@@ -3810,7 +3790,6 @@ Transform:
   m_LocalScale: {x: 0.05, y: 0.0001, z: 0.0175}
   m_Children:
   - {fileID: 4053409256345416}
-  - {fileID: 4858987925175300}
   m_Father: {fileID: 4653476823303250}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -3950,19 +3929,6 @@ Transform:
   m_Father: {fileID: 4734203970812368}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!4 &4858987925175300
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1903767995518286}
-  m_LocalRotation: {x: 0.70710653, y: -0, z: -0, w: 0.70710707}
-  m_LocalPosition: {x: 0, y: -18, z: -0.05}
-  m_LocalScale: {x: 0.0033333334, y: 0.0033333334, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4782155436926558}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!4 &4871583188376474
 Transform:
   m_ObjectHideFlags: 1
@@ -7984,40 +7950,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23943149260960358
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1903767995518286}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: 5f9a3d1f2de088c41abe352e0c799f21, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!23 &23950503246497952
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -8671,13 +8603,6 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1492780355485278}
-  m_Mesh: {fileID: 4300000, guid: b2f4b73aa01cec14292aff4a10da2ab5, type: 3}
---- !u!33 &33902588764569612
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1903767995518286}
   m_Mesh: {fileID: 4300000, guid: b2f4b73aa01cec14292aff4a10da2ab5, type: 3}
 --- !u!33 &33911188641048184
 MeshFilter:
@@ -10107,28 +10032,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - GUI/KT 3D Text Diffuse
---- !u!114 &114141841691677018
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777303308881566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Parent: {fileID: 114702295075376614}
-  Children: []
-  IsPassThrough: 0
-  ChildRowLength: 0
-  Highlight: {fileID: 114184893087528388}
-  SelectableColliders: []
-  DefaultSelectableIndex: 0
-  AllowSelectionWrapX: 0
-  AllowSelectionWrapY: 0
-  ForceSelectionHighlight: 0
-  ForceInteractionHighlight: 0
 --- !u!114 &114146081185854992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10268,19 +10171,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Transparent/Mobile Diffuse Underlay200
---- !u!114 &114184893087528388
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1903767995518286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HighlightScale: {x: 1, y: 1, z: 1}
-  OutlineAmount: 0.01
 --- !u!114 &114186018113501206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11697,7 +11587,7 @@ MonoBehaviour:
   - {fileID: 114790818491914962}
   - {fileID: 114786339669521148}
   - {fileID: 114956382802931834}
-  messageButton: {fileID: 114141841691677018}
+  messageButton: {fileID: 23128476045056678}
   messageColors:
   - {fileID: 2100000, guid: 2fda8c1336de340188c572b1ea61c7a7, type: 2}
   - {fileID: 2100000, guid: 3414e191091ed48a686944872054dfdc, type: 2}
@@ -12504,6 +12394,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Parent: {fileID: 0}
   Children:
+  - {fileID: 114002224244648476}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 114582199280070614}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 114772834351115626}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 114790818491914962}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 114786339669521148}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 114956382802931834}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 114146331620641566}
   - {fileID: 114341675123817212}
   - {fileID: 114906727562162792}
@@ -12514,6 +12464,7 @@ MonoBehaviour:
   - {fileID: 114077327018921118}
   - {fileID: 114910840073835288}
   - {fileID: 114985526848887228}
+  - {fileID: 0}
   - {fileID: 114748608990049856}
   - {fileID: 114468840336294354}
   - {fileID: 114428291481164622}
@@ -12523,6 +12474,8 @@ MonoBehaviour:
   - {fileID: 114013299989187296}
   - {fileID: 114467524985998090}
   - {fileID: 114306924922342070}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 114896172557187610}
   - {fileID: 114758086167854580}
   - {fileID: 114910435605025984}
@@ -12531,15 +12484,8 @@ MonoBehaviour:
   - {fileID: 114874380375513234}
   - {fileID: 114535570777670336}
   - {fileID: 114603175164352712}
-  - {fileID: 114002224244648476}
-  - {fileID: 114582199280070614}
-  - {fileID: 114772834351115626}
-  - {fileID: 114790818491914962}
-  - {fileID: 114786339669521148}
-  - {fileID: 114956382802931834}
-  - {fileID: 114141841691677018}
   IsPassThrough: 0
-  ChildRowLength: 0
+  ChildRowLength: 10
   Highlight: {fileID: 114112707444825160}
   SelectableColliders: []
   DefaultSelectableIndex: 0
@@ -14070,19 +14016,6 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1356705048847318}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &136968989371255610
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1903767995518286}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
