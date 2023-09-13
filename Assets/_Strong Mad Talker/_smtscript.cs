@@ -118,7 +118,11 @@ public class _smtscript:ModdedModule{
             string word=buttons[Order[i]].GetComponentInChildren<TextMesh>().text;
             decoyPos=DecoyChecking(word,Order[i],i);
             if(decoyPos!=6){
-                if(decoyPos==onesylposition)return mantising(buttons[(decoyPos+1)%6].GetComponentInChildren<TextMesh>().text,word,false);
+                if(decoyPos==onesylposition){
+                    if(onesylposition%2==0)
+                        return mantising(buttons[(onesylposition+1)%6].GetComponentInChildren<TextMesh>().text,word,false);
+                    else return mantising(buttons[(onesylposition-1)%6].GetComponentInChildren<TextMesh>().text,word,false);
+                }
                 return mantising(buttons[decoyPos%6].GetComponentInChildren<TextMesh>().text,word,false);
             }
         }
