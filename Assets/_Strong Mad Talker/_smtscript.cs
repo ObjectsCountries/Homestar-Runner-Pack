@@ -62,7 +62,8 @@ public class _smtscript:ModdedModule{
         foreach(GameObject star in stars)star.SetActive(false);
         onesylposition=UnityEngine.Random.Range(0,6);
         PlaceWords();
-        foreach(KMSelectable button in buttons)resize(button.GetComponentInChildren<TextMesh>());
+        foreach(KMSelectable button in buttons)
+            button.GetComponentInChildren<TextMesh>().fontSize=resize(button.GetComponentInChildren<TextMesh>().text);
         TheDecoy=Decoy(OrderCheck(onesylword));
         Log("{0} is the decoy.",TheDecoy);
         if(TheDecoy=="MANTIS")pressingOrder(mantis);
@@ -209,10 +210,32 @@ public class _smtscript:ModdedModule{
         else Log(message+"incorrect.");
         wrong();
     }
-    void resize(TextMesh word){
-        //i used something quite similar to this for a school project of mine
-        List<int>fontSizes=new List<int>{16,28,26,20,26,28,20,28,20,24,26,28};
-        if(multisylwords.Contains(word.text))word.fontSize=fontSizes[multisylwords.IndexOf(word.text)];
+    int resize(string word){
+        switch(word){
+            case "MOTORCYCLES":
+            case "SWEETYCAKES":
+                return 16;
+            case "BATTLESHIP":
+            case "CASSEROLE":
+            case "GARBLEDINA":
+            case "PROXIMITY":
+            case "TRAINWRECK":
+                return 20;
+            case "DELOUISE":
+            case "WORKING":
+                return 24;
+            case "AROUND":
+            case "DOUGLAS":
+            case "MANTIS":
+                return 26;
+            case "CHEDDAR":
+            case "DIAPER":
+            case "HORSES":
+            case "MOVIE":
+                return 28;
+            default:
+                return 30;
+        }
     }
     void wrong(){
         Strike("STRIKE!");
