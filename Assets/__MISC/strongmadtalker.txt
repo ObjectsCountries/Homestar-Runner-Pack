@@ -63,7 +63,7 @@ The word checked by the condition is the decoy (Note: only when the condition ch
 The last word checked is the decoy. If this is the first word to be checked and the condition applies, this word is the decoy.
 
 Ruleseed-exclusive:
-The first word in (Reading Order/Geometric Order/Chinese Reading Order) that has (been checked/not been checked) on the (module/table) is the decoy
+The first word in (Reading Order/Geometric Order/Chinese Reading Order) on the (module/table) that has (been checked/not been checked) is the decoy
 
 Orders:
 
