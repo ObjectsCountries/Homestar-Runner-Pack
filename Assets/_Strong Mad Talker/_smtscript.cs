@@ -13,6 +13,9 @@ public class _smtscript:ModdedModule{
     public KMSelectable PSToggle;
     public Material[] PSColors;
     public TextMesh PSText;
+    public Renderer lipsync;
+    public Material[]mouthShapes;
+    public GameObject eyesclosed;
     internal bool playing=true;
     public List<string>onesylwords;
     private string onesylword;
@@ -28,6 +31,7 @@ public class _smtscript:ModdedModule{
     public Color[] buttonColors;
     private int decoyPos;
     internal settings SMTSettings;
+    private bool doneSpeaking=true;
 
     public sealed class settings{
         public bool SMT_LogPlayingModeInteractions=true;
@@ -64,6 +68,7 @@ public class _smtscript:ModdedModule{
         SMTSettings=new Config<settings>("strongmadtalker-settings.json").Read();
         foreach(GameObject star in stars)
             star.SetActive(false);
+        StartCoroutine(blink());
         onesylposition=UnityEngine.Random.Range(0,6);
         PlaceWords();
         foreach(KMSelectable button in buttons)
@@ -219,10 +224,9 @@ public class _smtscript:ModdedModule{
     }
 
     internal void Press(KMSelectable button){
-        Play(Sound.BigButtonPress);
-        Play(new Sound(button.GetComponentInChildren<TextMesh>().text));
-        button.AddInteractionPunch();
+        Shake(button,1,Sound.BigButtonPress);
         string word=button.GetComponentInChildren<TextMesh>().text;
+        StartCoroutine(mouthAnimation(word));
         string message="Pressed "+word;
         if(Status.IsSolved||playing){
             if(SMTSettings.SMT_LogPlayingModeInteractions)Log(message+" in Playing mode.");
@@ -259,7 +263,7 @@ public class _smtscript:ModdedModule{
             case "PROXIMITY":
             case "TRAINWRECK":
                 return 20;
-            case "DELOUISE":
+            case "DELUISE":
             case "WORKING":
                 return 24;
             case "AROUND":
@@ -339,5 +343,197 @@ public class _smtscript:ModdedModule{
             wordlist=templist;
         }
         Log("Correct order: {0}",string.Join(", ",wordlist.ToArray()));
+    }
+
+    IEnumerator blink(){
+        while(true){
+            yield return new WaitForSeconds(4.9f);
+            eyesclosed.SetActive(true);
+            yield return new WaitUntil(()=>doneSpeaking);
+            yield return new WaitForSeconds(.1f);
+            eyesclosed.SetActive(false);
+        }
+    }
+
+    IEnumerator mouthAnimation(string word){
+        doneSpeaking=false;
+        Play(new Sound(word));
+        eyesclosed.SetActive(true);
+        switch(word){
+            case "AROUND":
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.2f);
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.9f);
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[0];
+                break;
+            case "BATTLESHIP":
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.3f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(.2f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.8f);
+                lipsync.material=mouthShapes[0];
+                break;
+            case "CASSEROLE":
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.3f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.3f);
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(1.5f);
+                lipsync.material=mouthShapes[0];
+                break;
+            case "CAKE":
+            case "CHARM":
+            case "NIGHT":
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(1);
+                lipsync.material=mouthShapes[0];
+                break;
+            case "CHEDDAR":
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.35f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.5f);
+                lipsync.material=mouthShapes[0];
+                break;
+            case "DELUISE":
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.5f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(.2f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(2);
+                lipsync.material=mouthShapes[0];
+                break;
+            case "DIAPER":
+            case "MANTIS":
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.5f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.85f);
+                lipsync.material=mouthShapes[0];
+                break;
+            case "DOUGLAS":
+            case "HORSES":
+            case "MOVIE":
+            case "WORKING":
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(.4f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(1);
+                lipsync.material=mouthShapes[0];
+                break;
+            case "GARBLEDINA":
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.3f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(.2f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.3f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.8f);
+                lipsync.material=mouthShapes[0];
+                break;
+            case "JUICE":
+            case "PULSE":
+            case "CURLS":
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(1);
+                lipsync.material=mouthShapes[0];
+                break;
+            case "MOTORCYCLES":
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(.2f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(.2f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.2f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(.8f);
+                lipsync.material=mouthShapes[0];
+                break;
+            case "PROXIMITY":
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(.4f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.1f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.1f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.1f);
+                lipsync.material=mouthShapes[0];
+                break;
+            case "SWEETYCAKES":
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(.2f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.2f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.1f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.8f);
+                lipsync.material=mouthShapes[0];
+                break;
+            case "TRAINWRECK":
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.3f);
+                lipsync.material=mouthShapes[0];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[2];
+                yield return new WaitForSeconds(1/12f);
+                lipsync.material=mouthShapes[1];
+                yield return new WaitForSeconds(.6f);
+                lipsync.material=mouthShapes[0];
+                break;
+            default:
+                break;
+        }
+        eyesclosed.SetActive(false);
+        doneSpeaking=true;
     }
 }
