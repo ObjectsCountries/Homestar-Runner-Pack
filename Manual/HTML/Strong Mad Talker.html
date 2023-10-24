@@ -8,6 +8,181 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/font.css">
     <script src="js/ktane-utils.js"></script>
+    <script src="js/ruleseed.js"></script>
+	<script>
+		function setDefaultRules(rnd)
+		{
+			setRules(rnd);
+		}
+
+		function setRules(rnd)
+		{
+			let singleSylWordThs = Array.from(document.querySelectorAll('.single-syl-word'));
+			let singleSylWord = rnd.seed === 1
+				? [ 'JUICE', 'PULSE', 'CAKE', 'CHARM' ]
+				: rnd.shuffleFisherYates([ 'JUICE', 'PULSE', 'CAKE', 'CHARM', 'NIGHT', 'CURLS' ]);
+
+			let checkOrderTds = Array.from(document.querySelectorAll('.check-order'))
+				.map(table => table.querySelectorAll('td'));
+			let checkOrders = rnd.seed === 1
+				? [
+					[ 1, 2, 3, 4, 5, 6 ],
+					[ 1, 4, 2, 5, 3, 6 ],
+					[ 3, 4, 5, 2, 1, 6 ],
+					[ 3, 4, 2, 1, 6, 5 ]
+				]
+				: Array(4).fill(null).map(_ =>
+					rnd.shuffleFisherYates(Array(6).fill(null).map((_, c) => c + 1))
+				);
+			for (let i = 0; i < 4; i++)
+			{
+				singleSylWordThs[i].innerText = singleSylWord[i];
+				for (let j = 0; j < 6; j++)
+					checkOrderTds[i][j].innerText = checkOrders[i][j];
+			}
+
+			let table2 = document.querySelector('.table-2');
+			let table3 = document.querySelector('.table-3');
+			let wordsInTable2 = table2.querySelectorAll('strong');
+			let wordsInTable3 = table3.querySelectorAll('strong');
+			let conditionDivs = table2.querySelectorAll('div');
+			let orderDivs = table3.querySelectorAll('div');
+
+			let multiSylWords = rnd.seed === 1
+				? [ 'SWEETYCAKES', 'PROXIMITY', 'CHEDDAR', 'MOVIE', 'DOUGLAS', 'CASSEROLE', 'GARBLEDINA', 'WORKING', 'MANTIS', 'AROUND', 'DIAPER', 'HORSES' ]
+				: rnd.shuffleFisherYates([ 'SWEETYCAKES', 'CHEDDAR', 'DOUGLAS', 'GARBLEDINA', 'MANTIS', 'DIAPER', 'PROXIMITY', 'MOVIE', 'HORSES', 'WORKING', 'CASSEROLE', 'AROUND', 'DELUISE', 'BATTLESHIP', 'MOTORCYCLES', 'TRAINWRECK' ])
+
+			let allWords = rnd.shuffleFisherYates([...singleSylWord, ...multiSylWords]);
+
+			function pickWordSelectors(rnd, can1Syl, canThis)
+			{
+				let selectors = [
+					`the ${['top left', 'top right', 'middle left', 'middle right', 'bottom left', 'bottom right'][rnd.next(0, 6)]} word`,
+					`the word ${['to the left of', 'to the right of', 'above', 'below'][rnd.next(0, 4)]} this word (looping around)`,
+					`word ${rnd.next(1, 7)} in the checking sequence`
+				];
+				if (can1Syl)
+					selectors.push('the one-syllable word');
+				if (canThis)
+					selectors.push('this word');
+				return rnd.shuffleFisherYates(selectors);
+			}
+
+			function decideWordsForContainsRule(rnd)
+			{
+				let contains = rnd.next(0, 2);
+				let mode = rnd.next(0, 3);
+				let numWords = rnd.next(3, 6);
+				switch (mode)
+				{
+					case 0: // a specific word
+						return `the module ${['contains', 'does not contain'][contains]} the word “${allWords[0]}”`;
+
+					case 1: // any of a group of words
+						return `the module ${['contains any of', 'is missing any of'][contains]} ${allWords.slice(0, numWords - 1).map(w => `“${w}”`).join(', ')} or “${allWords[numWords-1]}”`;
+
+					case 2: // all of a group of words
+						let newMultiSylWords = rnd.shuffleFisherYates(multiSylWords.slice(0));
+						return `the module ${['contains all of', 'does not contain any of'][contains]} ${newMultiSylWords.slice(0, numWords - 1).map(w => `“${w}”`).join(', ')} and “${newMultiSylWords[numWords-1]}”`;
+				}
+			}
+
+			function orStr(numbers)
+			{
+				return
+					numbers.length === 1 ? numbers[0] :
+					`${numbers.slice(0, numbers.length-1).join(', ')} or ${numbers[numbers.length-1]}`;
+			}
+
+			let booleanConditions = rnd.shuffleFisherYates([
+				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is ${['orthogonally', 'diagonally', 'orthogonally or diagonally'][rnd.next(0, 3)]} adjacent to ${w[1]} ${['looping around', 'not looping around'][rnd.next(0, 2)]}`; },
+				rnd => decideWordsForContainsRule(rnd),
+				rnd => { let w = pickWordSelectors(rnd, true, true); return `the serial number shares any letters with ${w[0]}`; },
+				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is ${['longer than', 'shorter than', 'the same length as'][rnd.next(0, 3)]} ${w[1]}`; },
+				rnd => { let w = pickWordSelectors(rnd, false, false); return `${w[0]} has (already/not yet) been checked`; },
+				rnd => { let w = pickWordSelectors(rnd, false, true); return `${w[0]} ${['is', 'is not'][rnd.next(0, 2)]} the decoy regardless of conditions`; },
+				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is in the ${['left column', 'right column', 'upper half', 'lower half'][rnd.next(0, 4)]} of this table`; },
+				rnd => { let w = pickWordSelectors(rnd, true, true); return `${[w[0], 'any word on the module'][rnd.next(0, 2)]} is ${['at least 10 letters long', 'exactly 8 letters long', 'at most 6 letters long'][rnd.next(0, 3)]}`; },
+				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is word ${orStr(rnd.shuffleFisherYates(Array(6).fill(null).map((_, c) => c+1)).slice(0, rnd.next(1, 4)))} in the checking sequence`; },
+				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is in the ${['left column', 'right column', 'top row', 'middle row', 'bottom row'][rnd.next(0, 5)]} of the module`; },
+				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} comes ${['before', 'after'][rnd.next(0, 2)]} ${w[1]} in alphabetical order`; },
+				rnd => `there are at least 2 lit indicators`
+			]);
+
+			function pickDeclaration(rnd)
+			{
+				switch (rnd.next(0, 4))
+				{
+					case 0:
+						return pickWordSelectors(rnd, false, true)[0];
+					case 1:
+						let edgeworkNumbers = [
+							'sum of the serial number’s digits',
+							'number of lit indicators'
+						];
+						let edgeworkNumber = edgeworkNumbers[rnd.next(0, edgeworkNumbers.length)];
+						return `the word in position (${edgeworkNumber}, modulo 6) + 1 of the checking order`;
+					case 2:
+						return `the previous word checked (or, if this is the first word being checked and the condition applies, this word)`;
+					case 3:
+						return `the first word in ${['reading order', 'geometric order', 'Chinese reading order'][rnd.next(0, 3)]} on the ${['module', 'table'][rnd.next(0, 2)]} that has ${['been checked', 'not been checked'][rnd.next(0, 2)]}`;
+				}
+			}
+
+			function pickOrder(rnd)
+			{
+				switch (rnd.next(0, 5))
+				{
+					case 0:
+						return `Use ${[
+							'reading order',
+							'geometric order',
+							'Chinese reading order',
+							'reverse reading order',
+							'reverse geometric order',
+							'reverse Chinese reading order'
+						][rnd.next(0, 6)]} ${['on the module', 'in the table'][rnd.next(0, 2)]}.`;
+
+					case 1:
+						return `Use ${['alphabetical order', 'reverse alphabetical order'][rnd.next(0, 2)]}.`;
+
+					case 2:
+						return `Order by ${['increasing', 'decreasing'][rnd.next(0, 2)]} word length (for ties, use alphabetical ordering).`;
+
+					case 3:
+						let rearrangement = rnd.shuffleFisherYates(Array(4).fill(null).map((_, c) => c + 1)).join(', ');
+						return `Order by ${['increasing', 'decreasing'][rnd.next(0, 2)]} word length (for ties, use alphabetical ordering), then rearrange the resulting sequence in the order of ${rearrangement}.`;
+
+					case 4:
+						let r = rnd.shuffleFisherYates(Array(6).fill(null).map((_, c) => c + 1));
+						return `<table><tr><td>${r[0]}<${''}/td><td>${r[1]}<${''}/td><${''}/tr><tr><td>${r[2]}<${''}/td><td>${r[3]}<${''}/td><${''}/tr><tr><td>${r[4]}<${''}/td><td>${r[5]}<${''}/td><${''}/tr><${''}/table>`;
+
+					// case 5:
+					// 	return `Use the order from the word that determined the decoy. If none of the conditions were true, or the word declared itself the decoy, use normal reading order.`;
+				}
+			}
+
+			for (let i = 0; i < 12; i++)
+			{
+				wordsInTable2[i].innerText = multiSylWords[i];
+				wordsInTable3[i].innerText = multiSylWords[i];
+				conditionDivs[i].innerText = `If ${booleanConditions[i](rnd)}, ${pickDeclaration(rnd)} is the decoy.`;
+				orderDivs[i].innerHTML = pickOrder(rnd);
+			}
+		}
+	</script>
+	<style>
+		.table-1 {
+			margin: .5em auto;
+			text-align: center;
+		}
+		.table-2 {
+			font-size: 11pt;
+		}
+		.table-2 div, .table-3 div {
+			margin: .5em 0;
+		}
+	</style>
   </head>
   <body>
     <div class="section">
@@ -23,38 +198,44 @@
           <p>This module will appear with six words, a Playing/Solving toggle and Strong Mad in the center. When in Playing mode, all buttons are free to be pressed without consequence. When in Solving mode, they must be pressed in a specific order that includes only four of the six buttons. A star will appear along the bottom of the module for each correct word, being cleared if an incorrect word is pressed or the module is changed to Playing mode.</p>
           <p>One of the words will have only one syllable, and another will be a decoy excluded from the correct sequence. The decoy serves to determine the order in which the other four words should be pressed. The word with one syllable determines the order in which to check each word, given by Table 1. Use Table 2 to check the condition for the word in the position labeled 1, then in the position labeled 2, and continue until a true condition is reached that declares the decoy. Skip over the one-syllable word during this process. If the word declared as the decoy is the one-syllable word, or if none of the conditions are true, the decoy is the word horizontally adjacent to the one-syllable word. Once the decoy has been found, use its corresponding entry in Table 3 to determine the order to press the remaining words.</p>
           <h3>Table 1</h3>
-          <table style="margin-left:auto;margin-right:auto;text-align:center"><tbody>
+          <table class='table-1'>
+		    <tr>
+              <th class='single-syl-word'>JUICE</th>
+              <th class='single-syl-word'>PULSE</th>
+              <th class='single-syl-word'>CAKE</th>
+              <th class='single-syl-word'>CHARM</th>
+			</tr>
             <tr>
-              <td><b>JUICE</b>
-                <table><tbody>
+			  <td>
+                <table class='check-order'>
                   <tr><td>1</td><td>2</td></tr>
                   <tr><td>3</td><td>4</td></tr>
                   <tr><td>5</td><td>6</td></tr>
-                </tbody></table>
+                </table>
               </td>
-              <td><b>PULSE</b>
-                <table><tbody>
+			  <td>
+                <table class='check-order'>
                   <tr><td>1</td><td>4</td></tr>
                   <tr><td>2</td><td>5</td></tr>
                   <tr><td>3</td><td>6</td></tr>
-                </tbody></table>
+                </table>
               </td>
-              <td><b>CAKE</b>
-                <table><tbody>
+			  <td>
+                <table class='check-order'>
                   <tr><td>3</td><td>4</td></tr>
                   <tr><td>5</td><td>2</td></tr>
                   <tr><td>1</td><td>6</td></tr>
-                </tbody></table>
+                </table>
               </td>
-              <td><b>CHARM</b>
-                <table><tbody>
+			  <td>
+                <table class='check-order'>
                   <tr><td>3</td><td>4</td></tr>
                   <tr><td>2</td><td>1</td></tr>
                   <tr><td>6</td><td>5</td></tr>
-                </tbody></table>
+                </table>
               </td>
             </tr>
-          </tbody></table>
+          </table>
         </div>
         <div class="page-footer relative-footer">Page 1 of 3</div>
       </div>
@@ -65,45 +246,31 @@
         </div>
         <div class="page-content">
           <h3>Table 2</h3>
-          <table>
-          <tbody style="font-size:11.5pt">
+          <table class='table-2'>
             <tr>
-              <th>SWEETYCAKES</th>       
-              <td>If there are at least 2 lit indicators, the top right word is the decoy.</td>
-              <th>PROXIMITY</th>       
-              <td>If the one-syllable word is orthogonally adjacent to this word <i>not</i> looping around, the bottom right word is the decoy.</td>
+              <td><strong>SWEETYCAKES</strong><div>If there are at least 2 lit indicators, the top right word is the decoy.</div></td>
+              <td><strong>PROXIMITY</strong><div>If the one-syllable word is orthogonally adjacent to this word <i>not</i> looping around, the bottom right word is the decoy.</div></td>
             </tr>
             <tr>
-              <th>CHEDDAR</th>       
-              <td>If "JUICE", "CAKE", "SWEETYCAKES" or "CASSEROLE" are present, this word is the decoy.</td>
-              <th>MOVIE</th>       
-              <td>If the serial number shares any letters with the one-syllable word, the word above "MOVIE" is the decoy (looping around).</td>
+              <td><strong>CHEDDAR</strong><div>If "JUICE", "CAKE", "SWEETYCAKES" or "CASSEROLE" are present, this word is the decoy.</div></td>
+              <td><strong>MOVIE</strong><div>If the serial number shares any letters with the one-syllable word, the word above "MOVIE" is the decoy (looping around).</div></td>
             </tr>
             <tr>
-              <th>DOUGLAS</th>       
-              <td>If the top-left word is shorter than the bottom-right word, the word in position (the sum of the serial number's digits modulo 6) + 1 of the one-syllable word's checking order is the decoy.</td>
-              <th>CASSEROLE</th>       
-              <td>If the word below "CASSEROLE" on the module (looping around) has already been checked, this word is the decoy.</td>
+              <td><strong>DOUGLAS</strong><div>If the top-left word is shorter than the bottom-right word, the word in position (the sum of the serial number's digits modulo 6) + 1 of the one-syllable word's checking order is the decoy.</div></td>
+              <td><strong>CASSEROLE</strong><div>If the word below "CASSEROLE" on the module (looping around) has already been checked, this word is the decoy.</div></td>
             </tr>
             <tr>
-              <th>GARBLEDINA</th>       
-              <td>This word is the decoy.</td>
-              <th>WORKING</th>       
-              <td>If the top-left word and bottom-left word are equal in length, the middle-left word is the decoy.</td>
+              <td><strong>GARBLEDINA</strong><div>This word is the decoy.</div></td>
+              <td><strong>WORKING</strong><div>If the top-left word and bottom-left word are equal in length, the middle-left word is the decoy.</div></td>
             </tr>
             <tr>
-              <th>MANTIS</th>       
-              <td>If the word opposite this word on the module is in the left column of this table, that word is the decoy.</td>
-              <th>AROUND</th>       
-              <td>If any word on the module is at least 10 letters long, the last word checked is the decoy. If this is the first word to be checked and the above condition applies, this word is the decoy.</td>
+              <td><strong>MANTIS</strong><div>If the word opposite this word on the module is in the left column of this table, that word is the decoy.</div></td>
+              <td><strong>AROUND</strong><div>If any word on the module is at least 10 letters long, the last word checked is the decoy. If this is the first word to be checked and the above condition applies, this word is the decoy.</div></td>
             </tr>
             <tr>
-              <th>DIAPER</th>       
-              <td>If this is word 3, 4 or 5, the middle-left word is the decoy.</td>
-              <th>HORSES</th>       
-              <td>If the one-syllable word is in the left column of the module, word 4 is the decoy.</td>
+              <td><strong>DIAPER</strong><div>If this is word 3, 4 or 5, the middle-left word is the decoy.</div></td>
+              <td><strong>HORSES</strong><div>If the one-syllable word is in the left column of the module, word 4 is the decoy.</div></td>
             </tr>
-          </tbody>
           </table>
         </div>
         <div class="page-footer relative-footer">Page 2 of 3</div>
@@ -115,53 +282,39 @@
         </div>
         <div class="page-content">
           <h3>Table 3</h3>
-          <table>
-            <tbody>
+          <table class='table-3'>
               <tr>
-                <th>SWEETYCAKES</th>       
-                <td>Reading Order (left to right, top to bottom) <u>On Module</u></td>
-                <th>PROXIMITY</th>       
-                <td>Alphabetical Order</td>
+                <td><strong>SWEETYCAKES</strong><div>Reading Order (left to right, top to bottom) <u>on module</u></div></td>
+                <td><strong>PROXIMITY</strong><div>Alphabetical Order</div></td>
               </tr>
               <tr>
-                <th>CHEDDAR</th>       
-                <td>Increasing Word Length (for ties, use alphabetical order)</td>
-                <th>MOVIE</th>
-                <td>Clockwise On Module Starting from Decoy</td>
+                <td><strong>CHEDDAR</strong><div>Increasing Word Length (for ties, use alphabetical order)</div></td>
+                <td><strong>MOVIE</strong><div>Clockwise on module starting from Decoy</div></td>
               </tr>
               <tr>
-                <th>DOUGLAS</th>
-                <td><p>Chinese Reading Order (top to bottom, right to left) <u>On Table</u></p></td>
-                <th>CASSEROLE</th>
-                <td>Use the order determined by the one-syllable word.</td>
+                <td><strong>DOUGLAS</strong><div>Chinese Reading Order (top to bottom, right to left) <u>on table</u></div></td>
+                <td><strong>CASSEROLE</strong><div>Use the order determined by the one-syllable word.</div></td>
               </tr>
               <tr>
-                <th>GARBLEDINA</th><td>Use the order determined by the one-syllable word rearranged in the order of 2, 6, 4, 5, 3, 1.</td>
-                <th>WORKING</th>       
-                <td>Reverse Alphabetical Order</td>
+                <td><strong>GARBLEDINA</strong><div>Use the order determined by the one-syllable word rearranged in the order of 2, 6, 4, 5, 3, 1.</div></td>
+                <td><strong>WORKING</strong><div>Reverse Alphabetical Order</div></td>
               </tr>
               <tr>
-                <th>MANTIS</th>       
-                <td>
-                  <p>Use the order from the word that determined the decoy. If none of the conditions were true, press the words in reading order. <b>Note that "MANTIS" is still considered the decoy in this case.</b></td>
-                <th>AROUND</th>
-                <td><table><tbody>
+                <td><strong>MANTIS</strong><div>Use the order from the word that determined the decoy. If none of the conditions were true, press the words in reading order. <b>Note that "MANTIS" is still considered the decoy in this case.</b></div></td>
+                <td><strong>AROUND</strong><div><table>
                   <tr><td>1</td><td>2</td></tr>
                   <tr><td>6</td><td>3</td></tr>
                   <tr><td>5</td><td>4</td></tr>
-                </tbody></table></td>
+                </table></div></td>
               </tr>
               <tr>
-                <th>DIAPER</th>       
-                <td>Increasing Word Length, then rearrange the resulting sequence in the order of 2, 1, 4, 3.</td>
-                <th>HORSES</th>
-                <td><table><tbody>
+                <td><strong>DIAPER</strong><div>Increasing Word Length, then rearrange the resulting sequence in the order of 2, 1, 4, 3.</div></td>
+                <td><strong>HORSES</strong><div><table>
                   <tr><td>5</td><td>4</td></tr>
                   <tr><td>6</td><td>3</td></tr>
                   <tr><td>2</td><td>1</td></tr>
-                </tbody></table></td>
+                </table></div></td>
               </tr>
-            </tbody>
           </table>
         </div>
         <div class="page-footer relative-footer">Page 3 of 3</div>
