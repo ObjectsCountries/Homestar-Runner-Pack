@@ -160,6 +160,16 @@ public class _mpHsBg : MonoBehaviour{
                 hsHead.transform.localScale = new Vector3(.045f,.0001f,.05f);
                 bl.transform.localScale = new Vector3(.01f,1,.01f);
                 break;
+            case 18:
+                chooseShader(TXTRs.aNormal,false);
+                lines = 'n';
+                hsBody.transform.localPosition = new Vector3(.0353f,.0108f,-.01f);
+                hsHead.transform.localPosition = new Vector3(.0412f,.0106f,.0242f);
+                bl.transform.localPosition = new Vector3(.122f,1,-.024f);
+                hsBody.transform.localScale = new Vector3(0.06574735f,.0001f,0.04646398f);
+                hsHead.transform.localScale = new Vector3(1/18f,.0001f,1/18f);
+                bl.transform.localScale = new Vector3(0.2162404f, 1, 0.1833194f);
+                break;
             case 19:
                 chooseShader(TXTRs.aStory,false);
                 lines = 'b';
