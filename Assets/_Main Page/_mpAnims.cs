@@ -56,7 +56,8 @@ public class _mpAnims:MonoBehaviour{
             setup(0      , .025f ,.1575f,.1f   ,false,                   dis:true),
             setup(0      , .0235f,.16f  ,.075f ,false, .85f                      ),
             setup(0      , .0235f,.1575f,.035f ,false, .9f                       ),
-            setup(0      , .0235f,.1575f,.1f   ,false                            )
+            setup(0      , .0235f,.1575f,.1f   ,false                            ),
+            setup(-.0233f, .01f  ,.2063f,.075f ,false, .85f,xOffset:.1f          )
         };
         b.SetActive(false);
         animations = new IEnumerator[]{
@@ -78,7 +79,8 @@ public class _mpAnims:MonoBehaviour{
         aLoop(TXTRs.FR16,true),
             A(TXTRs.FR17,true),
             A(TXTRs.FR18,true),
-            A(TXTRs.FR19,false)
+            A(TXTRs.FR19,false),
+            A(TXTRs.FR20,true)
         };
         animNum = Random.Range(0, animations.Length);
         while (takenAnims.Contains(animNum)) animNum = Random.Range(0, animations.Length);
@@ -291,6 +293,110 @@ public class _mpAnims:MonoBehaviour{
         if(HSBG.HSnumber==9)HSBG.oldtimeysay.SetActive(false);
     }
 
+
+    public IEnumerator toonsSayStory(){
+        assignedSay=toonsSayStory();
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.2f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.25f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+    }
+
+    public IEnumerator gamesSayStory(){
+        assignedSay=gamesSayStory();
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.25f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.1f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.05f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.2f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+    }
+
+
+    public IEnumerator charsSayStory(){
+        assignedSay=charsSayStory();
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.25f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.1f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.05f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.05f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.05f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+    }
+
+    public IEnumerator downloadsSayStory(){
+        assignedSay=downloadsSayStory();
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.1f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.75f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+    }
+
+    public IEnumerator storeSayStory(){
+        assignedSay=storeSayStory();
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.2f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.05f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.05f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.05f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+    }
+
+    public IEnumerator emailSayStory(){
+        assignedSay=emailSayStory();
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.2f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.05f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.15f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.05f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+        yield return new WaitForSeconds(.05f);
+        HSBG.hsHead.material=HSBG.animMats[2];
+        yield return new WaitForSeconds(.5f);
+        HSBG.hsHead.material=HSBG.animMats[0];
+    }
+
     public IEnumerator Nblink(){
         HSBG.bl.SetActive(true);
         yield return new WaitForSeconds(1);
@@ -323,6 +429,9 @@ public class _mpAnims:MonoBehaviour{
                 break;
             case 16:
                 sayAnims=new IEnumerator[]{toonsSayAnime(),gamesSayAnime(),charsSayAnime(),charsSayAnime(),toonsSayAnime(),toonsSayAnime()};
+                break;
+            case 19:
+                sayAnims=new IEnumerator[]{toonsSayStory(),gamesSayStory(),charsSayStory(),downloadsSayStory(),storeSayStory(),emailSayStory()};
                 break;
             default:
                 //store and e-mail use the same mouth movements as toons and downloads respectively

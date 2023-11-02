@@ -173,6 +173,12 @@ public class _mpHsBg : MonoBehaviour{
             case 19:
                 chooseShader(TXTRs.aStory,false);
                 lines = 'b';
+                hsBody.transform.localPosition = new Vector3(.04f,.0108f,-.0125f);
+                hsHead.transform.localPosition = new Vector3(.04f,.0106f,.0254f);
+                bl.transform.localPosition = new Vector3(.122f,1,-.024f);
+                hsBody.transform.localScale = new Vector3(.05f,.0001f,.04f);
+                hsHead.transform.localScale = new Vector3(1/18f,.0001f,1/18f);
+                bl.transform.localScale = new Vector3(0.2162404f, 1, 0.1833194f);
                 break;
             case 20:
                 chooseShader(TXTRs.aVector,false);
