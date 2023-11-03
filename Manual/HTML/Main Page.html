@@ -25,24 +25,26 @@
         }
         function setRules(rnd){
 			var letters=['T','G','C','D','S','E'];
-            var amounts=[0,0,0,0,0,0];
-			var spots=[];
-			for(var i=0;i<6;i++){
-				for(var j=0;j<6;j++){
-					var rowNum;
-					do{
-						rowNum=rnd.nextMax(10);
-					}while(spots.includes(rowNum));
-					spots.push(rowNum);
-					for(var k=3;k<7;k++){
-						if($(`#first-table tr:nth-child(${rowNum}) td:nth-child(${k})`).text()==""&&amounts[i]!=6){
-							$(`#first-table tr:nth-child(${rowNum}) td:nth-child(${k})`).text(letters[i]);
-                            amounts[i]++;
-							break;
-						}
-					}
-				}
-			    spots=[];
+            var columnNum;
+            var rowNum;
+			for(var i=0;i<36;i++){
+			    columnNum=0;
+			    for(var c=3;c<7;c++){//check each column for empty spots
+                    for(var r=1;r<10;r++){
+                        if($(`#first-table tr:nth-child(${r}) td:nth-child(${c})`).text()==" "){
+                            columnNum=c;
+                            break;//if it finds an epty spot, use that column
+                        }
+                        if(r==9)
+                            columnNum=0;//if it scours every spot and doesn't find a blank one, look at the next column'
+                    }
+                    if(columnNum!=0)//if a column is found, stop looking
+                        break;
+                }
+				do{
+					rowNum=rnd.nextMax(10);
+				}while($(`#first-table tr:nth-child(${rowNum}) td:nth-child(${columnNum})`).text()!=" "/*||$(`#first-table tr:nth-child(${rowNum})`).text().substring(4,8).includes(letters[i%6])*/);//commented out condition causes the loop to repeat indefinitely, i filled in the table cells with spaces so that they would be counted as part of the substring
+				$(`#first-table tr:nth-child(${rowNum}) td:nth-child(${columnNum})`).text(letters[i%6]);
 			}
         }
     </script>
@@ -73,15 +75,15 @@
             <tr><th>#</th><th>Code</th><td style="background-color:blue;color:white">B</td><td style="background-color:red;color:white">R</td><td style="background-color:green;color:white">G</td><td style="background-color:yellow;color:black">Y</td><th>#</th><th>Code</th><td style="background-color:blue;color:white">B</td><td style="background-color:red;color:white">R</td><td style="background-color:green;color:white">G</td><td style="background-color:yellow;color:black">Y</td><th>#</th><th>Code</th><td style="background-color:blue;color:white">B</td><td style="background-color:red;color:white">R</td><td style="background-color:green;color:white">G</td><td style="background-color:yellow;color:black">Y</td></tr>
             </thead>
             <tbody id="first-table">
-            <tr><th>1</th><td>SPC</td><td></td><td></td><td></td><td></td><th>10</th><td>OLD</td><td></td><td></td><td></td><td></td><th>19</th><td>SHW</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>2</th><td>ALP</td><td></td><td></td><td></td><td></td><th>11</th><td>NVA</td><td></td><td></td><td></td><td></td><th>20</th><td>STR</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>3</th><td>MBD</td><td></td><td></td><td></td><td></td><th>12</th><td>JLY</td><td></td><td></td><td></td><td></td><th>21</th><td>ASP</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>4</th><td>BWL</td><td></td><td></td><td></td><td></td><th>13</th><td>QBT</td><td></td><td></td><td></td><td></td><th>22</th><td>VRS</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>5</th><td>WFH</td><td></td><td></td><td></td><td></td><th>14</th><td>WSH</td><td></td><td></td><td></td><td></td><th>23</th><td>RVZ</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>6</th><td>ANG</td><td></td><td></td><td></td><td></td><th>15</th><td>FLS</td><td></td><td></td><td></td><td></td><th>24</th><td>BLR</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>7</th><td>RIP</td><td></td><td></td><td></td><td></td><th>16</th><td>SNW</td><td></td><td></td><td></td><td></td><th>25</th><td>BCF</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>8</th><td>SKY</td><td></td><td></td><td></td><td></td><th>17</th><td>IUP</td><td></td><td></td><td></td><td></td><th>26</th><td>XRF</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>9</th><td>ART</td><td></td><td></td><td></td><td></td><th>18</th><td>EHS</td><td></td><td></td><td></td><td></td><th>27</th><td>TRG</td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>1</th><td>SPC</td><td> </td><td> </td><td> </td><td> </td><th>10</th><td>OLD</td><td> </td><td> </td><td> </td><td> </td><th>19</th><td>SHW</td><td> </td><td> </td><td> </td><td> </td></tr>
+            <tr><th>2</th><td>ALP</td><td> </td><td> </td><td> </td><td> </td><th>11</th><td>NVA</td><td> </td><td> </td><td> </td><td> </td><th>20</th><td>STR</td><td> </td><td> </td><td> </td><td> </td></tr>
+            <tr><th>3</th><td>MBD</td><td> </td><td> </td><td> </td><td> </td><th>12</th><td>JLY</td><td> </td><td> </td><td> </td><td> </td><th>21</th><td>ASP</td><td> </td><td> </td><td> </td><td> </td></tr>
+            <tr><th>4</th><td>BWL</td><td> </td><td> </td><td> </td><td> </td><th>13</th><td>QBT</td><td> </td><td> </td><td> </td><td> </td><th>22</th><td>VRS</td><td> </td><td> </td><td> </td><td> </td></tr>
+            <tr><th>5</th><td>WFH</td><td> </td><td> </td><td> </td><td> </td><th>14</th><td>WSH</td><td> </td><td> </td><td> </td><td> </td><th>23</th><td>RVZ</td><td> </td><td> </td><td> </td><td> </td></tr>
+            <tr><th>6</th><td>ANG</td><td> </td><td> </td><td> </td><td> </td><th>15</th><td>FLS</td><td> </td><td> </td><td> </td><td> </td><th>24</th><td>BLR</td><td> </td><td> </td><td> </td><td> </td></tr>
+            <tr><th>7</th><td>RIP</td><td> </td><td> </td><td> </td><td> </td><th>16</th><td>SNW</td><td> </td><td> </td><td> </td><td> </td><th>25</th><td>BCF</td><td> </td><td> </td><td> </td><td> </td></tr>
+            <tr><th>8</th><td>SKY</td><td> </td><td> </td><td> </td><td> </td><th>17</th><td>IUP</td><td> </td><td> </td><td> </td><td> </td><th>26</th><td>XRF</td><td> </td><td> </td><td> </td><td> </td></tr>
+            <tr><th>9</th><td>ART</td><td> </td><td> </td><td> </td><td> </td><th>18</th><td>EHS</td><td> </td><td> </td><td> </td><td> </td><th>27</th><td>TRG</td><td> </td><td> </td><td> </td><td> </td></tr>
             </tbody></table>
           <p>The letters represent '<b>T</b>oons, <b>G</b>ames, <b>C</b>haracters, <b>D</b>ownloads, <b>S</b>tore, and <b>E</b>-mail. Take the buttons in the order of the bubble's colors, and convert their effects' menu numbers to their alphanumeric positions (1=A, 2=B, etc.; An effect from menu 27 is not used).</p>
         </div>
