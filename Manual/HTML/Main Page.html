@@ -24,9 +24,87 @@
             setRules(new MonoRandom());
         }
         function setRules(rnd){
+            var bubbleMessages=
+            [
+             ["play a game", "latest toon", "latest merch"],
+             ["new strong bad email", "new sbemail a-comin'", "email soon"],
+             ["new toon soon", "new cartoon!", "hey, a new toon!!"],
+             ["more biz cas fri", "biz cas fri", "new biz cas fri!"],
+             ["short shorts!", "new short shortly", "new short!"]
+            ];
+            for(var arrayIndex in bubbleMessages){
+                $(`#possible-first-messages tr:nth-child(${parseInt(arrayIndex)+1}) td:nth-child(1)`).text(bubbleMessages[arrayIndex][rnd.next(0,3)]);
+            }
+            var threeLetterCodes=
+            [
+             ["SPC","OON","AST"],
+             ["ALP","MTN","YDL"],
+             ["MBD","SND","HWI"],
+             ["BWL","STX","SPR"],
+             ["WFH","SSC","NWH"],
+             ["ANG","HVN","HRP"],
+             ["RIP","DED","GRV"],
+             ["SKY","FLL","DVE"],
+             ["ART","NTE","SKC"],
+             ["OLD","RBH","SLN"],
+             ["NVA","NWS","RPT"],
+             ["JLY","FWK","USA"],
+             ["QBT","TRO","PXL"],
+             ["WSH","SHW","TLE"],
+             ["FLS","PBC","DRW"],
+             ["SNW","SLD","DWN"],
+             ["IUP","STK","ANM"],
+             ["EHS","SCC","COW"],
+             ["SHW","PRZ","TRP"],
+             ["STR","BSC","PGE"],
+             ["ASP","VCT","GRN"],
+             ["VRS","DGR","IIB"],
+             ["RVZ","BTS","WOD"],
+             ["BLR","GLS","MPS"],
+             ["BCF","TXS","PPT"],
+             ["XRF","GOS","SPK"],
+             ["TRG","PST","QST"]
+            ];
+            for(var codeGroup in threeLetterCodes){
+                var column=6*Math.floor(codeGroup/9)+2;
+                var row=(codeGroup%9)+1;
+                var chosenCode=rnd.next(0,3);
+                $(`#first-table tr:nth-child(${row}) td:nth-child(${column})`).text(threeLetterCodes[codeGroup][chosenCode]);
+            }
             firstTableLetters(3,rnd);
             firstTableLetters(9,rnd);
             firstTableLetters(15,rnd);
+            var colors=["blue","red","green","yellow"];
+            var conditions=["C1 is","C1 is not","C1 or C2 are","neither C1 nor C2 are"];
+            var conditionOpposites=["it isn't","it is","neither are","either is"];
+            var C1=rnd.next(0,4);
+            var C2;
+            do{
+                C2=rnd.next(0,4);
+            }while(C2===C1);
+            var cond=rnd.next(0,4);
+            var condText=conditions[cond];
+            condText=condText.replace("C1",colors[C1]);
+            if(cond>1)
+                condText=condText.replace("C2",colors[C2]);
+            $("#colorCondition").text(condText);
+            $("#colorConditionOpposite").text(conditionOpposites[cond]);
+            var turnConds=["Homestar has the default voice lines","Homestar does not have the default voice lines","any of the buttons' effects are from the same main page as Homestar","any of the buttons' effects are from the same main page as the background"];
+            var turnTypes=["reverse the entire string","swap the 1st letter with the 17th, the second with the 18th, the 3rd with the 15th, the 4th with the 16th, etc","swap the first half with the second half"];
+            var turnCondition=rnd.next(0,4);
+            var type1=rnd.next(0,3);
+            var type2;
+            do{
+                type2=rnd.next(0,3);
+            }while(type2===type1);
+            $("#turnCond").text(turnConds[turnCondition]);
+            $("#firstTurnType").text(turnTypes[type1]);
+            $("#secondTurnType").text(turnTypes[type2]);
+            var HSorBG=rnd.next(0,2);
+            if(HSorBG===1)
+                $("#HSorBG").text("Homestar");
+            else
+                $("#HSorBG").text("the background");
         }
         function firstTableLetters(firstColumn,rnd){
             var letters=['T','G','C','D','S','E'];
@@ -72,28 +150,31 @@
           <p class="flavour-text">homestarrunner.net: "It's dot com!"</p>
           <p>On this module will appear a Homestar Runner main page. However, Homestar, the background and the button effects will come from various different main pages (see appendix FHQWHG4D5 for reference and description).</p>
           <p>In the top right corner, there will be a bubble cycling through 3 messages and changing color.</p>
-          <table style="text-align:center;float:left;margin-top:0px;margin-right:20px;margin-bottom:20px"><tbody>
+          <table style="text-align:center;float:left;margin-top:0px;margin-right:20px;margin-bottom:20px">
+          <thead>
             <tr><th>POSSIBLE FIRST MESSAGES</th></tr>
-            <tr><td>play a game</td></tr>
-            <tr><td>new strong bad email</td></tr>
-            <tr><td>new toon soon</td></tr>
-            <tr><td>more biz cas fri</td></tr>
-            <tr><td>short shorts!</td></tr>
+          </thead>
+            <tbody id="possible-first-messages">
+                <tr><td></td></tr>
+                <tr><td></td></tr>
+                <tr><td></td></tr>
+                <tr><td></td></tr>
+                <tr><td></td></tr>
             </tbody></table>
           <p>One of the bubbles will have one of these messages. Consider that bubble the first of the cycle. Take the color of each bubble as the column of the below table, and the menu number of the background as the row to get three menu buttons.</p>
           <table style="text-align:center"><thead>
             <tr><th>#</th><th>Code</th><td style="background-color:blue;color:white">B</td><td style="background-color:red;color:white">R</td><td style="background-color:green;color:white">G</td><td style="background-color:yellow;color:black">Y</td><th>#</th><th>Code</th><td style="background-color:blue;color:white">B</td><td style="background-color:red;color:white">R</td><td style="background-color:green;color:white">G</td><td style="background-color:yellow;color:black">Y</td><th>#</th><th>Code</th><td style="background-color:blue;color:white">B</td><td style="background-color:red;color:white">R</td><td style="background-color:green;color:white">G</td><td style="background-color:yellow;color:black">Y</td></tr>
             </thead>
             <tbody id="first-table">
-            <tr><th>1</th><td>SPC</td><td></td><td></td><td></td><td></td><th>10</th><td>OLD</td><td></td><td></td><td></td><td></td><th>19</th><td>SHW</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>2</th><td>ALP</td><td></td><td></td><td></td><td></td><th>11</th><td>NVA</td><td></td><td></td><td></td><td></td><th>20</th><td>STR</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>3</th><td>MBD</td><td></td><td></td><td></td><td></td><th>12</th><td>JLY</td><td></td><td></td><td></td><td></td><th>21</th><td>ASP</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>4</th><td>BWL</td><td></td><td></td><td></td><td></td><th>13</th><td>QBT</td><td></td><td></td><td></td><td></td><th>22</th><td>VRS</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>5</th><td>WFH</td><td></td><td></td><td></td><td></td><th>14</th><td>WSH</td><td></td><td></td><td></td><td></td><th>23</th><td>RVZ</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>6</th><td>ANG</td><td></td><td></td><td></td><td></td><th>15</th><td>FLS</td><td></td><td></td><td></td><td></td><th>24</th><td>BLR</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>7</th><td>RIP</td><td></td><td></td><td></td><td></td><th>16</th><td>SNW</td><td></td><td></td><td></td><td></td><th>25</th><td>BCF</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>8</th><td>SKY</td><td></td><td></td><td></td><td></td><th>17</th><td>IUP</td><td></td><td></td><td></td><td></td><th>26</th><td>XRF</td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>9</th><td>ART</td><td></td><td></td><td></td><td></td><th>18</th><td>EHS</td><td></td><td></td><td></td><td></td><th>27</th><td>TRG</td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>1</th><td></td><td></td><td></td><td></td><td></td><th>10</th><td></td><td></td><td></td><td></td><td></td><th>19</th><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>2</th><td></td><td></td><td></td><td></td><td></td><th>11</th><td></td><td></td><td></td><td></td><td></td><th>20</th><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>3</th><td></td><td></td><td></td><td></td><td></td><th>12</th><td></td><td></td><td></td><td></td><td></td><th>21</th><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>4</th><td></td><td></td><td></td><td></td><td></td><th>13</th><td></td><td></td><td></td><td></td><td></td><th>22</th><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>5</th><td></td><td></td><td></td><td></td><td></td><th>14</th><td></td><td></td><td></td><td></td><td></td><th>23</th><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>6</th><td></td><td></td><td></td><td></td><td></td><th>15</th><td></td><td></td><td></td><td></td><td></td><th>24</th><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>7</th><td></td><td></td><td></td><td></td><td></td><th>16</th><td></td><td></td><td></td><td></td><td></td><th>25</th><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>8</th><td></td><td></td><td></td><td></td><td></td><th>17</th><td></td><td></td><td></td><td></td><td></td><th>26</th><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>9</th><td></td><td></td><td></td><td></td><td></td><th>18</th><td></td><td></td><td></td><td></td><td></td><th>27</th><td></td><td></td><td></td><td></td><td></td></tr>
             </tbody></table>
           <p>The letters represent '<b>T</b>oons, <b>G</b>ames, <b>C</b>haracters, <b>D</b>ownloads, <b>S</b>tore, and <b>E</b>-mail. Take the buttons in the order of the bubble's colors, and convert their effects' menu numbers to their alphanumeric positions (1=A, 2=B, etc.; An effect from menu 27 is not used).</p>
         </div>
@@ -108,8 +189,8 @@
           <h3>Decryption</h3>
           <p>If the serial number contains three unique letters, remove duplicates and numbers and arrange them in alphabetical order. The changes made in position in the serial number from original to alphabetical order should be replicated in the module's three-letter sequence. <b>If this condition is not met, skip this step.</b></p>
           <p>Take the effects of the 3 buttons not in the table from top to bottom, find their menus' codes, and create an 18-letter string. The first button's letters are 1, 2, and 3, the second button's letters are 4, 5, and 6, and the third button's letters are 7, 8, and 9. Take the codes of the background (10, 11, and 12) and Homestar (13, 14, and 15), then convert the number of letters in each bubble message to their alphanumeric positions (16, 17, and 18), and concatenate them all to the string. From there, arrange them in a rectangle as shown in the picture.</p>
-          <img src="img/Main Page/Connect_the_dots.png" style="float:left;margin-right:20px;margin-bottom:20px;width:30%"><p>Skew it (left if green or yellow is not in the sequence, right if both are), squish it as demonstrated in the photo, and turn it all around: reverse the entire string if Homestar does not have the default voice lines. If he does, turn it all around in pairs; swap the 1st letter with the 17th, the second with the 18th, the 3rd with the 15th, the 4th with the 16th, etc. to rearrange the letters. After doing so, go through each letter in the string. If the letter has occurred previously, replace it with the next letter in the alphabet. Replace it more than once and/or loop around if necessary to ensure each letter is unique. Insert this code in reading order into a 13x2 grid, with the remaining 8 letters in alphabetical order occupying the last 8 spots. From here, find the three letters of the message and replace them with the letters below or above them.</p>
-          <p>Finally, shift them forwards in the alphabet via a Caesar cipher using the number of Homestar's menu of origin.</p>
+          <img src="img/Main Page/Connect_the_dots.png" style="float:left;margin-right:20px;margin-bottom:20px;width:30%"><p>Skew it (left if <span id="colorCondition"></span> in the sequence, right if <span id="colorConditionOpposite"></span>), squish it as demonstrated in the photo, and turn it all around. If <span id="turnCond"></span>, <span id="firstTurnType"></span>. Otherwise, <span id="secondTurnType"></span>. After doing so, go through each letter in the string. If the letter has occurred previously, replace it with the next letter in the alphabet. Replace it more than once and/or loop around if necessary to ensure each letter is unique. Insert this code in reading order into a 13x2 grid, with the remaining 8 letters in alphabetical order occupying the last 8 spots. From here, find the three letters of the message and replace them with the letters below or above them.</p>
+          <p>Finally, shift them forwards in the alphabet via a Caesar cipher using the number of <span id="HSorBG"></span>'s menu of origin.</p>
           <p>The resulting string should match up with one of the 27 three-letter codes in the above table. Press the numbered button along the bottom that corresponds to this code to solve the module. A strike will <u>not</u> regenerate the module's elements. Upon solving, the effects will no longer play.</p>
         </div>
         <div class="page-footer relative-footer">2</div>
