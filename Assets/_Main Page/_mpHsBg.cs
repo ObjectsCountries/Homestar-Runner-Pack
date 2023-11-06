@@ -190,10 +190,6 @@ public class _mpHsBg : MonoBehaviour{
                 hsHead.transform.localScale = new Vector3(.05f,.0001f,.05f);
                 bl.transform.localScale = new Vector3(0.2162404f, 1, 0.1833194f);
                 break;
-            case 21:
-                chooseShader(TXTRs.aNormal,false);
-                lines = 'r'; //virus, homestar still has normal head
-                break;
             case 22:
                 chooseShader(TXTRs.aBack,false);
                 lines = 'n';
@@ -242,17 +238,14 @@ public class _mpHsBg : MonoBehaviour{
                 bluemat.mainTexture = TXTRs.blueButtons[2];
                 redmat.mainTexture = TXTRs.redButtons[2];
                 break;
-            case 21:
-                menumat.mainTexture = TXTRs.menus[3]; //virus
-                break;
             case 22:
-                menumat.mainTexture = TXTRs.menus[4]; //rearview
+                menumat.mainTexture = TXTRs.menus[3]; //rearview
                 if (HS == 7) hsBody.transform.localPosition = new Vector3(-1 * hsBody.transform.localPosition.x, hsBody.transform.localPosition.y, 0.0407f); //upside down
                 else hsBody.transform.localPosition = new Vector3(-1 * hsBody.transform.localPosition.x, hsBody.transform.localPosition.y, hsBody.transform.localPosition.z);
                 break;
             case 23:
             case 24:
-                menumat.mainTexture = TXTRs.menus[5]; //shiny
+                menumat.mainTexture = TXTRs.menus[4]; //shiny
                 break;
             default:
                 menumat.mainTexture = TXTRs.menus[0]; //normal

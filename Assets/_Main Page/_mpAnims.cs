@@ -58,7 +58,8 @@ public class _mpAnims:MonoBehaviour{
             setup(0      , .0235f,.1575f,.035f ,false, .9f                       ),
             setup(0      , .0235f,.1575f,.1f   ,false                            ),
             setup(-.0233f, .01f  ,.2063f,.075f ,false, .85f,xOffset:.1f          ),
-            setup( .01f  , .04f  ,.1f   ,.1f   ,false                            )
+            setup( .01f  , .04f  ,.1f   ,.1f   ,false                            ),
+            setup( .003f , .015f ,.264f ,.154f ,false                            )
         };
         b.SetActive(false);
         animations = new IEnumerator[]{
@@ -82,7 +83,8 @@ public class _mpAnims:MonoBehaviour{
             A(TXTRs.FR18,true),
             A(TXTRs.FR19,false),
             A(TXTRs.FR20,true),
-            A(TXTRs.FR21,true)
+            A(TXTRs.FR21,true),
+            A(TXTRs.FR22,true,.075f)
         };
         animNum = Random.Range(0, animations.Length);
         while (takenAnims.Contains(animNum)) animNum = Random.Range(0, animations.Length);
