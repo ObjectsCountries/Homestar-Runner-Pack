@@ -200,21 +200,35 @@ public class _mpHsBg : MonoBehaviour{
                 hsHead.transform.localScale = new Vector3(1/18f,.0001f,1/18f);
                 bl.transform.localScale = new Vector3(0.2162404f, 1, 0.1833194f);
                 break;
-            case 23:
-                chooseShader(TXTRs.aBlur,false);
-                lines = 'n';
-                break;
             case 24:
                 chooseShader(TXTRs.aPuppet,false);
-                lines = 'p';
+                lines = 'n';
+                hsBody.transform.localPosition = new Vector3(.04f,.0108f,-.0125f);
+                hsHead.transform.localPosition = new Vector3(.0441f,.0106f,.01f);
+                bl.transform.localPosition = new Vector3(.122f,1,-.024f);
+                hsBody.transform.localScale = new Vector3(.05f,.0001f,.04f);
+                hsHead.transform.localScale = new Vector3(.05f,.0001f,.085f);
+                bl.transform.localScale = new Vector3(0.2162404f, 1, 0.1833194f);
                 break;
             case 25:
                 chooseShader(TXTRs.aXforxe,false);
                 lines = 'x';
+                hsBody.transform.localPosition = new Vector3(.04f,.0108f,-.0125f);
+                hsHead.transform.localPosition = new Vector3(.04f,.0106f,.02f);
+                bl.transform.localPosition = new Vector3(.122f,1,-.024f);
+                hsBody.transform.localScale = new Vector3(.05f,.0001f,.04f);
+                hsHead.transform.localScale = new Vector3(.075f,.0001f,1/15f);
+                bl.transform.localScale = new Vector3(0.2162404f, 1, 0.1833194f);
                 break;
             case 26:
                 chooseShader(TXTRs.aTrog,false);
                 lines = 'n';
+                hsBody.transform.localPosition = new Vector3(.04f,.0108f,-.0125f);
+                hsHead.transform.localPosition = new Vector3(.04f,.0106f,.02f);
+                bl.transform.localPosition = new Vector3(.122f,1,-.165f);
+                hsBody.transform.localScale = new Vector3(.045f,.0001f,.04f);
+                hsHead.transform.localScale = new Vector3(.045f,.0001f,.045f);
+                bl.transform.localScale = new Vector3(0.2162404f, 1, 0.1833194f);
                 break;
             default:
                 chooseShader(TXTRs.aNormal,false);
@@ -258,8 +272,8 @@ public class _mpHsBg : MonoBehaviour{
             case 23:
             case 24:
                 menumat.mainTexture = TXTRs.menus[4]; //shiny
-                bluemat.mainTexture = TXTRs.blueButtons[0];
-                redmat.mainTexture = TXTRs.redButtons[0];
+                bluemat.mainTexture = TXTRs.blueButtons[3];
+                redmat.mainTexture = TXTRs.redButtons[3];
                 break;
             default:
                 menumat.mainTexture = TXTRs.menus[0]; //normal
