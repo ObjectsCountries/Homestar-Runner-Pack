@@ -193,6 +193,12 @@ public class _mpHsBg : MonoBehaviour{
             case 22:
                 chooseShader(TXTRs.aBack,false);
                 lines = 'n';
+                hsBody.transform.localPosition = new Vector3(.045f,.0108f,-.014f);
+                hsHead.transform.localPosition = new Vector3(.0412f,.0106f,.0258f);
+                bl.transform.localPosition = new Vector3(.122f,1,-.024f);
+                hsBody.transform.localScale = new Vector3(0.06322949f,.0001f, 0.03793771f);
+                hsHead.transform.localScale = new Vector3(1/18f,.0001f,1/18f);
+                bl.transform.localScale = new Vector3(0.2162404f, 1, 0.1833194f);
                 break;
             case 23:
                 chooseShader(TXTRs.aBlur,false);
@@ -240,12 +246,20 @@ public class _mpHsBg : MonoBehaviour{
                 break;
             case 22:
                 menumat.mainTexture = TXTRs.menus[3]; //rearview
-                if (HS == 7) hsBody.transform.localPosition = new Vector3(-1 * hsBody.transform.localPosition.x, hsBody.transform.localPosition.y, 0.0407f); //upside down
-                else hsBody.transform.localPosition = new Vector3(-1 * hsBody.transform.localPosition.x, hsBody.transform.localPosition.y, hsBody.transform.localPosition.z);
+                bluemat.mainTexture = TXTRs.blueButtons[0];
+                redmat.mainTexture = TXTRs.redButtons[0];
+                hsHead.transform.localScale = new Vector3(-1 * hsHead.transform.localScale.x, hsHead.transform.localScale.y, hsHead.transform.localScale.z);
+                hsBody.transform.localScale = new Vector3(-1 * hsBody.transform.localScale.x, hsBody.transform.localScale.y, hsBody.transform.localScale.z);
+                bl.transform.localScale = new Vector3(-1 * bl.transform.localScale.x, bl.transform.localScale.y, bl.transform.localScale.z);
+                hsHead.transform.localPosition = new Vector3(-1 * hsHead.transform.localPosition.x, hsHead.transform.localPosition.y, hsHead.transform.localPosition.z);
+                hsBody.transform.localPosition = new Vector3(-1 * hsBody.transform.localPosition.x, hsBody.transform.localPosition.y, hsBody.transform.localPosition.z);
+                bl.transform.localPosition = new Vector3(-1 * bl.transform.localPosition.x, bl.transform.localPosition.y, bl.transform.localPosition.z);
                 break;
             case 23:
             case 24:
                 menumat.mainTexture = TXTRs.menus[4]; //shiny
+                bluemat.mainTexture = TXTRs.blueButtons[0];
+                redmat.mainTexture = TXTRs.redButtons[0];
                 break;
             default:
                 menumat.mainTexture = TXTRs.menus[0]; //normal
@@ -260,6 +274,17 @@ public class _mpHsBg : MonoBehaviour{
         hsBody.material = hsmat;
         pagemenu.material = menumat;
         bl.GetComponent<Renderer>().material = animMats[1];
+        if(BG==22){
+            float[]buttonXpositions=new float[]{.059f,.0572f,.0537f,.0445f,.03f,.0038f};
+            for(int i=0;i<6;i++){
+                MP.menuButtons[i].transform.localPosition=new Vector3(buttonXpositions[i], MP.menuButtons[i].transform.localPosition.y, MP.menuButtons[i].transform.localPosition.z);
+            }
+        }else{
+            float[]buttonXpositions=new float[]{-.059f,-.0608f,-.0591f,-.0535f,-.0459f,-.0355f};
+            for(int i=0;i<6;i++){
+                MP.menuButtons[i].transform.localPosition=new Vector3(buttonXpositions[i], MP.menuButtons[i].transform.localPosition.y, MP.menuButtons[i].transform.localPosition.z);
+            }
+        }
         StartCoroutine(blink());
         MP.blinkstop = false;
     }
