@@ -48,6 +48,7 @@ public class _mainpagescript:ModdedModule{
     private turnCondition turnCond;
     private turnType turnIf,turnElse;
     private bool caesarHS;
+    private int correctMainPage;
     private string[,]messages=new string[,]
         {
             {"play a game", "latest toon", "latest merch"},
@@ -127,11 +128,52 @@ public class _mainpagescript:ModdedModule{
         turnIf=(turnType)t1;
         turnElse=(turnType)t2;
         caesarHS=RND.Next(2)==1;
+        correctMainPage=UnityEngine.Random.Range(0,27);
+        Log("The correct menu is menu {0}.",correctMainPage+1);
+        string code=chosenCodes[correctMainPage];
+        Log("The decrypted three-letter code is {0}.",code);
         Log("The background is from menu {0}.", (HSBG.BGnumber + 1).ToString());
         Log("Homestar is from menu {0}.", (HSBG.HSnumber + 1).ToString());
+        string alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        if(caesarHS){
+            for(int i=0;i<3;i++)
+                code+=alphabet[(alphabet.IndexOf(code[i])+HSBG.HSnumber+27)%26];
+            code=code.Substring(3);
+            Log("Code caesar-shifted according to Homestar's number: "+code);
+        }else{
+            for(int i=0;i<3;i++)
+                code+=alphabet[(alphabet.IndexOf(code[i])+HSBG.BGnumber+27)%26];
+            code=code.Substring(3);
+            Log("Code caesar-shifted according to the background's number: "+code);
+        }
+        message1=UnityEngine.Random.Range(0,5);
+        do{
+            message2=UnityEngine.Random.Range(0,15);
+        }while(chosenFirstMessages.Contains(messages[message2%5,message2/5]));
+
+        do{
+            message3=UnityEngine.Random.Range(0,15);
+        }while(messages[message3%5,message3/5]==messages[message2%5,message2/5]||chosenFirstMessages.Contains(messages[message3%5,message3/5]));
+
+        color1=UnityEngine.Random.Range(0,4);
+
+        do{
+            color2=UnityEngine.Random.Range(0,4);
+        }while(color2==color1);
+
+        do{
+            color3=UnityEngine.Random.Range(0,4);
+        }while(color3==color1||color3==color2);
+        colorNotPresent=messageColorNames[6-color1-color2-color3];
+        Log("The messages are:");
+        Log("\"{0}\" in {1}.",chosenFirstMessages[message1],messageColorNames[color1]);
+        Log("\"{0}\" in {1}.",messages[message2%5,message2/5],messageColorNames[color2]);
+        Log("\"{0}\" in {1}.",messages[message3%5,message3/5],messageColorNames[color3]);
+        StartCoroutine(coloredButtonCycle());
         foreach (KMSelectable button in menuButtons){
             button.GetComponent<Renderer>().material = HSBG.bluemat;
             _mpAnims fx = button.GetComponent<_mpAnims>();
+            fx.startup(UnityEngine.Random.Range(0,26));
             Log("The {0} button has the menu {1} animation.", buttonNames[fx.num].ToString(), (fx.animNum+1).ToString());
             button.Set(onHighlight: () => {
                 if (HSBG.HSnumber != 9 && HSBG.HSnumber != 11) Play(new Sound(HSBG.lines.ToString() + buttonLetters[fx.num].ToString()));
@@ -149,37 +191,18 @@ public class _mainpagescript:ModdedModule{
         foreach (KMSelectable button in numberButtons){
             button.Set(onInteract: () => {
                 Log("Menu {0} selected.", button.GetComponentInChildren<TextMesh>().text);
-                blinkstop = true;
-                HSBG.HSnumber=int.Parse(button.GetComponentInChildren<TextMesh>().text)-1;
-                HSBG.BGnumber=int.Parse(button.GetComponentInChildren<TextMesh>().text)-1;
-                HSBG.BgHsSetup(HSBG.HSnumber,HSBG.BGnumber);
-                foreach (KMSelectable bu in menuButtons)bu.GetComponent<_mpAnims>().sayingAnims(int.Parse(button.GetComponentInChildren<TextMesh>().text) - 1);});
+                if(int.Parse(button.GetComponentInChildren<TextMesh>().text)==correctMainPage+1){
+                    blinkstop = true;
+                    HSBG.HSnumber=int.Parse(button.GetComponentInChildren<TextMesh>().text)-1;
+                    HSBG.BGnumber=int.Parse(button.GetComponentInChildren<TextMesh>().text)-1;
+                    HSBG.BgHsSetup(HSBG.HSnumber,HSBG.BGnumber);
+                    foreach (KMSelectable bu in menuButtons)bu.GetComponent<_mpAnims>().sayingAnims(int.Parse(button.GetComponentInChildren<TextMesh>().text) - 1);
+                    Solve("Correct menu selected!");
+                }else{
+                    Strike("Strike! Correct menu was {0}",correctMainPage+1);
+                }
+            });
         }
-        message1=UnityEngine.Random.Range(0,5);
-
-        do{
-            message2=UnityEngine.Random.Range(0,5);
-        }while(message2==message1);
-
-        do{
-            message3=UnityEngine.Random.Range(0,5);
-        }while(message3==message1||message3==message2);
-
-        color1=UnityEngine.Random.Range(0,4);
-
-        do{
-            color2=UnityEngine.Random.Range(0,4);
-        }while(color2==color1);
-
-        do{
-            color3=UnityEngine.Random.Range(0,4);
-        }while(color3==color1||color3==color2);
-        colorNotPresent=messageColorNames[6-color1-color2-color3];
-        Log("The messages are:");
-        Log("\"{0}\" in {1}.",messages[message1,0],messageColorNames[color1]);
-        Log("\"{0}\" in {1}.",messages[message2,1],messageColorNames[color2]);
-        Log("\"{0}\" in {1}.",messages[message3,2],messageColorNames[color3]);
-        StartCoroutine(coloredButtonCycle());
     }
 
     private char[,] firstTableLetters(MonoRandom rnd){
@@ -236,13 +259,13 @@ public class _mainpagescript:ModdedModule{
     IEnumerator coloredButtonCycle(){
         while(true){
             messageButton.material=messageColors[color1];
-            messageButton.GetComponentInChildren<TextMesh>().text=messages[message1,0];
+            messageButton.GetComponentInChildren<TextMesh>().text=chosenFirstMessages[message1];
             yield return new WaitForSeconds(2);
             messageButton.material=messageColors[color2];
-            messageButton.GetComponentInChildren<TextMesh>().text=messages[message2,1];
+            messageButton.GetComponentInChildren<TextMesh>().text=messages[message2%5,message2/5];
             yield return new WaitForSeconds(2);
             messageButton.material=messageColors[color3];
-            messageButton.GetComponentInChildren<TextMesh>().text=messages[message3,2];
+            messageButton.GetComponentInChildren<TextMesh>().text=messages[message3%5,message3/5];
             yield return new WaitForSeconds(2);
         }
     }

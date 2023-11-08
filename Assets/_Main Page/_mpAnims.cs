@@ -32,8 +32,6 @@ public class _mpAnims:MonoBehaviour{
     ///<value>The array of configurations for positioning the animations correctly.</value>
     private static IEnumerator[]setups;
     private Texture[]FRs;
-    ///<value>A list of animations already taken by other buttons to prevent duplicate animations from being assigned.</value>
-    private static List<int>takenAnims=new List<int>(){};
 
     void Awake(){
         Audio = MP.GetComponent<KMAudio>();
@@ -94,12 +92,13 @@ public class _mpAnims:MonoBehaviour{
             A(TXTRs.FR25,true),
             A(TXTRs.FR26,true)
         };
-        animNum = Random.Range(0, animations.Length);
-        while (takenAnims.Contains(animNum)) animNum = Random.Range(0, animations.Length);
-        takenAnims.Add(animNum);
+        StartCoroutine(san());
+    }
+
+    internal void startup(int anim){
+        animNum = anim;
         assignedAnim = animations[animNum];
         StartCoroutine(setups[animNum]);
-        StartCoroutine(san());
     }
 
     ///<summary>A method that handles animation in the background.</summary>
