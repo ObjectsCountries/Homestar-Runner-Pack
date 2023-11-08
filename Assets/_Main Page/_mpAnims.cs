@@ -26,11 +26,11 @@ public class _mpAnims:MonoBehaviour{
     ///<value>The assigned Homestar lip-sync and voice line to each button.</value>
     internal IEnumerator assignedSay;
     ///<value>The array of animations for background objects.</value>
-    private static IEnumerator[]animations;
+    internal IEnumerator[]animations;
     ///<value>The array of animations for Homestar speaking.</value>
-    private static IEnumerator[]sayAnims;
+    private IEnumerator[]sayAnims;
     ///<value>The array of configurations for positioning the animations correctly.</value>
-    private static IEnumerator[]setups;
+    internal IEnumerator[]setups;
     private Texture[]FRs;
 
     void Awake(){
@@ -63,7 +63,6 @@ public class _mpAnims:MonoBehaviour{
             setup(0      , .024f ,.16f  ,.113f ,false                            ),
             setup(0      , .024f ,.16f  ,.113f ,false,2/3f ,xOffset:.2f          )
         };
-        b.SetActive(false);
         animations = new IEnumerator[]{
             A(TXTRs.FR1,true,1/12f),
             A(TXTRs.FR2,false,.1f),
@@ -92,13 +91,6 @@ public class _mpAnims:MonoBehaviour{
             A(TXTRs.FR25,true),
             A(TXTRs.FR26,true)
         };
-        StartCoroutine(san());
-    }
-
-    internal void startup(int anim){
-        animNum = anim;
-        assignedAnim = animations[animNum];
-        StartCoroutine(setups[animNum]);
     }
 
     ///<summary>A method that handles animation in the background.</summary>
@@ -443,11 +435,11 @@ public class _mpAnims:MonoBehaviour{
         HSBG.bl.SetActive(false);
     }
 
-    private IEnumerator san(){
+    internal IEnumerator san(){
         yield return new WaitUntil(() => HSBG.done);
         sayingAnims(HSBG.HSnumber);
     }
-    
+
     private IEnumerator nothing(){yield return null;}
     internal void sayingAnims(int hs){
         switch (hs){

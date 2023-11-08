@@ -19,6 +19,7 @@ public class _mainpagescript:ModdedModule{
     public _mpHsBg HSBG;
     public _mpTextures TXTRs;
     public KMRuleSeedable rs;
+    public KMBombInfo bomb;
     internal bool speaking;
     internal bool moduleSolved = false;
     internal string[] buttonNames={"Toons","Games","Characters","Downloads","Store","E-mail"};
@@ -29,14 +30,12 @@ public class _mainpagescript:ModdedModule{
     private enum colorCondition{
         COLOR_PRESENT,
         COLOR_NOT_PRESENT,
-        EITHER_COLOR_PRESENT,
-        NEITHER_COLOR_PRESENT
+        BOTH_COLORS_PRESENT,
+        EITHER_COLOR_NOT_PRESENT
     }
     private enum turnCondition{
         DEFAULT_VOICE_LINES,
-        NOT_DEFAULT_VOICE_LINES,
-        ANY_BUTTON_ORIGIN_MATCHES_HOMESTAR,
-        ANY_BUTTON_ORIGIN_MATCHES_BACKGROUND
+        NOT_DEFAULT_VOICE_LINES
     }
     private enum turnType{
         REVERSE,
@@ -49,13 +48,22 @@ public class _mainpagescript:ModdedModule{
     private turnType turnIf,turnElse;
     private bool caesarHS;
     private int correctMainPage;
+    private int[]effects=new int[6]{-1,-1,-1,-1,-1,-1};
     private string[,]messages=new string[,]
         {
             {"play a game", "latest toon", "latest merch"},
-            {"new strong bad email", "new sbemail a-comin'", "email soon"},
+            {"new strong bad email", "new sbemail a comin", "email soon"},
             {"new toon soon", "new cartoon!", "hey, a new toon!!"},
             {"more biz cas fri", "biz cas fri", "new biz cas fri!"},
             {"short shorts!", "new short shortly", "new short!"}
+        };
+    private string[,]messagesLettersOnly=new string[,]
+        {
+            {"playagame","latesttoon","latestmerch"},
+            {"newstrongbademail","newsbemailacomin","emailsoon"},
+            {"newtoonsoon","newcartoon","heyanewtoon"},
+            {"morebizcasfri","bizcasfri","newbizcasfri"},
+            {"shortshorts","newshortshortly","newshort"}
         };
     private string[,]threeLetterCodes=new string[,]
         {
@@ -88,12 +96,15 @@ public class _mainpagescript:ModdedModule{
              {"TRG","PST","QST"}
             };
     private string[]chosenFirstMessages=new string[5];
+    private string[]chosenFirstMessagesLettersOnly=new string[5];
     private string[]chosenCodes=new string[27];
     private char[,]lettersToChoose=new char[27,4];
     void Start(){
         var RND=rs.GetRNG();
         for(int i=0;i<5;i++){
-            chosenFirstMessages[i]=messages[i,RND.Next(3)];
+            int j=RND.Next(3);
+            chosenFirstMessages[i]=messages[i,j];
+            chosenFirstMessagesLettersOnly[i]=messagesLettersOnly[i,j];
         }
         for(int i=0;i<27;i++){
             chosenCodes[i]=threeLetterCodes[i,RND.Next(3)];
@@ -119,7 +130,7 @@ public class _mainpagescript:ModdedModule{
         firstColorInCond=messageColorNames[c1];
         secondColorInCond=messageColorNames[c2];
         cond=(colorCondition)RND.Next(4);
-        turnCond=(turnCondition)RND.Next(4);
+        turnCond=(turnCondition)RND.Next(2);
         int t1=RND.Next(3);
         int t2;
         do{
@@ -169,37 +180,219 @@ public class _mainpagescript:ModdedModule{
         Log("\"{0}\" in {1}.",chosenFirstMessages[message1],messageColorNames[color1]);
         Log("\"{0}\" in {1}.",messages[message2%5,message2/5],messageColorNames[color2]);
         Log("\"{0}\" in {1}.",messages[message3%5,message3/5],messageColorNames[color3]);
+        char effect1=lettersToChoose[HSBG.BGnumber,color1];
+        char effect2=lettersToChoose[HSBG.BGnumber,color2];
+        char effect3=lettersToChoose[HSBG.BGnumber,color3];
+        char[]effectsChosen=new char[]{effect1,effect2,effect3};
+        string eighteenLetterCode="";
+        foreach(KMSelectable button in menuButtons){
+            _mpAnims fx=button.GetComponent<_mpAnims>();
+            fx.animNum=UnityEngine.Random.Range(0,26);
+            if(!effectsChosen.Contains(buttonLetters[fx.num])){
+                eighteenLetterCode+=chosenCodes[fx.animNum];
+                effects[fx.num]=fx.animNum;
+            }
+        }
+        eighteenLetterCode+=chosenCodes[HSBG.BGnumber]+chosenCodes[HSBG.HSnumber]+alphabet[(chosenFirstMessagesLettersOnly[message1].Length+25)%26]+alphabet[(messagesLettersOnly[message2%5,message2/5].Length+25)%26]+alphabet[(messagesLettersOnly[message3%5,message3/5].Length+25)%26];
+        Log("The eighteen-letter code is "+eighteenLetterCode+".");
+        bool condTrue;
+        switch(cond){
+            case colorCondition.COLOR_PRESENT:
+                condTrue=color1==c1||color2==c1||color3==c1;
+                if(condTrue)
+                    Log(messageColorNames[c1]+" is present, skewing left.");
+                else
+                    Log(messageColorNames[c1]+" is not present, skewing right.");
+                break;
+            case colorCondition.COLOR_NOT_PRESENT:
+                condTrue=colorNotPresent==messageColorNames[c1];
+                if(condTrue)
+                    Log(messageColorNames[c1]+" is not present, skewing left.");
+                else
+                    Log(messageColorNames[c1]+" is present, skewing right.");
+                break;
+            case colorCondition.BOTH_COLORS_PRESENT:
+                condTrue=(color1==c1||color2==c1||color3==c1)&&(color1==c2||color2==c2||color3==c2);
+                if(condTrue)
+                    Log(messageColorNames[c1]+" and "+messageColorNames[c2]+" are both present, skewing left.");
+                else
+                    Log("Either "+messageColorNames[c1]+" or "+messageColorNames[c2]+" is not present, skewing right.");
+                break;
+            case colorCondition.EITHER_COLOR_NOT_PRESENT:
+            default:
+                condTrue=!((color1==c1||color2==c1||color3==c1)&&(color1==c2||color2==c2||color3==c2));
+                if(condTrue)
+                    Log("Either "+messageColorNames[c1]+" or "+messageColorNames[c2]+" is not present, skewing left.");
+                else
+                    Log(messageColorNames[c1]+" and "+messageColorNames[c2]+" are both present, skewing right.");
+                break;
+        }
+        if(condTrue){
+            eighteenLetterCode=""+eighteenLetterCode[0]+eighteenLetterCode[17]+eighteenLetterCode[1]+eighteenLetterCode[16]+eighteenLetterCode[2]+eighteenLetterCode[15]+eighteenLetterCode[3]+eighteenLetterCode[14]+eighteenLetterCode[4]+eighteenLetterCode[13]+eighteenLetterCode[5]+eighteenLetterCode[12]+eighteenLetterCode[6]+eighteenLetterCode[11]+eighteenLetterCode[7]+eighteenLetterCode[10]+eighteenLetterCode[8]+eighteenLetterCode[9];
+        }else{
+            eighteenLetterCode=""+eighteenLetterCode[13]+eighteenLetterCode[14]+eighteenLetterCode[12]+eighteenLetterCode[15]+eighteenLetterCode[11]+eighteenLetterCode[16]+eighteenLetterCode[10]+eighteenLetterCode[17]+eighteenLetterCode[9]+eighteenLetterCode[0]+eighteenLetterCode[8]+eighteenLetterCode[1]+eighteenLetterCode[7]+eighteenLetterCode[2]+eighteenLetterCode[6]+eighteenLetterCode[3]+eighteenLetterCode[5]+eighteenLetterCode[4];
+        }
+        Log("The rearranged 18-letter code is "+eighteenLetterCode+".");
+        bool turnTrue;
+        int[]notDefaultVoiceLines=new int[8];
+        switch(turnCond){
+            case turnCondition.DEFAULT_VOICE_LINES:
+                notDefaultVoiceLines=new int[]{9,11,12,14,16,19,20,25};
+                turnTrue=!notDefaultVoiceLines.Contains(HSBG.HSnumber);
+                if(turnTrue)
+                    Log("Homestar has the default voice lines.");
+                else
+                    Log("Homestar does not have the default voice lines.");
+                break;
+            case turnCondition.NOT_DEFAULT_VOICE_LINES:
+            default:
+                notDefaultVoiceLines=new int[]{9,11,12,14,16,19,20,25};
+                turnTrue=notDefaultVoiceLines.Contains(HSBG.HSnumber);
+                if(turnTrue)
+                    Log("Homestar does not have the default voice lines.");
+                else
+                    Log("Homestar has the default voice lines.");
+                break;
+        }
+        turnType resultingTurn=turnTrue?(turnType)t1:(turnType)t2;
+        switch(resultingTurn){
+            case turnType.REVERSE:
+                char[]tempArray=eighteenLetterCode.ToCharArray();
+                Array.Reverse(tempArray);
+                eighteenLetterCode=new string(tempArray);
+                Log("The eighteen-letter code has been reversed. It is now "+eighteenLetterCode+".");
+                break;
+            case turnType.SWAP_PAIRS:
+                eighteenLetterCode=""+eighteenLetterCode[16]+eighteenLetterCode[17]+eighteenLetterCode[14]+eighteenLetterCode[15]+eighteenLetterCode[12]+eighteenLetterCode[13]+eighteenLetterCode[10]+eighteenLetterCode[11]+eighteenLetterCode[8]+eighteenLetterCode[9]+eighteenLetterCode[6]+eighteenLetterCode[7]+eighteenLetterCode[4]+eighteenLetterCode[5]+eighteenLetterCode[2]+eighteenLetterCode[3]+eighteenLetterCode[0]+eighteenLetterCode[1];
+                Log("The eighteen-letter code has been swapped in pairs. It is now "+eighteenLetterCode+".");
+                break;
+            case turnType.SWAP_HALVES:
+                eighteenLetterCode=eighteenLetterCode.Substring(9)+eighteenLetterCode.Substring(0,9);
+                Log("The eighteen-letter code's first and second halves have been swapped. It is now "+eighteenLetterCode+".");
+                break;
+        }
+        string tempCode="";
+        foreach(char c in eighteenLetterCode){
+            int letterIndex=alphabet.IndexOf(c);
+            while(tempCode.Contains(alphabet[letterIndex])){
+                letterIndex=(letterIndex+1)%26;
+            }
+            tempCode+=alphabet[letterIndex];
+        }
+        eighteenLetterCode=tempCode;
+        Log("Making all letters unique, the eighteen-letter code is now "+eighteenLetterCode+".");
+        char[]firstRow=new char[13];
+        char[]secondRow=new char[13];
+        for(int i=0;i<13;i++)
+            firstRow[i]=eighteenLetterCode[i];
+        for(int i=13;i<18;i++)
+            secondRow[i-13]=eighteenLetterCode[i];
+        string last8letters="";
+        for(int i=0;i<26;i++){
+            if(firstRow.Contains(alphabet[i])||secondRow.Contains(alphabet[i]))
+                continue;
+            last8letters+=alphabet[i];
+        }
+        for(int i=5;i<13;i++)
+            secondRow[i]=last8letters[i-5];
+        Log("The resulting table is as follows:");
+        Log(firstRow);
+        Log(secondRow);
+        string tempEncryptedCode="";
+        foreach(char c in code){
+            if(firstRow.Contains(c))
+                tempEncryptedCode+=""+secondRow[Array.IndexOf(firstRow,c)];
+            else if(secondRow.Contains(c))
+                tempEncryptedCode+=""+firstRow[Array.IndexOf(secondRow,c)];
+        }
+        code=tempEncryptedCode;
+        Log("Using this table, the code has been encrypted to "+code+".");
+        char[]serialLetters=bomb.GetSerialNumberLetters().Distinct().ToArray();
+        char[]serialLettersAlphabetized=serialLetters.OrderBy(c=>c).ToArray();
+        string serialLettersString="";
+        foreach(char c in serialLetters)
+            serialLettersString+=""+c;
+        Log("The distinct letters in the serial number are "+serialLettersString+".");
+        if(serialLetters.Length==3){
+            Log("Because there are three distinct letters in the serial number, the code needs to be rearranged.");
+            if(serialLetters[0]==serialLettersAlphabetized[0]){
+                if(serialLetters[1]==serialLettersAlphabetized[1]){
+                    Log("The serial number's distinct letters are already in alphabetical order, so the code has not been rearranged.");
+                }else{
+                    Log("The second and third letters need to be swapped.");
+                    code=""+code[0]+code[2]+code[1];
+                }
+            }else if(serialLetters[0]==serialLettersAlphabetized[1]){
+                if(serialLetters[1]==serialLettersAlphabetized[2]){
+                    Log("The third letter should be placed at the beginning.");
+                    code=""+code[2]+code[0]+code[1];
+                }else{
+                    Log("The first and second letters need to be swapped.");
+                    code=""+code[1]+code[0]+code[2];
+                }
+            }else if(serialLetters[0]==serialLettersAlphabetized[2]){
+                if(serialLetters[2]==serialLettersAlphabetized[0]){
+                    Log("The first and third letters need to be swapped (the string should be reversed).");
+                    code=""+code[2]+code[1]+code[0];
+                }else{
+                    Log("The first letter should be placed at the end.");
+                    code=""+code[1]+code[2]+code[0];
+                }
+            }
+            Log("The code has been rearranged to "+code+".");
+        }else{
+            Log("Because there are not three distinct letters in the serial number, the code does not need to be rearranged.");
+        }
+        foreach(KMSelectable button in menuButtons){
+            _mpAnims fx=button.GetComponent<_mpAnims>();
+            if(effects[fx.num]==-1){
+                if(buttonLetters[fx.num]==effect1)
+                    fx.animNum=alphabet.IndexOf(code[0]);
+                else if(buttonLetters[fx.num]==effect2)
+                    fx.animNum=alphabet.IndexOf(code[1]);
+                else
+                    fx.animNum=alphabet.IndexOf(code[2]);
+
+            }
+        }
         StartCoroutine(coloredButtonCycle());
         foreach (KMSelectable button in menuButtons){
             button.GetComponent<Renderer>().material = HSBG.bluemat;
             _mpAnims fx = button.GetComponent<_mpAnims>();
-            fx.startup(UnityEngine.Random.Range(0,26));
+            fx.b.SetActive(false);
+            fx.assignedAnim = fx.animations[fx.animNum];
+            StartCoroutine(fx.setups[fx.animNum]);
+            StartCoroutine(fx.san());
             Log("The {0} button has the menu {1} animation.", buttonNames[fx.num].ToString(), (fx.animNum+1).ToString());
             button.Set(onHighlight: () => {
-                if (HSBG.HSnumber != 9 && HSBG.HSnumber != 11) Play(new Sound(HSBG.lines.ToString() + buttonLetters[fx.num].ToString()));
                 button.GetComponent<Renderer>().material = HSBG.redmat;
-                if (!fx.running) StartCoroutine(fx.assignedAnim);
-                StartCoroutine(fx.assignedSay);
+                if(!Status.IsSolved){
+                    if (HSBG.HSnumber != 9 && HSBG.HSnumber != 11) Play(new Sound(HSBG.lines.ToString() + buttonLetters[fx.num].ToString()));
+                    if (!fx.running) StartCoroutine(fx.assignedAnim);
+                    StartCoroutine(fx.assignedSay);
+                }
             },onHighlightEnded: () => {
                 button.GetComponent<Renderer>().material = HSBG.bluemat;
-                if (fx.disappear){
-                    fx.b.SetActive(false);
-                    fx.running = false;
+                if(!Status.IsSolved){
+                    if (fx.disappear){
+                        fx.b.SetActive(false);
+                        fx.running = false;
+                }
                 }});
         }
 
         foreach (KMSelectable button in numberButtons){
             button.Set(onInteract: () => {
-                Log("Menu {0} selected.", button.GetComponentInChildren<TextMesh>().text);
+                Log("Main page {0} selected.", button.GetComponentInChildren<TextMesh>().text);
                 if(int.Parse(button.GetComponentInChildren<TextMesh>().text)==correctMainPage+1){
                     blinkstop = true;
                     HSBG.HSnumber=int.Parse(button.GetComponentInChildren<TextMesh>().text)-1;
                     HSBG.BGnumber=int.Parse(button.GetComponentInChildren<TextMesh>().text)-1;
                     HSBG.BgHsSetup(HSBG.HSnumber,HSBG.BGnumber);
                     foreach (KMSelectable bu in menuButtons)bu.GetComponent<_mpAnims>().sayingAnims(int.Parse(button.GetComponentInChildren<TextMesh>().text) - 1);
-                    Solve("Correct menu selected!");
+                    Solve("Correct main page selected!");
                 }else{
-                    Strike("Strike! Correct menu was {0}",correctMainPage+1);
+                    Strike("Strike! Correct main page was {0}",correctMainPage+1);
                 }
             });
         }

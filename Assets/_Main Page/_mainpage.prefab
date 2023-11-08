@@ -1708,6 +1708,7 @@ GameObject:
   - component: {fileID: 4053409256345416}
   - component: {fileID: 23792198927696176}
   - component: {fileID: 102327518639259880}
+  - component: {fileID: 114251365020751640}
   m_Layer: 0
   m_Name: messageText
   m_TagString: Untagged
@@ -1824,6 +1825,7 @@ GameObject:
   - component: {fileID: 33247447445810426}
   - component: {fileID: 136175985075941086}
   - component: {fileID: 23128476045056678}
+  - component: {fileID: 114437869585810254}
   m_Layer: 0
   m_Name: messageButton
   m_TagString: Untagged
@@ -9748,8 +9750,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - KT/Transparent/Mobile Diffuse Underlay200
+  ShaderNames: []
 --- !u!114 &114043395735183142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9774,8 +9775,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - KT/Transparent/Mobile Diffuse Underlay200
+  ShaderNames: []
 --- !u!114 &114047830418876278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9822,8 +9822,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - KT/Transparent/Mobile Diffuse Underlay200
+  ShaderNames: []
 --- !u!114 &114077327018921118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10172,8 +10171,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - KT/Transparent/Mobile Diffuse Underlay200
+  ShaderNames: []
 --- !u!114 &114186018113501206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11565,8 +11563,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - KT/Transparent/Mobile Diffuse Underlay200
+  ShaderNames: []
 --- !u!114 &114241332458283446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11615,6 +11612,19 @@ MonoBehaviour:
   AllowSelectionWrapY: 0
   ForceSelectionHighlight: 0
   ForceInteractionHighlight: 0
+--- !u!114 &114251365020751640
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1728681500045388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShaderNames:
+  - GUI/KT 3D Text Diffuse
 --- !u!114 &114254715535141080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11689,8 +11699,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - KT/Transparent/Mobile Diffuse Underlay200
+  ShaderNames: []
 --- !u!114 &114277413164921034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12032,6 +12041,19 @@ MonoBehaviour:
   AllowSelectionWrapY: 0
   ForceSelectionHighlight: 0
   ForceInteractionHighlight: 0
+--- !u!114 &114437869585810254
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1777303308881566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShaderNames:
+  - KT/Transparent/Mobile Diffuse Underlay200
 --- !u!114 &114445816197079716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12088,6 +12110,7 @@ MonoBehaviour:
   HSBG: {fileID: 114487428647521780}
   TXTRs: {fileID: 114212643484987562}
   rs: {fileID: 114984513833930268}
+  bomb: {fileID: 114254715535141080}
 --- !u!114 &114465051160626084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12783,8 +12806,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - KT/Transparent/Mobile Diffuse Underlay200
+  ShaderNames: []
 --- !u!114 &114656833735887330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12834,8 +12856,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - KT/Transparent/Mobile Diffuse Underlay200
+  ShaderNames: []
 --- !u!114 &114678997009352120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13574,8 +13595,7 @@ MonoBehaviour:
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShaderNames:
-  - Standard
+  ShaderNames: []
 --- !u!114 &114933838318573990
 MonoBehaviour:
   m_ObjectHideFlags: 1

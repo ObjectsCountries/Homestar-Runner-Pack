@@ -20,7 +20,7 @@ MonoBehaviour:
     - Main Page (mainpage) ([url=https://ktane.timwi.de/HTML/Main%20Page.html]HTML[/url])
     ([url=https://ktane.timwi.de/PDF/Main%20Page.pdf]PDF[/url])
 
-    - Sbemail Songs (sbemailsongs) ([url=https://ktane.timwi.de/HTML/Sbemail%20Songs.html]HTML[/url])
+    - Boss: Sbemail Songs (sbemailsongs) ([url=https://ktane.timwi.de/HTML/Sbemail%20Songs.html]HTML[/url])
     ([url=https://ktane.timwi.de/PDF/Sbemail%20Songs.pdf]PDF[/url])
 
     - Strong Mad Talker (strongmadtalker) ([url=https://ktane.timwi.de/HTML/Strong%20Mad%20Talker.html]HTML[/url])
@@ -33,23 +33,15 @@ MonoBehaviour:
     ([url=https://ktane.timwi.de/PDF/Bronco%20Trolleys.pdf]PDF[/url])
 
 
-    All except Bronco Trolleys have TP support.
+    All except Bronco Trolleys have TP and ruleseed support.
 
     Strong Mad Talker has a TP-relevant setting that automatically resets inputs if
     the user makes a typo; this can be disabled.
 
-    None have ruleseed support yet, so feel free to help with that.
-
 
     Credits: myself, TheDarkSid3r for helping out here and there, boiaaang for Strong
-    Mad Talker''s design
-
-
-    C:\Program Files (x86)\Steam\steamapps\common\Keep Talking and Nobody Explodes\mods
-
-    /home/objectscountries/.local/share/Steam/steamapps/common/Keep Talking and Nobody
-    Explodes/mods'
+    Mad Talker''s design'
   version: 1
-  outputFolder: C:\Program Files (x86)\Steam\steamapps\common\Keep Talking and Nobody
-    Explodes\mods
+  outputFolder: /home/kasra/.local/share/Steam/steamapps/common/Keep Talking and Nobody
+    Explodes/mods
   previewImage: {fileID: 0}
