@@ -4,7 +4,7 @@
   * Credit boiaaang for color design
   * Add ruleseed support
 * Main Page: **In Progress**
-  * 21/27 main pages implemented
+  * Follow "Encryption" instructions in manual notes
 * Sbemail Songs: **Not Started**
 * Bronco Trolleys (Needy): **Finished**
   * Might get rid of parameter to change number required

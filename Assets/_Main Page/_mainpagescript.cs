@@ -18,6 +18,7 @@ public class _mainpagescript:ModdedModule{
     public Shader transparentshader;
     public _mpHsBg HSBG;
     public _mpTextures TXTRs;
+    public KMRuleSeedable rs;
     internal bool speaking;
     internal bool moduleSolved = false;
     internal string[] buttonNames={"Toons","Games","Characters","Downloads","Store","E-mail"};
@@ -25,14 +26,107 @@ public class _mainpagescript:ModdedModule{
     internal bool blinkstop = false;
     internal int message1,message2,message3,color1,color2,color3;
     string colorNotPresent;
-    ///<value>Messages to be displayed in the top-right bubble. For the purposes of solving the module, the messages in <c>messages[0]</c> are considered the "real" messages.</value>
-    ///<remarks>how do i get rid of the backslashes</remarks>
-    private string[][]messages=new string[][]
-                                {new string[]{"play a game" ,"new strong\nbad email","new toon soon"    ,"more biz cas fri","short shorts!"    },
-                                 new string[]{"latest toon" ,"new sbemail\na comin" ,"new cartoon!"     ,"biz cas fri"     ,"new short shortly"},
-                                 new string[]{"latest merch","email soon"           ,"hey, a new toon!!","new biz cas fri!","new short!"       }};
-
+    private enum colorCondition{
+        COLOR_PRESENT,
+        COLOR_NOT_PRESENT,
+        EITHER_COLOR_PRESENT,
+        NEITHER_COLOR_PRESENT
+    }
+    private enum turnCondition{
+        DEFAULT_VOICE_LINES,
+        NOT_DEFAULT_VOICE_LINES,
+        ANY_BUTTON_ORIGIN_MATCHES_HOMESTAR,
+        ANY_BUTTON_ORIGIN_MATCHES_BACKGROUND
+    }
+    private enum turnType{
+        REVERSE,
+        SWAP_PAIRS,
+        SWAP_HALVES
+    }
+    private string firstColorInCond,secondColorInCond;
+    private colorCondition cond;
+    private turnCondition turnCond;
+    private turnType turnIf,turnElse;
+    private bool caesarHS;
+    private string[,]messages=new string[,]
+        {
+            {"play a game", "latest toon", "latest merch"},
+            {"new strong bad email", "new sbemail a-comin'", "email soon"},
+            {"new toon soon", "new cartoon!", "hey, a new toon!!"},
+            {"more biz cas fri", "biz cas fri", "new biz cas fri!"},
+            {"short shorts!", "new short shortly", "new short!"}
+        };
+    private string[,]threeLetterCodes=new string[,]
+        {
+             {"SPC","OON","AST"},
+             {"ALP","MTN","YDL"},
+             {"MBD","SND","HWI"},
+             {"BWL","STX","SPR"},
+             {"WFH","SSC","NWH"},
+             {"ANG","HVN","HRP"},
+             {"RIP","DED","GRV"},
+             {"SKY","FLL","DVE"},
+             {"ART","NTE","SKC"},
+             {"OLD","RBH","SLN"},
+             {"NVA","NWS","RPT"},
+             {"JLY","FWK","USA"},
+             {"QBT","TRO","PXL"},
+             {"WSH","SHW","TLE"},
+             {"FLS","PBC","DRW"},
+             {"SNW","SLD","DWN"},
+             {"IUP","STK","ANM"},
+             {"EHS","SCC","COW"},
+             {"SHW","PRZ","TRP"},
+             {"STR","BSC","PGE"},
+             {"ASP","VCT","GRN"},
+             {"VRS","DGR","IIB"},
+             {"RVZ","BTS","WOD"},
+             {"BLR","GLS","MPS"},
+             {"BCF","TXS","PPT"},
+             {"XRF","GOS","SPK"},
+             {"TRG","PST","QST"}
+            };
+    private string[]chosenFirstMessages=new string[5];
+    private string[]chosenCodes=new string[27];
+    private char[,]lettersToChoose=new char[27,4];
     void Start(){
+        var RND=rs.GetRNG();
+        for(int i=0;i<5;i++){
+            chosenFirstMessages[i]=messages[i,RND.Next(3)];
+        }
+        for(int i=0;i<27;i++){
+            chosenCodes[i]=threeLetterCodes[i,RND.Next(3)];
+        }
+        char[,]firstSet=firstTableLetters(RND);
+        char[,]secondSet=firstTableLetters(RND);
+        char[,]thirdSet=firstTableLetters(RND);
+        for(int i=0;i<27;i++){
+            for(int j=0;j<4;j++){
+                if(i<9)
+                    lettersToChoose[i,j]=firstSet[i,j];
+                else if(i<18)
+                    lettersToChoose[i,j]=secondSet[i-9,j];
+                else
+                    lettersToChoose[i,j]=thirdSet[i-18,j];
+            }
+        }
+        int c1=RND.Next(4);
+        int c2;
+        do{
+            c2=RND.Next(4);
+        }while(c2==c1);
+        firstColorInCond=messageColorNames[c1];
+        secondColorInCond=messageColorNames[c2];
+        cond=(colorCondition)RND.Next(4);
+        turnCond=(turnCondition)RND.Next(4);
+        int t1=RND.Next(3);
+        int t2;
+        do{
+            t2=RND.Next(3);
+        }while(t2==t1);
+        turnIf=(turnType)t1;
+        turnElse=(turnType)t2;
+        caesarHS=RND.Next(2)==1;
         Log("The background is from menu {0}.", (HSBG.BGnumber + 1).ToString());
         Log("Homestar is from menu {0}.", (HSBG.HSnumber + 1).ToString());
         foreach (KMSelectable button in menuButtons){
@@ -51,7 +145,7 @@ public class _mainpagescript:ModdedModule{
                     fx.running = false;
                 }});
         }
-    
+
         foreach (KMSelectable button in numberButtons){
             button.Set(onInteract: () => {
                 Log("Menu {0} selected.", button.GetComponentInChildren<TextMesh>().text);
@@ -82,22 +176,73 @@ public class _mainpagescript:ModdedModule{
         }while(color3==color1||color3==color2);
         colorNotPresent=messageColorNames[6-color1-color2-color3];
         Log("The messages are:");
-        Log("\"{0}\" in {1}.",messages[0][message1],messageColorNames[color1]);
-        Log("\"{0}\" in {1}.",messages[1][message2],messageColorNames[color2]);
-        Log("\"{0}\" in {1}.",messages[2][message3],messageColorNames[color3]);
+        Log("\"{0}\" in {1}.",messages[message1,0],messageColorNames[color1]);
+        Log("\"{0}\" in {1}.",messages[message2,1],messageColorNames[color2]);
+        Log("\"{0}\" in {1}.",messages[message3,2],messageColorNames[color3]);
         StartCoroutine(coloredButtonCycle());
+    }
+
+    private char[,] firstTableLetters(MonoRandom rnd){
+        char[][]rows=new char[9][]{
+            new char[4]{'X','X','X','X'},
+            new char[4]{'X','X','X','X'},
+            new char[4]{'X','X','X','X'},
+            new char[4]{'X','X','X','X'},
+            new char[4]{'X','X','X','X'},
+            new char[4]{'X','X','X','X'},
+            new char[4]{'X','X','X','X'},
+            new char[4]{'X','X','X','X'},
+            new char[4]{'X','X','X','X'}
+        };
+        for(int i=0;i<6;i++){
+            int letterCount=0;
+            List<char[]>availRows=new List<char[]>();
+            foreach(char[]row in rows){
+                if(4-row.Count(s=>s!='X')==6-i){
+                    letterCount++;
+                    for(int j=0;j<4;j++){
+                        if(row[j]=='X'){
+                            row[j]=buttonLetters[i];
+                            break;
+                        }
+                    }
+                }
+                else if(row.Count(s=>s!='X')<4){
+                    availRows.Add(row);
+                }
+            }
+            while(letterCount<6){
+                char[]row=availRows[rnd.Next(availRows.Count)];
+                for(int j=0;j<4;j++){
+                    if(row[j]=='X'){
+                        row[j]=buttonLetters[i];
+                        break;
+                    }
+                }
+                letterCount++;
+                availRows.RemoveAt(availRows.IndexOf(row));
+            }
+        }
+        char[,]result=new char[9,4];
+        for(int i=0;i<rows.Length;i++){
+            rnd.ShuffleFisherYates(rows[i]);
+            for(int j=0;j<rows[i].Length;j++){
+                result[i,j]=rows[i][j];
+            }
+        }
+        return result;
     }
 
     IEnumerator coloredButtonCycle(){
         while(true){
             messageButton.material=messageColors[color1];
-            messageButton.GetComponentInChildren<TextMesh>().text=messages[0][message1];
+            messageButton.GetComponentInChildren<TextMesh>().text=messages[message1,0];
             yield return new WaitForSeconds(2);
             messageButton.material=messageColors[color2];
-            messageButton.GetComponentInChildren<TextMesh>().text=messages[1][message2];
+            messageButton.GetComponentInChildren<TextMesh>().text=messages[message2,1];
             yield return new WaitForSeconds(2);
             messageButton.material=messageColors[color3];
-            messageButton.GetComponentInChildren<TextMesh>().text=messages[2][message3];
+            messageButton.GetComponentInChildren<TextMesh>().text=messages[message3,2];
             yield return new WaitForSeconds(2);
         }
     }

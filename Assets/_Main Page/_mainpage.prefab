@@ -1650,6 +1650,7 @@ GameObject:
   - component: {fileID: 114445816197079716}
   - component: {fileID: 114212643484987562}
   - component: {fileID: 114487428647521780}
+  - component: {fileID: 114984513833930268}
   m_Layer: 0
   m_Name: _mainpage
   m_TagString: Untagged
@@ -5040,7 +5041,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 8c0bb19ea87b54394a5c62c37141d963, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6128,7 +6129,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9ea0066629fdb4c05802e62d1aeb347f, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6638,7 +6639,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3a93860bb9e844e24957664c62abc49b, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7658,7 +7659,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 62f7370ff65384b9684c44bdc3b992db, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12082,6 +12083,7 @@ MonoBehaviour:
   transparentshader: {fileID: 10751, guid: 0000000000000000f000000000000000, type: 0}
   HSBG: {fileID: 114487428647521780}
   TXTRs: {fileID: 114212643484987562}
+  rs: {fileID: 114984513833930268}
 --- !u!114 &114465051160626084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13655,6 +13657,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - GUI/KT 3D Text Diffuse
+--- !u!114 &114984513833930268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1719333481944704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf69c2de51bd3c43bbd9bc22578ee08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _seed: 1
 --- !u!114 &114985526848887228
 MonoBehaviour:
   m_ObjectHideFlags: 1
