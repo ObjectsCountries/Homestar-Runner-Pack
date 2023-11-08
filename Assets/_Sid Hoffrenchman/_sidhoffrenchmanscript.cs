@@ -221,6 +221,7 @@ public class _sidhoffrenchmanscript:ModdedModule{
             Log("Selected Sid {0}man.",chosen?"Hoff":"French");
             if (hoff != chosen){
                 Strike("No, I'm sorry. The correct answer... was \"E-mail\".");
+                Solve();
             }else{
                 score++;
                 scoreCount.text = "score:" + score;

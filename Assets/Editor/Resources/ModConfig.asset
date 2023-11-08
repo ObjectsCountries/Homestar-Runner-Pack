@@ -40,8 +40,8 @@ MonoBehaviour:
 
 
     Credits: myself, TheDarkSid3r for helping out here and there, boiaaang for Strong
-    Mad Talker''s design'
+    Mad Talker''s design, Timwi and Kuro for helping w/ ruleseed support'
   version: 1
-  outputFolder: /home/kasra/.local/share/Steam/steamapps/common/Keep Talking and Nobody
-    Explodes/mods
+  outputFolder: /home/objectscountries/.local/share/Steam/steamapps/common/Keep Talking
+    and Nobody Explodes/mods
   previewImage: {fileID: 0}
