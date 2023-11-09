@@ -1,0 +1,22 @@
+{
+  "Author": "ObjectsCountries",
+  "Compatibility": "Compatible",
+  "Contributors": {
+    "Audio": [ "Matt Chapman" ],
+    "Manual": [ "Timwi" ]
+  },
+  "DefuserDifficulty": "Easy",
+  "Description": "Select four out of six words in a sequence determined by the other two. Tags: face, angry, playing, solving, 7-buttons",
+  "ExpertDifficulty": "Medium",
+  "ModuleID": "strongmadtalker",
+  "Name": "Strong Mad Talker",
+  "Origin": "Mods",
+  "Published": "2023-12-31",
+  "RuleSeedSupport": "Supported",
+  "SortKey": "STRONGMADTALKER",
+  "SourceUrl": "https://github.com/ObjectsCountries/Homestar-Runner-Pack",
+  "Souvenir": { "Status": "NotACandidate" },
+  "SteamID": "0",
+  "Symbol": "Stmt",
+  "Type": "Regular"
+}

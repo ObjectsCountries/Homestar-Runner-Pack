@@ -1,0 +1,16 @@
+{
+  "Author": "ObjectsCountries",
+  "Compatibility": "Compatible",
+  "DefuserDifficulty": "Trivial",
+  "Description": "Repeatedly click an icon that moves around the module's display. Tags: triscuit, orange-slice, peanut-butter, score, checkered-background",
+  "ExpertDifficulty": "Trivial",
+  "ModuleID": "broncotrolleys",
+  "Name": "Bronco Trolleys",
+  "Origin": "Mods",
+  "Published": "2023-12-31",
+  "SortKey": "BRONCOTROLLEYS",
+  "SourceUrl": "https://github.com/ObjectsCountries/Homestar-Runner-Pack",
+  "SteamID": "0",
+  "Symbol": "Brt",
+  "Type": "Needy"
+}

@@ -1,0 +1,28 @@
+{
+  "Author": "ObjectsCountries",
+  "Compatibility": "Compatible",
+  "Contributors": {
+    "Audio": [
+      "Matt Chapman",
+      "Mike Chapman"
+    ],
+    "Manual": [ "Kuro" ]
+  },
+  "DefuserDifficulty": "Hard",
+  "Description": "Select one of 27 numbered buttons by decrypting a three-letter code conveyed by the effects of the six blue buttons. Tags: toons, games, characters, downloads, store, email, 27-buttons, bubble",
+  "ExpertDifficulty": "Hard",
+  "ModuleID": "mainpage",
+  "Name": "Main Page",
+  "Origin": "Mods",
+  "Published": "2023-12-31",
+  "RuleSeedSupport": "Supported",
+  "SortKey": "MAINPAGE",
+  "SourceUrl": "https://github.com/ObjectsCountries/Homestar-Runner-Pack",
+  "Souvenir": {
+    "Explanation": "Souvenir could ask about the menu that Homestar, the background, and the effects of the buttons come from.",
+    "Status": "Considered"
+  },
+  "SteamID": "0",
+  "Symbol": "Mnp",
+  "Type": "Regular"
+}

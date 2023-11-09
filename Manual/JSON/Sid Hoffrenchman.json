@@ -1,0 +1,17 @@
+{
+  "Author": "ObjectsCountries",
+  "Compatibility": "Compatible",
+  "DefuserDifficulty": "Trivial",
+  "Description": "Answer Homestar Runner's question of \"Sid Hoffman or Sid Frenchman?\" depending on the characters in the background. Tags: 2-buttons",
+  "ExpertDifficulty": "VeryEasy",
+  "ModuleID": "sidhoffrenchman",
+  "Name": "Sid Hoffrenchman",
+  "Origin": "Mods",
+  "Published": "2023-12-31",
+  "RuleSeedSupport": "Supported",
+  "SortKey": "SIDHOFFRENCHMAN",
+  "SourceUrl": "https://github.com/ObjectsCountries/Homestar-Runner-Pack",
+  "SteamID": "0",
+  "Symbol": "Sid",
+  "Type": "Needy"
+}

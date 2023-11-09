@@ -1,0 +1,31 @@
+{
+  "Author": "ObjectsCountries",
+  "BossStatus": "FullBoss",
+  "Compatibility": "Compatible",
+  "Contributors": {
+    "Audio": [
+      "Matt Chapman",
+      "Mike Chapman"
+    ]
+  },
+  "DefuserDifficulty": "Medium",
+  "Description": "Each time a module is solved, associate a voiceline with a number, then turn it into a hexadecimal digit. At the end, submit the resulting sequence of digits. Tags: boss, email, voice, 17-buttons, play-button",
+  "ExpertDifficulty": "Hard",
+  "Ignore": [ "+SolvesAtEnd, +SolvesWithOthers, +TimeDependent" ],
+  "ModuleID": "sbemailsongs",
+  "MysteryModule": "MustNotBeHidden",
+  "Name": "Sbemail Songs",
+  "Origin": "Mods",
+  "Published": "2023-12-31",
+  "Quirks": "SolvesAtEnd, NeedsOtherSolves",
+  "RuleSeedSupport": "Supported",
+  "SortKey": "SBEMAILSONGS",
+  "SourceUrl": "https://github.com/ObjectsCountries/Homestar-Runner-Pack",
+  "Souvenir": {
+    "Explanation": "Souvenir could ask about the font of the line displayed in each stage.",
+    "Status": "Considered"
+  },
+  "SteamID": "0",
+  "Symbol": "Sbs",
+  "Type": "Regular"
+}
