@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 361b5ae93ecf6419c9e0350966684fb4
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Commodore 64 Pixelized
+  fontNames:
+  - Commodore 64 Pixelized
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 626c9f82bdb1af24cb79d44e6684b34c, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,11 +1,10 @@
 # The Homestar Runner Pack
 
-* Strong Mad Talker: **Finished**
+* Strong Mad Talker: **In Progress**
   * Credit boiaaang for color design
   * Add ruleseed support
-* Main Page: **In Progress**
-  * Follow "Encryption" instructions in manual notes
-* Sbemail Songs: **Not Started**
+* Main Page: **Finished**
+  * Rewrite manual example
+* Sbemail Songs: **In Progress**
 * Bronco Trolleys (Needy): **Finished**
-  * Might get rid of parameter to change number required
 * Sid Hoffrenchman (Needy): **Finished**
