@@ -30,8 +30,11 @@ public class _sbemailsongs:ModdedModule{
     private int totalNonIgnored=-1;
     private int numSolved=-1;
     private string[]ignoredModules;
+    private string lastSolvedModule="";
     private List<int>stages;
+    private string finalSequence="";
     private KMAudio.KMAudioRef lineRef;
+    private string[]moduleNameHas=new string[]{"wire","maze","simon","morse","button"};
     private string[]orders=new string[]{
         "56781234",
         "21436587",
@@ -63,10 +66,10 @@ public class _sbemailsongs:ModdedModule{
         "CURRENT DIGIT PARITY"
     };
     private const string hexDigits="0123456789ABCDEF";
-    private char rangeLower,rangeUpper;
+    private int rangeLowerIndex,rangeUpperIndex;
     private bool majorityEven,currentDigitEven;
     private int divisibleby;
-    private char[]operationDigits=new char[4];
+    private int[]operationDigits=new int[4];
     private string[]transcriptions=new string[]{
         "Oh, who is the guy that checks all\nhis emails? That's me, Strong Bad.",
         "I'm gonna check my email all of\nthe time, doo doo doo…",
@@ -108,7 +111,7 @@ public class _sbemailsongs:ModdedModule{
         "Emaillll eeeemailll eeemmailll…",
         "Gimme some of this and gimme\nsome of thiiiiis… Gimme some of\nthis.",
         "Oooh, duh doo doo doo, my email\nleft me, duh doo doo…",
-        "I'm hooome! Okay, let's see here. Don't need this anymore. And don't need <i>this</i> anymore. For behold… the 386. A spectacle of graphics and sound! <i>{Compy starts up}</i> Okay, let's get to checking!",
+        "I'm hooome! Okay, let's see here.\nDon't need this anymore. And don't need <i>this</i> anymore. For behold… the 386. A spectacle of graphics and sound! <i>{Compy starts up}</i> Okay, let's get to checking!",
         "Doo doo do doo, doo duh doo\ndoo!",
         "All the ladies want to know,\nwho's checkin' that email?\nWas it Strong Bad?",
         "I check email from the front\nto the back, I said check\nemail from the front to the\nback I said check…",
@@ -392,14 +395,14 @@ public class _sbemailsongs:ModdedModule{
         rnd.ShuffleFisherYates(orders);
         rnd.ShuffleFisherYates(boolTypes);
         rnd.ShuffleFisherYates(conditions);
-        rangeLower=hexDigits[rnd.Next(0,8)];
-        rangeUpper=hexDigits[rnd.Next(8,16)];
+        rangeLowerIndex=rnd.Next(0,8);
+        rangeUpperIndex=rnd.Next(8,16);
         majorityEven=rnd.Next(0,2)==0;
         currentDigitEven=rnd.Next(0,2)==0;
-        divisibleby=rnd.Next(2,3);
+        divisibleby=rnd.Next(2,4);
         rnd.ShuffleFisherYates(operations);
         for(int i=0;i<4;i++)
-            operationDigits[i]=hexDigits[rnd.Next(0,16)];
+            operationDigits[i]=rnd.Next(0,16);
         stages=new List<int>();
         playbutton.Set(
             onInteract:()=>playSbs(false)
@@ -409,7 +412,10 @@ public class _sbemailsongs:ModdedModule{
         thisModule.Set(
             onActivate:()=>{
                 totalNonIgnored=bomb.GetSolvableModuleNames().Count(x=>!ignoredModules.Contains(x));
+                Log("Stage 01");
                 Log("There are "+totalNonIgnored+" non-ignored modules present.");
+                Log("0 non-ignored modules have been solved.");
+                Log("The chosen sbemail song is "+chosenSong+".");
                 playSbs(true);
             }
         );
@@ -419,6 +425,8 @@ public class _sbemailsongs:ModdedModule{
         if(numSolved!=bomb.GetSolvedModuleNames().Count(x=>!ignoredModules.Contains(x))&&activated){
             numSolved++;
             if(numSolved==totalNonIgnored){
+                Log("---");
+                Log("Begin submission.");
                 submissionMode=true;
                 display.text="";
                 display.color=Color.white;
@@ -433,23 +441,28 @@ public class _sbemailsongs:ModdedModule{
                         display.text+=" ";
                 }
                 stageNum.text="";
-            }else{
-                if(numSolved!=0){
-                    chosenSong=UnityEngine.Random.Range(1,210);
-                    stages.Add(chosenSong);
-                    playSbs(true);
-                }
+            }else if(numSolved!=0){
                 Log("---");
-                Log("Stage "+(numSolved+1));
+                if(numSolved<15)
+                    Log("Stage 0"+(numSolved+1).ToString("X"));
+                else
+                    Log("Stage "+(numSolved+1).ToString("X"));
                 if(numSolved==1)
                     Log("1 non-ignored module has been solved.");
                 else
                     Log(numSolved+" non-ignored modules have been solved.");
-                Log("The chosen sbemail song is "+chosenSong+".");
-                if(numSolved<9)
-                    stageNum.text="0"+(numSolved+1);
+                if(bomb.GetSolvedModuleNames().Count(x=>!ignoredModules.Contains(x))!=0){
+                    lastSolvedModule=bomb.GetSolvedModuleNames().Where(x=>!ignoredModules.Contains(x)).Last();
+                    Log("The last solved module is "+lastSolvedModule+".");
+                }
+                if(numSolved<15)
+                    stageNum.text="0"+(numSolved+1).ToString("X");
                 else
-                    stageNum.text=""+((numSolved+1)%100);
+                    stageNum.text=(numSolved+1).ToString("X");
+                chosenSong=UnityEngine.Random.Range(1,210);
+                Log("The chosen sbemail song is "+chosenSong+".");
+                stages.Add(chosenSong);
+                playSbs(true);
             }
         }
     }
@@ -481,7 +494,50 @@ public class _sbemailsongs:ModdedModule{
         StartCoroutine(Play(chosenSong));
         if(newStage){
             bool[]bits=numberToBooleanArray(chosenSong);
-            Log(bits);
+            string binary=Convert.ToString(chosenSong,2);
+            while(binary.Length<8)
+                binary="0"+binary;
+            Log("In binary, this is "+binary+".");
+            byte resultingByte;
+            for(int i=0;i<5;i++){
+                if(lastSolvedModule.ToLower().Contains(moduleNameHas[i])){
+                    bits=rearrange(bits,orders[i]);
+                    resultingByte=bitsToByte(bits);
+                    binary=Convert.ToString(resultingByte,2);
+                    while(binary.Length<8)
+                        binary="0"+binary;
+                    Log("The name of the last solved module contains the word \""+moduleNameHas[i]+"\". The sequence has been rearranged by the pattern of "+orders[i]+" and is now "+binary+".");
+                }
+            }
+            resultingByte=bitsToByte(bits);
+            Log("The final number in decimal is "+resultingByte+".");
+            bool[]fourBits=new bool[4];
+            int[]fourBitsRanges=new int[]{41,119,210,221,241,256};
+            byte hexByte=0;
+            for(int i=0;i<6;i++){
+                if(resultingByte<fourBitsRanges[i]){
+                    fourBits=combineBools(bits,boolTypes[i]);
+                    hexByte=bitsToByte(fourBits);
+                    binary=Convert.ToString(hexByte,2);
+                    while(binary.Length<4)
+                        binary="0"+binary;
+                    Log("The logic of "+boolTypes[i]+" has been applied to each pair of bits. The resulting number is "+binary+" in binary, or "+Convert.ToString(hexByte,16).ToUpper()+" in hexadecimal.");
+                    break;
+                }
+            }
+            bool changesMade=false;
+            for(int i=0;i<4;i++){
+                if(checkCondition(conditions[i],hexByte)){
+                    hexByte=(byte)((operationResult((int)hexByte,operations[i],i)+16)%16);
+                    changesMade=true;
+                }   
+            }
+            if(!changesMade){
+                hexByte=(byte)(16-hexByte);
+                Log("Because no conditions applied, the digit has been changed to "+Convert.ToString(hexByte,16).ToUpper()+".");
+            }
+            finalSequence+=Convert.ToString(hexByte,16).ToUpper();
+            Log("The full sequence is now "+finalSequence+".");
         }
     }
 
@@ -497,5 +553,87 @@ public class _sbemailsongs:ModdedModule{
 
     private bool[]numberToBooleanArray(int number){
         return new bool[]{(number&128)!=0,(number&64)!=0,(number&32)!=0,(number&16)!=0,(number&8)!=0,(number&4)!=0,(number&2)!=0,(number&1)!=0};
+    }
+    private bool[]rearrange(bool[]input,string key){
+        List<bool>result=new List<bool>();
+        foreach(char c in key){
+            result.Add(input[int.Parse(c.ToString())-1]);
+        }
+        return result.ToArray();
+    }
+
+    private byte bitsToByte(bool[]input){
+        byte result=0;
+        for(int i=0;i<input.Length;i++){
+            if(input[i])
+                result+=(byte)(Math.Pow(2,input.Length-1-i)+.25); //floating point shenanigans won't get me this time
+        }
+        return result;
+    }
+
+    private bool[]combineBools(bool[]input,string boolType){
+        switch(boolType){
+            case "AND":
+                return new bool[]{input[0]&&input[1],input[2]&&input[3],input[4]&&input[5],input[6]&&input[7]};
+            case "OR":
+                return new bool[]{input[0]||input[1],input[2]||input[3],input[4]||input[5],input[6]||input[7]};
+            case "XOR":
+                return new bool[]{(!input[0]&&input[1])||(input[0]&&!input[1]),(!input[2]&&input[3])||(input[2]&&!input[3]),(!input[4]&&input[5])||(input[4]&&!input[5]),(!input[6]&&input[7])||(input[6]&&!input[7])};
+            case "NAND":
+                return new bool[]{!input[0]||!input[1],!input[2]||!input[3],!input[4]||!input[5],!input[6]||!input[7]};
+            case "NOR":
+                return new bool[]{!input[0]&&!input[1],!input[2]&&!input[3],!input[4]&&!input[5],!input[6]&&!input[7]};
+            case "XNOR":
+            default:
+                return new bool[]{(!input[0]||input[1])&&(input[0]||!input[1]),(!input[2]||input[3])&&(input[2]||!input[3]),(!input[4]||input[5])&&(input[4]||!input[5]),(!input[6]||input[7])&&(input[6]||!input[7])};
+        }
+    }
+
+    private bool checkCondition(string condition,byte input){
+        switch(condition){
+            case "PREV DIGIT RANGE":
+                Log("Checking for previous digit in range rule.");
+                if(finalSequence=="")
+                    return false;
+                return Convert.ToInt32(finalSequence[finalSequence.Length-1].ToString(),16)>=rangeLowerIndex&&Convert.ToInt32(finalSequence[finalSequence.Length-1].ToString(),16)<=rangeUpperIndex;
+            case "STAGE DIVISIBLE":
+                Log("Checking for stage divisibility rule.");
+                if(numSolved==-1)
+                    return true;
+                return (numSolved+1)%divisibleby==0;
+            case "MAJORITY PARITY":
+                Log("Checking for majority parity rule.");
+                if(finalSequence=="")
+                    return false;
+                if(majorityEven)
+                     return finalSequence.TakeWhile(c => "02468ACE".Contains(c)).Count()>finalSequence.Length/2;
+                else
+                     return finalSequence.TakeWhile(c => "13579BDF".Contains(c)).Count()>finalSequence.Length/2;
+            case "CURRENT DIGIT PARITY":
+            default:
+                Log("Checking for current digit parity rule.");
+                if(currentDigitEven)
+                    return input%2==0;
+                else
+                    return input%2==1;
+        }
+    }
+
+    private int operationResult(int input,string operation,int index){
+        switch(operation){
+            case "+":
+                Log("Rule applied, adding "+Convert.ToString(operationDigits[index],16).ToUpper()+".");
+                return input+operationDigits[index];
+            case "-":
+                Log("Rule applied, subtracting "+Convert.ToString(operationDigits[index],16).ToUpper()+".");
+                return input-operationDigits[index];
+            case "*":
+                Log("Rule applied, multiplying by "+Convert.ToString(operationDigits[index],16).ToUpper()+".");
+                return input*operationDigits[index];
+            case "%":
+            default:
+                Log("Rule applied, moduloing "+Convert.ToString(operationDigits[index],16).ToUpper()+".");
+                return input%operationDigits[index];
+        }
     }
 }
