@@ -509,8 +509,8 @@ public class _sbemailsongs:ModdedModule{
                 submissionMode=false;
             }
         }else{
-            Strike("Entered "+digit+" instead of "+finalSequence.Substring(currentSubmissionIndex,currentSubmissionIndex+1)+" for stage "+Convert.ToString(currentSubmissionIndex,16).ToUpper()+" (hexadecimal).");
-            stageNum.text=finalSequence.Substring(currentSubmissionIndex,currentSubmissionIndex+1);
+            Strike("Entered "+digit+" instead of "+finalSequence.Substring(currentSubmissionIndex,1)+" for stage "+Convert.ToString(currentSubmissionIndex,16).ToUpper()+" (hexadecimal).");
+            stageNum.text=finalSequence.Substring(currentSubmissionIndex,1);
         }
     }
 
@@ -580,7 +580,7 @@ public class _sbemailsongs:ModdedModule{
                 }
             }
             if(!changesMade){
-                hexByte=(byte)(16-hexByte);
+                hexByte=(byte)((16-hexByte)%16);
                 Log("Because no conditions applied, the digit has been changed to "+Convert.ToString(hexByte,16).ToUpper()+".");
             }
             finalSequence+=Convert.ToString(hexByte,16).ToUpper();
