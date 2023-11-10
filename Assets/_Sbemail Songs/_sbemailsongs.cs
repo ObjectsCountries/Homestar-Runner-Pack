@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Audio;
 using Wawa.Extensions;
@@ -35,6 +36,8 @@ public class _sbemailsongs:ModdedModule{
     private string finalSequence="";
     private KMAudio.KMAudioRef lineRef;
     private string[]moduleNameHas=new string[]{"wire","maze","simon","morse","button"};
+    private string currentSubmission="";
+    private int currentSubmissionIndex=0;
     private string[]orders=new string[]{
         "56781234",
         "21436587",
@@ -405,18 +408,34 @@ public class _sbemailsongs:ModdedModule{
             operationDigits[i]=rnd.Next(0,16);
         stages=new List<int>();
         playbutton.Set(
-            onInteract:()=>playSbs(false)
+            onInteract:()=>{
+                Shake(playbutton,.5f,Sound.BigButtonPress);
+                playSbs(false);
+            }
         );
         chosenSong=UnityEngine.Random.Range(1,210);
         stages.Add(chosenSong);
+        foreach(KMSelectable button in hexButtons){
+            button.Set(
+                onInteract:()=>{
+                    Shake(button,.5f,Sound.BigButtonPress);
+                    if(submissionMode)
+                        submission(button.GetComponentInChildren<TextMesh>().text);
+                }
+            );
+        }
         thisModule.Set(
             onActivate:()=>{
                 totalNonIgnored=bomb.GetSolvableModuleNames().Count(x=>!ignoredModules.Contains(x));
-                Log("Stage 01");
-                Log("There are "+totalNonIgnored+" non-ignored modules present.");
-                Log("0 non-ignored modules have been solved.");
-                Log("The chosen sbemail song is "+chosenSong+".");
-                playSbs(true);
+                if(totalNonIgnored!=0){
+                    Log("Stage 01");
+                    Log("There are "+totalNonIgnored+" non-ignored modules present.");
+                    Log("0 non-ignored modules have been solved.");
+                    Log("The chosen sbemail song is "+chosenSong+".");
+                    playSbs(true);
+                }else{
+                    Solve("No non-ignored modules present; automatically solving.");
+                }
             }
         );
     }
@@ -464,6 +483,34 @@ public class _sbemailsongs:ModdedModule{
                 stages.Add(chosenSong);
                 playSbs(true);
             }
+        }
+    }
+
+    private void submission(string digit){
+        if(finalSequence.Substring(0,currentSubmissionIndex+1)==currentSubmission+digit){
+            currentSubmission+=digit;
+            var regex=new Regex(Regex.Escape("-"));
+            display.text=regex.Replace(display.text,digit,1);
+            currentSubmissionIndex+=1;
+            if(currentSubmissionIndex%9==0&&currentSubmissionIndex/9!=finalSequence.Length/9){
+                display.text=display.text.Substring(12)+"--- --- ---";
+            }else if(currentSubmissionIndex%9==0){
+                display.text=display.text.Substring(12);
+                for(int i=1;i<=finalSequence.Length-currentSubmissionIndex;i++){
+                    display.text+="-";
+                    if(i%3==0)
+                        display.text+=" ";
+                }
+            }
+            stageNum.text="";
+            if(currentSubmissionIndex==finalSequence.Length){
+                Solve("Sequence fully entered!");
+                stageNum.text="GG";
+                submissionMode=false;
+            }
+        }else{
+            Strike("Entered "+digit+" instead of "+finalSequence.Substring(currentSubmissionIndex,currentSubmissionIndex+1)+" for stage "+Convert.ToString(currentSubmissionIndex,16).ToUpper()+" (hexadecimal).");
+            stageNum.text=finalSequence.Substring(currentSubmissionIndex,currentSubmissionIndex+1);
         }
     }
 
@@ -530,7 +577,7 @@ public class _sbemailsongs:ModdedModule{
                 if(checkCondition(conditions[i],hexByte)){
                     hexByte=(byte)((operationResult((int)hexByte,operations[i],i)+16)%16);
                     changesMade=true;
-                }   
+                }
             }
             if(!changesMade){
                 hexByte=(byte)(16-hexByte);
