@@ -11,6 +11,7 @@
   * Change texture of play button to square while playing audio
   * Add "the game's certainly not gonna tell you" voiceline during submission
   * Add TP support
+  * Update manual and JSON to detail auto-solve when there are no non-ignored modules
 * Bronco Trolleys (Needy): **Finished**
   * Make manual SVG
 * Sid Hoffrenchman (Needy): **Finished**

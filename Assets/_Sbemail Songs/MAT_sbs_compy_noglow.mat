@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: MAT_sbs_corpy
-  m_Shader: {fileID: 4800000, guid: 5190deb6532d94f44877d06c49a8542e, type: 3}
+  m_Name: MAT_sbs_compy_noglow
+  m_Shader: {fileID: 4800000, guid: 962861f81bc2e4dbca4636490ebfbd11, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -39,7 +39,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 50a7bfe24d37849afb5720764df23ca7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 361b5ae93ecf6419c9e0350966684fb4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

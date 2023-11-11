@@ -17,7 +17,7 @@
   "Name": "Sbemail Songs",
   "Origin": "Mods",
   "Published": "2023-12-31",
-  "Quirks": "SolvesAtEnd, NeedsOtherSolves",
+  "Quirks": "SolvesAtEnd, NeedsOtherSolves, WillSolveSuddenly",
   "RuleSeedSupport": "Supported",
   "SortKey": "SBEMAILSONGS",
   "SourceUrl": "https://github.com/ObjectsCountries/Homestar-Runner-Pack",

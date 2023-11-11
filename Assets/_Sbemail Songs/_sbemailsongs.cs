@@ -38,6 +38,9 @@ public class _sbemailsongs:ModdedModule{
     private string[]moduleNameHas=new string[]{"wire","maze","simon","morse","button"};
     private string currentSubmission="";
     private int currentSubmissionIndex=0;
+    private List<string>newSolved;
+    private string[]newSolvedCopy;
+    private string[]oldSolved=new string[]{};
     private string[]orders=new string[]{
         "56781234",
         "21436587",
@@ -443,6 +446,13 @@ public class _sbemailsongs:ModdedModule{
     void Update(){
         if(numSolved!=bomb.GetSolvedModuleNames().Count(x=>!ignoredModules.Contains(x))&&activated){
             numSolved++;
+            newSolved=bomb.GetSolvedModuleNames().Where(x=>!ignoredModules.Contains(x)).ToList();
+            newSolvedCopy=bomb.GetSolvedModuleNames().Where(x=>!ignoredModules.Contains(x)).ToArray();
+            foreach(string module in oldSolved){
+                if(newSolved.Contains(module))
+                    newSolved.Remove(module);
+            }
+            oldSolved=newSolvedCopy;
             if(numSolved==totalNonIgnored){
                 Log("---");
                 Log("Begin submission.");
@@ -470,8 +480,8 @@ public class _sbemailsongs:ModdedModule{
                     Log("1 non-ignored module has been solved.");
                 else
                     Log(numSolved+" non-ignored modules have been solved.");
-                if(bomb.GetSolvedModuleNames().Count(x=>!ignoredModules.Contains(x))!=0){
-                    lastSolvedModule=bomb.GetSolvedModuleNames().Where(x=>!ignoredModules.Contains(x)).Last();
+                if(newSolved.Count(x=>!ignoredModules.Contains(x))!=0){
+                    lastSolvedModule=newSolved[0];
                     Log("The last solved module is "+lastSolvedModule+".");
                 }
                 if(numSolved<15)
@@ -492,7 +502,7 @@ public class _sbemailsongs:ModdedModule{
             var regex=new Regex(Regex.Escape("-"));
             display.text=regex.Replace(display.text,digit,1);
             currentSubmissionIndex+=1;
-            if(currentSubmissionIndex%9==0&&currentSubmissionIndex/9!=finalSequence.Length/9){
+            if(currentSubmissionIndex!=0&&currentSubmissionIndex%9==0&&currentSubmissionIndex/9!=finalSequence.Length/9){
                 display.text=display.text.Substring(12)+"--- --- ---";
             }else if(currentSubmissionIndex%9==0){
                 display.text=display.text.Substring(12);
@@ -646,7 +656,7 @@ public class _sbemailsongs:ModdedModule{
             case "STAGE DIVISIBLE":
                 Log("Checking for stage divisibility rule.");
                 if(numSolved==-1)
-                    return true;
+                    return false;
                 return (numSolved+1)%divisibleby==0;
             case "MAJORITY PARITY":
                 Log("Checking for majority parity rule.");
