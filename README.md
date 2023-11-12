@@ -5,8 +5,9 @@
 * Main Page: **Finished**
   * Rewrite manual examples (Paper background, blurry menu)
   * Modify textures of backgrounds 24 and 25 (put numbers onto images)
-  * Standardize menu button placement
-  * Add colorblind mode
+  * Standardize numbered button placement
+  * Add colorblind support
+  * Replace every instance of "menu" with "main page" in both logging and manual
 * Sbemail Songs: **In Progress**
   * Change texture of play button to square while playing audio
   * Add "the game's certainly not gonna tell you" voiceline during submission
