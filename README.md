@@ -1,20 +1,20 @@
 # The Homestar Runner Pack
 
-* Strong Mad Talker: **In Progress**
+To do:
+
+* Strong Mad Talker
   * Add ruleseed support
-* Main Page: **Finished**
+* Main Page
   * Re-screenshot main page 9 for manual example
   * Add colorblind support
-  * Replace manual example with generated case from game (serial number rule must apply)
-  * Separate TP script from main script
+  * Replace manual example with generated module from game (serial number rule must apply)
+  * Separate TP code from main script
   * Rescale main page 23's effect
   * Fix Homestar's body for main page 23
-* Sbemail Songs (Boss): **In Progress**
+* Sbemail Songs
   * Change texture of play button to square while playing audio
   * Add "the game's certainly not gonna tell you" voiceline during submission
   * Add TP support
-  * Standardize volume of lines (perhaps with `ffmpeg`)
   * Fix coroutines for stopping and playing
+  * Fix line breaks for sbemail song 41's transcription
   * Make play button refrain from playing a line when the module is solved
-* Bronco Trolleys (Needy): **Finished**
-* Sid Hoffrenchman (Needy): **Finished**
