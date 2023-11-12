@@ -50,7 +50,7 @@ public class _sidhoffrenchmanscript:ModdedModule{
             onNeedyDeactivation: () => HideChars(),
             onPass: () => HideChars(),
             onStrike: () => HideChars(),
-            onTimerExpired: () => OnTimerExpired());
+            onTimerExpired: () => StartCoroutine(OnTimerExpired()));
         TextMesh hoffText = hoffButton.GetComponentInChildren<TextMesh>();
         TextMesh frenchText = frenchButton.GetComponentInChildren<TextMesh>();
         hoffButton.Add(
@@ -100,8 +100,9 @@ public class _sidhoffrenchmanscript:ModdedModule{
         DetermineOption();
     }
 
-    void OnTimerExpired(){
+    IEnumerator OnTimerExpired(){
         active = false;
+        yield return StartCoroutine(correct()?SayHoff():SayFrench());
         Strike("I'm sorry, we're out of time. Ding board? *BUZZ*");
     }
 

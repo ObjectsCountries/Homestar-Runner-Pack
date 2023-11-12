@@ -3,12 +3,13 @@
 * Strong Mad Talker: **In Progress**
   * Add ruleseed support
 * Main Page: **Finished**
-  * Rewrite manual examples (Paper background, blurry menu)
-  * Modify textures of backgrounds 24 and 25 (put numbers onto images)
-  * Standardize numbered button placement
+  * Re-screenshot main page 9 for manual example
   * Add colorblind support
-  * Replace every instance of "menu" with "main page" in both logging and manual
-* Sbemail Songs: **In Progress**
+  * Replace manual example with generated case from game (serial number rule must apply)
+  * Separate TP script from main script
+  * Rescale main page 23's effect
+  * Fix Homestar's body for main page 23
+* Sbemail Songs (Boss): **In Progress**
   * Change texture of play button to square while playing audio
   * Add "the game's certainly not gonna tell you" voiceline during submission
   * Add TP support
@@ -16,6 +17,4 @@
   * Fix coroutines for stopping and playing
   * Make play button refrain from playing a line when the module is solved
 * Bronco Trolleys (Needy): **Finished**
-  * Make manual SVG
 * Sid Hoffrenchman (Needy): **Finished**
-  * Reveal answer if timer expires

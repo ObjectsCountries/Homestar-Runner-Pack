@@ -140,11 +140,11 @@ public class _mainpagescript:ModdedModule{
         turnElse=(turnType)t2;
         caesarHS=RND.Next(2)==1;
         correctMainPage=UnityEngine.Random.Range(0,27);
-        Log("The correct menu is menu {0}.",correctMainPage+1);
+        Log("The correct main page is main page {0}.",correctMainPage+1);
         string code=chosenCodes[correctMainPage];
         Log("The decrypted three-letter code is {0}.",code);
-        Log("The background is from menu {0}.", (HSBG.BGnumber + 1).ToString());
-        Log("Homestar is from menu {0}.", (HSBG.HSnumber + 1).ToString());
+        Log("The background is from main page {0}.", (HSBG.BGnumber + 1).ToString());
+        Log("Homestar is from main page {0}.", (HSBG.HSnumber + 1).ToString());
         string alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         if(caesarHS){
             for(int i=0;i<3;i++)
@@ -363,7 +363,7 @@ public class _mainpagescript:ModdedModule{
             fx.assignedAnim = fx.animations[fx.animNum];
             StartCoroutine(fx.setups[fx.animNum]);
             StartCoroutine(fx.san());
-            Log("The {0} button has the menu {1} animation.", buttonNames[fx.num].ToString(), (fx.animNum+1).ToString());
+            Log("The {0} button has the main page {1} animation.", buttonNames[fx.num].ToString(), (fx.animNum+1).ToString());
             button.Set(onHighlight: () => {
                 button.GetComponent<Renderer>().material = HSBG.redmat;
                 if(!Status.IsSolved){
@@ -477,7 +477,7 @@ public class _mainpagescript:ModdedModule{
         if (int.TryParse(command, out i)){
             yield return null;
             if (int.Parse(command) < 28 && int.Parse(command) > 0) yield return new[] {numberButtons[int.Parse(command) - 1]};
-            else yield return "sendtochaterror The menu number must be from 1 to 27.";
+            else yield return "sendtochaterror The main page number must be from 1 to 27.";
             yield break;
         } bool containsatall = false;
         yield return null;
