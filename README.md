@@ -11,6 +11,7 @@ To do:
   * Separate TP code from main script
   * Rescale main page 23's effect
   * Fix Homestar's body for main page 23
+  * Make button effects no longer play when module is solved
 * Sbemail Songs
   * Change texture of play button to square while playing audio
   * Add "the game's certainly not gonna tell you" voiceline during submission
