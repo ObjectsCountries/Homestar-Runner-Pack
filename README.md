@@ -11,7 +11,9 @@
   * Change texture of play button to square while playing audio
   * Add "the game's certainly not gonna tell you" voiceline during submission
   * Add TP support
-  * Update manual and JSON to detail auto-solve when there are no non-ignored modules
+  * Standardize volume of lines (perhaps with `ffmpeg`)
+  * Fix coroutines for stopping and playing
+  * Make play button refrain from playing a line when the module is solved
 * Bronco Trolleys (Needy): **Finished**
   * Make manual SVG
 * Sid Hoffrenchman (Needy): **Finished**

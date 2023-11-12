@@ -117,7 +117,7 @@ public class _sbemailsongs:ModdedModule{
         "Emaillll eeeemailll eeemmailll…",
         "Gimme some of this and gimme\nsome of thiiiiis… Gimme some of\nthis.",
         "Oooh, duh doo doo doo, my email\nleft me, duh doo doo…",
-        "I'm hooome! Okay, let's see here.\nDon't need this anymore. And don't need <i>this</i> anymore. For behold… the 386. A spectacle of graphics and sound! <i>{Compy starts up}</i> Okay, let's get to checking!",
+        "I'm hooome! Okay, let's see here.\nDon't need this anymore. And don't\nneed <i>this</i> anymore. For behold… the 386. A spectacle of graphics and sound! <i>{Compy starts up}</i> Okay, let's get to checking!",
         "Doo doo do doo, doo duh doo\ndoo!",
         "All the ladies want to know,\nwho's checkin' that email?\nWas it Strong Bad?",
         "I check email from the front\nto the back, I said check\nemail from the front to the\nback I said check…",
@@ -134,7 +134,7 @@ public class _sbemailsongs:ModdedModule{
         "Duh duh dududududududududuh\nduhduhduhduhduhduh email.",
         "Oh! The email!",
         "So cool an email. I thought\nyou would enjoy it.",
-        "Here I go once again with the\nemail! Every week I hope that\nit's from a female! <i>{brings up\nemail}</i> Oh man! Not from a\nfemale.",
+        "Here I go once again with the\nemail! Every week I hope that\nit's from a female!",
         "There once was a man named\nemail, and he did his best for\na while.",
         "Chee-wit, chee-wit, chee-wi-\nchee-wi-email.",
         "Toons! Games! I'm gonna check\nmy eeeemail…",
@@ -462,12 +462,16 @@ public class _sbemailsongs:ModdedModule{
                 display.fontSize=70;
                 display.font=fonts[1];
                 display.GetComponent<MeshRenderer>().material=fontMats[1];
-                for(int i=1;i<=totalNonIgnored;i++){
-                    display.text+="-";
-                    if(i%9==0)
-                        display.text+="\n";
-                    else if(i%3==0)
-                        display.text+=" ";
+                if(totalNonIgnored<18){
+                    for(int i=1;i<=totalNonIgnored;i++){
+                        display.text+="-";
+                        if(i%9==0)
+                            display.text+="\n";
+                        else if(i%3==0)
+                            display.text+=" ";
+                    }
+                }else{
+                    display.text="--- --- ---\n--- --- ---";
                 }
                 stageNum.text="";
             }else if(numSolved!=0){
@@ -502,14 +506,18 @@ public class _sbemailsongs:ModdedModule{
             var regex=new Regex(Regex.Escape("-"));
             display.text=regex.Replace(display.text,digit,1);
             currentSubmissionIndex+=1;
-            if(currentSubmissionIndex!=0&&currentSubmissionIndex%9==0&&currentSubmissionIndex/9!=finalSequence.Length/9){
-                display.text=display.text.Substring(12)+"--- --- ---";
-            }else if(currentSubmissionIndex%9==0){
-                display.text=display.text.Substring(12);
-                for(int i=1;i<=finalSequence.Length-currentSubmissionIndex;i++){
-                    display.text+="-";
-                    if(i%3==0)
-                        display.text+=" ";
+            if(currentSubmissionIndex%9==0&&currentSubmissionIndex>9&&totalNonIgnored>18){
+                if(finalSequence.Length-currentSubmissionIndex!=totalNonIgnored%9){
+                    display.text=display.text.Substring(12)+"\n--- --- ---";
+                }else{
+                    display.text=display.text.Substring(12)+"\n";
+                    for(int i=1;i<=totalNonIgnored-currentSubmissionIndex;i++){
+                        display.text+="-";
+                        if(i%9==0)
+                            display.text+="\n";
+                        else if(i%3==0)
+                            display.text+=" ";
+                    }
                 }
             }
             stageNum.text="";
