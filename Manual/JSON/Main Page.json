@@ -1,11 +1,11 @@
 {
-  "Author": "ObjectsCountries",
   "Compatibility": "Compatible",
   "Contributors": {
     "Audio": [
       "Matt Chapman",
       "Mike Chapman"
     ],
+    "Developer": [ "ObjectsCountries" ],
     "Manual": [ "Kuro" ]
   },
   "DefuserDifficulty": "Hard",

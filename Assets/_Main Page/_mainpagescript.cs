@@ -383,6 +383,7 @@ public class _mainpagescript:ModdedModule{
 
         foreach (KMSelectable button in numberButtons){
             button.Set(onInteract: () => {
+                Shake(button,.5f,Sound.BigButtonPress);
                 Log("Main page {0} selected.", button.GetComponentInChildren<TextMesh>().text);
                 if(int.Parse(button.GetComponentInChildren<TextMesh>().text)==correctMainPage+1){
                     blinkstop = true;

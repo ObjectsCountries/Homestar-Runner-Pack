@@ -1,12 +1,13 @@
 {
-  "Author": "ObjectsCountries",
   "Compatibility": "Compatible",
   "Contributors": {
     "Audio": [ "Matt Chapman" ],
-    "Manual": [ "Timwi" ]
+    "Developer": [ "ObjectsCountries" ],
+    "Manual": [ "Timwi" ],
+    "Modeling": [ "boiaaang" ]
   },
   "DefuserDifficulty": "Easy",
-  "Description": "Select four out of six words in a sequence determined by the other two. Tags: face, angry, playing, solving, 7-buttons",
+  "Description": "Select four out of six words in a sequence determined by the other two. Tags: face, angry, playing, solving, 7-buttons, purple-background, green-text",
   "ExpertDifficulty": "Medium",
   "ModuleID": "strongmadtalker",
   "Name": "Strong Mad Talker",

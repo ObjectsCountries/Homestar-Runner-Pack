@@ -42,6 +42,6 @@ MonoBehaviour:
     Credits: myself, TheDarkSid3r for helping out here and there, boiaaang for SMT''s
     design, Timwi and Kuro for helping w/ ruleseed support for SMT and MP respectively'
   version: 1
-  outputFolder: /home/objectscountries/.local/share/Steam/steamapps/common/Keep Talking
-    and Nobody Explodes/mods
+  outputFolder: /home/kasra/.local/share/Steam/steamapps/common/Keep Talking and Nobody
+    Explodes/mods
   previewImage: {fileID: 0}

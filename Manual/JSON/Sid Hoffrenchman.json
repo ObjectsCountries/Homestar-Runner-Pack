@@ -1,6 +1,9 @@
 {
-  "Author": "ObjectsCountries",
   "Compatibility": "Compatible",
+  "Contributors": {
+    "Audio": [ "Matt Chapman" ],
+    "Developer": [ "ObjectsCountries" ]
+  },
   "DefuserDifficulty": "Trivial",
   "Description": "Answer Homestar Runner's question of \"Sid Hoffman or Sid Frenchman?\" depending on the characters in the background. Tags: 2-buttons",
   "ExpertDifficulty": "VeryEasy",

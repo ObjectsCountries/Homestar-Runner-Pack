@@ -1003,6 +1003,7 @@ GameObject:
   - component: {fileID: 114127379494202976}
   - component: {fileID: 114072985994719490}
   - component: {fileID: 114271924419661188}
+  - component: {fileID: 114951740619415802}
   m_Layer: 0
   m_Name: _sbemailsongs
   m_TagString: mod.bundle
@@ -4470,9 +4471,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1035597180524010}
-  m_Text: '--- --- ---
-
-    --- --- ---'
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -5160,6 +5159,9 @@ MonoBehaviour:
   bomb: {fileID: 114231450356525010}
   boss: {fileID: 114072985994719490}
   rs: {fileID: 114271924419661188}
+  playMat: {fileID: 2100000, guid: 3d8b2a1a3bc1442a4b58ac9336b7b52c, type: 2}
+  stopMat: {fileID: 2100000, guid: 97412e45677884ba393152b0c8ce7edc, type: 2}
+  stages: 
 --- !u!114 &114131958574556354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6316,6 +6318,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/DiffuseTint
+--- !u!114 &114951740619415802
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1835592172435956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f9415645a994ea39bceb4349585c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TwitchHelpMessage: '!{0} play to play the sbemail song, !{0} (sequence of hexadecimal
+    digits w/o spaces) to submit once all non-ignored modules have been solved.'
+  TwitchManualCode: 
+  TwitchAbandonModule: []
 --- !u!114 &114965713171779616
 MonoBehaviour:
   m_ObjectHideFlags: 1

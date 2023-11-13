@@ -21,19 +21,20 @@ public class _sbemailsongs:ModdedModule{
     public KMBombInfo bomb;
     public KMBossModule boss;
     public KMRuleSeedable rs;
+    public Material playMat,stopMat;
     private int[]sizes=new int[]{50,25,40,32,35};
     private int[]ranges=new int[]{41,119,202,203,210};
     private Dictionary<int,int>exceptionsToSizePattern=new Dictionary<int,int>();
     private bool currentlyPlaying;
-    private bool submissionMode=false;
+    internal bool submissionMode=false;
     private bool activated=false;
     private int chosenSong;
     private int totalNonIgnored=-1;
     private int numSolved=-1;
     private string[]ignoredModules;
     private string lastSolvedModule="";
-    private List<int>stages;
-    private string finalSequence="";
+    public List<int>stages;//for Souvenir
+    internal string finalSequence="";
     private KMAudio.KMAudioRef lineRef;
     private string[]moduleNameHas=new string[]{"wire","maze","simon","morse","button"};
     private string currentSubmission="";
@@ -71,7 +72,6 @@ public class _sbemailsongs:ModdedModule{
         "MAJORITY PARITY",
         "CURRENT DIGIT PARITY"
     };
-    private const string hexDigits="0123456789ABCDEF";
     private int rangeLowerIndex,rangeUpperIndex;
     private bool majorityEven,currentDigitEven;
     private int divisibleby;
@@ -117,7 +117,7 @@ public class _sbemailsongs:ModdedModule{
         "Emaillll eeeemailll eeemmailll…",
         "Gimme some of this and gimme\nsome of thiiiiis… Gimme some of\nthis.",
         "Oooh, duh doo doo doo, my email\nleft me, duh doo doo…",
-        "I'm hooome! Okay, let's see here.\nDon't need this anymore. And don't\nneed <i>this</i> anymore. For behold… the 386. A spectacle of graphics and sound! <i>{Compy starts up}</i> Okay, let's get to checking!",
+        "I'm hooome! Okay, let's see here.\nDon't need this anymore. And don't\nneed <i>this</i> anymore. For behold… the\n386. A spectacle of graphics and\nsound! <i>{Compy starts up}</i> Okay,\nlet's get to checking!",
         "Doo doo do doo, doo duh doo\ndoo!",
         "All the ladies want to know,\nwho's checkin' that email?\nWas it Strong Bad?",
         "I check email from the front\nto the back, I said check\nemail from the front to the\nback I said check…",
@@ -413,7 +413,16 @@ public class _sbemailsongs:ModdedModule{
         playbutton.Set(
             onInteract:()=>{
                 Shake(playbutton,.5f,Sound.BigButtonPress);
-                playSbs(false);
+                if(totalNonIgnored!=0){
+                    if(playbutton.GetComponent<MeshRenderer>().material.ToString()=="MAT_sbs_stopbutton (Instance) (UnityEngine.Material)")
+                        playbutton.GetComponent<MeshRenderer>().material=playMat;
+                    if(!Status.IsSolved)
+                        playSbs(false);
+                }
+                else{
+                stageNum.text="GG";
+                    Solve("Solved!");
+                }
             }
         );
         chosenSong=UnityEngine.Random.Range(1,210);
@@ -437,7 +446,8 @@ public class _sbemailsongs:ModdedModule{
                     Log("The chosen sbemail song is "+chosenSong+".");
                     playSbs(true);
                 }else{
-                    Solve("No non-ignored modules present; automatically solving.");
+                    stageNum.text="";
+                    Log("There are no non-ignored modules present; press the play button to solve instantly.");
                 }
             }
         );
@@ -602,15 +612,24 @@ public class _sbemailsongs:ModdedModule{
                 Log("Because no conditions applied, the digit has been changed to "+Convert.ToString(hexByte,16).ToUpper()+".");
             }
             finalSequence+=Convert.ToString(hexByte,16).ToUpper();
-            Log("The full sequence is now "+finalSequence+".");
+            string finalSequenceWithSpaces=finalSequence;
+            for(int i=3;i<=finalSequenceWithSpaces.Length;i+=3){
+                finalSequenceWithSpaces=finalSequenceWithSpaces.Insert(i," ");
+                i++;
+            }
+            if(finalSequenceWithSpaces.Last()==' ')
+                finalSequenceWithSpaces=finalSequenceWithSpaces.Substring(0,finalSequenceWithSpaces.Length-1);
+            Log("The full sequence is now "+finalSequenceWithSpaces+".");
         }
     }
 
     private IEnumerator Play(int song){
+        playbutton.GetComponent<MeshRenderer>().material=stopMat;
         currentlyPlaying=true;
         lineRef=Audio.PlaySoundAtTransformWithRef("AUDIO_ss_"+song,transform);
         yield return new WaitForSeconds(lines[song-1].length);
         lineRef.StopSound();
+        playbutton.GetComponent<MeshRenderer>().material=playMat;
         currentlyPlaying=false;
         display.text="";
         activated=true;
