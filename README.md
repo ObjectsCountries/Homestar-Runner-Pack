@@ -13,6 +13,7 @@ To do:
   * Fix Homestar's body for main page 23
   * Make button effects no longer play when module is solved
   * Figure out how to make table for logging
+  * Add button shake for numbered buttons
 * Sbemail Songs
   * Change texture of play button to square while playing audio
   * Add "the game's certainly not gonna tell you" voiceline during submission
