@@ -505,9 +505,14 @@ public class _sbemailsongs:ModdedModule{
                 chosenSong=UnityEngine.Random.Range(1,210);
                 Log("The chosen sbemail song is "+chosenSong+".");
                 stages.Add(chosenSong);
-                playSbs(true);
+                StartCoroutine(newStageWhilePlaying());
             }
         }
+    }
+
+    private IEnumerator newStageWhilePlaying(){
+        yield return new WaitUntil(()=>!currentlyPlaying);
+        playSbs(true);
     }
 
     private void submission(string digit){
@@ -626,8 +631,9 @@ public class _sbemailsongs:ModdedModule{
     private IEnumerator Play(int song){
         playbutton.GetComponent<MeshRenderer>().material=stopMat;
         currentlyPlaying=true;
+        var old=Time.time;
         lineRef=Audio.PlaySoundAtTransformWithRef("AUDIO_ss_"+song,transform);
-        yield return new WaitForSeconds(lines[song-1].length);
+        yield return new WaitWhile(()=>old+lines[song-1].length>Time.time&&currentlyPlaying);
         lineRef.StopSound();
         playbutton.GetComponent<MeshRenderer>().material=playMat;
         currentlyPlaying=false;

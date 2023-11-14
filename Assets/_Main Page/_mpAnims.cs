@@ -58,7 +58,7 @@ public class _mpAnims:MonoBehaviour{
             setup(-.0233f, .01f  ,.2063f,.075f ,false, .85f,xOffset:.1f          ),
             setup( .01f  , .04f  ,.1f   ,.1f   ,false                            ),
             setup( .003f , .015f ,.264f ,.154f ,false                            ),
-            setup( .0042f, .0224f,.1505f,.11f  ,false, .6f , 2/3f, .25f,.3f      ),
+            setup( .0042f, .0224f,.1505f,.11f  ,false, .25f, .83f, .53f          ),
             setup(0      , .024f , 1/15f,.045f ,true,                    dis:true),
             setup(0      , .024f ,.16f  ,.113f ,false                            ),
             setup(0      , .024f ,.16f  ,.113f ,false,2/3f ,xOffset:.2f          )

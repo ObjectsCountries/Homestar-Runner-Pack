@@ -20,6 +20,9 @@ public class _mainpagescript:ModdedModule{
     public _mpTextures TXTRs;
     public KMRuleSeedable rs;
     public KMBombInfo bomb;
+    public KMColorblindMode colorblind;
+    public MeshRenderer[]colorblindBubbles;
+    public Material colorblindUNHL,colorblindHL;
     internal bool speaking;
     internal bool moduleSolved = false;
     internal string[] buttonNames={"Toons","Games","Characters","Downloads","Store","E-mail"};
@@ -47,7 +50,7 @@ public class _mainpagescript:ModdedModule{
     private turnCondition turnCond;
     private turnType turnIf,turnElse;
     private bool caesarHS;
-    private int correctMainPage;
+    internal int correctMainPage;
     private int[]effects=new int[6]{-1,-1,-1,-1,-1,-1};
     private string[,]messages=new string[,]
         {
@@ -384,16 +387,19 @@ public class _mainpagescript:ModdedModule{
         foreach (KMSelectable button in numberButtons){
             button.Set(onInteract: () => {
                 Shake(button,.5f,Sound.BigButtonPress);
-                Log("Main page {0} selected.", button.GetComponentInChildren<TextMesh>().text);
-                if(int.Parse(button.GetComponentInChildren<TextMesh>().text)==correctMainPage+1){
-                    blinkstop = true;
-                    HSBG.HSnumber=int.Parse(button.GetComponentInChildren<TextMesh>().text)-1;
-                    HSBG.BGnumber=int.Parse(button.GetComponentInChildren<TextMesh>().text)-1;
-                    HSBG.BgHsSetup(HSBG.HSnumber,HSBG.BGnumber);
-                    foreach (KMSelectable bu in menuButtons)bu.GetComponent<_mpAnims>().sayingAnims(int.Parse(button.GetComponentInChildren<TextMesh>().text) - 1);
-                    Solve("Correct main page selected!");
-                }else{
-                    Strike("Strike! Correct main page was {0}",correctMainPage+1);
+                if(!Status.IsSolved){
+                    Log("Main page {0} selected.", button.GetComponentInChildren<TextMesh>().text);
+                    if(int.Parse(button.GetComponentInChildren<TextMesh>().text)==correctMainPage+1){
+                        blinkstop = true;
+                        HSBG.HSnumber=int.Parse(button.GetComponentInChildren<TextMesh>().text)-1;
+                        HSBG.BGnumber=int.Parse(button.GetComponentInChildren<TextMesh>().text)-1;
+                        HSBG.BgHsSetup(HSBG.HSnumber,HSBG.BGnumber);
+                        foreach (KMSelectable bu in menuButtons)
+                            bu.GetComponent<_mpAnims>().sayingAnims(int.Parse(button.GetComponentInChildren<TextMesh>().text) - 1);
+                        Solve("Correct main page selected!");
+                    }else{
+                        Strike("Strike! Correct main page was {0}",correctMainPage+1);
+                    }
                 }
             });
         }
@@ -450,45 +456,34 @@ public class _mainpagescript:ModdedModule{
         return result;
     }
 
-    IEnumerator coloredButtonCycle(){
+    private IEnumerator coloredButtonCycle(){
+        if(colorblind.ColorblindModeActive){
+            foreach(MeshRenderer bubble in colorblindBubbles){
+                bubble.gameObject.SetActive(true);
+                bubble.GetComponentInChildren<TextMesh>().color=Color.gray;
+            }
+        }
         while(true){
             messageButton.material=messageColors[color1];
+            colorblindColorToggle(color1);
             messageButton.GetComponentInChildren<TextMesh>().text=chosenFirstMessages[message1];
             yield return new WaitForSeconds(2);
             messageButton.material=messageColors[color2];
+            colorblindColorToggle(color2);
             messageButton.GetComponentInChildren<TextMesh>().text=messages[message2%5,message2/5];
             yield return new WaitForSeconds(2);
             messageButton.material=messageColors[color3];
+            colorblindColorToggle(color3);
             messageButton.GetComponentInChildren<TextMesh>().text=messages[message3%5,message3/5];
             yield return new WaitForSeconds(2);
         }
     }
-
-    IEnumerator ProcessTwitchCommand(string command){
-        command = command.ToLowerInvariant().Trim();
-        if (command == "cycle"){
-            yield return null;
-            foreach (KMSelectable button in menuButtons){
-                button.OnHighlight();
-                button.OnHighlightEnded();
-                yield return new WaitForSeconds(1.5f);
-            }
-            yield break;
-        } int i;
-        if (int.TryParse(command, out i)){
-            yield return null;
-            if (int.Parse(command) < 28 && int.Parse(command) > 0) yield return new[] {numberButtons[int.Parse(command) - 1]};
-            else yield return "sendtochaterror The main page number must be from 1 to 27.";
-            yield break;
-        } bool containsatall = false;
-        yield return null;
-        foreach (char c in command){
-            if (Array.Exists(buttonLetters, x => x == char.ToUpperInvariant(c))){
-                containsatall = true;
-                menuButtons[Array.IndexOf(buttonLetters,char.ToUpperInvariant(c))].OnHighlight();
-                menuButtons[Array.IndexOf(buttonLetters,char.ToUpperInvariant(c))].OnHighlightEnded();
-                yield return new WaitForSeconds(1.5f);
-            }
-        } if (!containsatall) yield return "sendtochaterror Invalid command. Use the letters t, g, c, d, s, and e for each button.";
+    private void colorblindColorToggle(int index){
+        foreach(MeshRenderer bubble in colorblindBubbles){
+            bubble.material=colorblindUNHL;
+            bubble.GetComponentInChildren<TextMesh>().color=Color.gray;
+        }
+        colorblindBubbles[index].material=colorblindHL;
+        colorblindBubbles[index].GetComponentInChildren<TextMesh>().color=Color.white;
     }
 }
