@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 114753447477012624}
   - component: {fileID: 114340374512085094}
   - component: {fileID: 114629190801876716}
+  - component: {fileID: 114307629089345056}
   m_Layer: 0
   m_Name: _strongmadtalker
   m_TagString: Untagged
@@ -2429,6 +2430,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Transparent/Mobile Diffuse Underlay200
+--- !u!114 &114307629089345056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1195034595088968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf69c2de51bd3c43bbd9bc22578ee08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _seed: 1
 --- !u!114 &114311855346865700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2461,6 +2474,7 @@ MonoBehaviour:
   - {fileID: 114146236148513080}
   - {fileID: 114489574539700998}
   PSToggle: {fileID: 114803827650583568}
+  rs: {fileID: 114307629089345056}
   PSColors:
   - {fileID: 2100000, guid: 3c40834690c6eff4d90e854631b0ea1c, type: 2}
   - {fileID: 2100000, guid: 299a6cedfd0c3714496c312a8586ba83, type: 2}
