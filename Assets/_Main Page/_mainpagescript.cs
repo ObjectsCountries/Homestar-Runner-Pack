@@ -203,31 +203,31 @@ public class _mainpagescript:ModdedModule{
             case colorCondition.COLOR_PRESENT:
                 condTrue=color1==c1||color2==c1||color3==c1;
                 if(condTrue)
-                    Log(messageColorNames[c1]+" is present, skewing left.");
+                    Log(messageColorNames[c1].Substring(0,1).ToUpper()+messageColorNames[c1].Substring(1)+" is present, skewing left.");
                 else
-                    Log(messageColorNames[c1]+" is not present, skewing right.");
+                    Log(messageColorNames[c1].Substring(0,1).ToUpper()+messageColorNames[c1].Substring(1)+" is not present, skewing right.");
                 break;
             case colorCondition.COLOR_NOT_PRESENT:
                 condTrue=colorNotPresent==messageColorNames[c1];
                 if(condTrue)
-                    Log(messageColorNames[c1]+" is not present, skewing left.");
+                    Log(messageColorNames[c1].Substring(0,1).ToUpper()+messageColorNames[c1].Substring(1)+" is not present, skewing left.");
                 else
-                    Log(messageColorNames[c1]+" is present, skewing right.");
+                    Log(messageColorNames[c1].Substring(0,1).ToUpper()+messageColorNames[c1].Substring(1)+" is present, skewing right.");
                 break;
             case colorCondition.BOTH_COLORS_PRESENT:
                 condTrue=(color1==c1||color2==c1||color3==c1)&&(color1==c2||color2==c2||color3==c2);
                 if(condTrue)
-                    Log(messageColorNames[c1]+" and "+messageColorNames[c2]+" are both present, skewing left.");
+                    Log(messageColorNames[c1].Substring(0,1).ToUpper()+messageColorNames[c1].Substring(1)+" and "+messageColorNames[c2]+" are both present, skewing left.");
                 else
-                    Log("Either "+messageColorNames[c1]+" or "+messageColorNames[c2]+" is not present, skewing right.");
+                    Log("Either "+messageColorNames[c1].Substring(0,1).ToUpper()+messageColorNames[c1].Substring(1)+" or "+messageColorNames[c2]+" is not present, skewing right.");
                 break;
             case colorCondition.EITHER_COLOR_NOT_PRESENT:
             default:
                 condTrue=!((color1==c1||color2==c1||color3==c1)&&(color1==c2||color2==c2||color3==c2));
                 if(condTrue)
-                    Log("Either "+messageColorNames[c1]+" or "+messageColorNames[c2]+" is not present, skewing left.");
+                    Log("Either "+messageColorNames[c1].Substring(0,1).ToUpper()+messageColorNames[c1].Substring(1)+" or "+messageColorNames[c2]+" is not present, skewing left.");
                 else
-                    Log(messageColorNames[c1]+" and "+messageColorNames[c2]+" are both present, skewing right.");
+                    Log(messageColorNames[c1].Substring(0,1).ToUpper()+messageColorNames[c1].Substring(1)+" and "+messageColorNames[c2]+" are both present, skewing right.");
                 break;
         }
         if(condTrue){
@@ -397,6 +397,7 @@ public class _mainpagescript:ModdedModule{
                         foreach (KMSelectable bu in menuButtons)
                             bu.GetComponent<_mpAnims>().sayingAnims(int.Parse(button.GetComponentInChildren<TextMesh>().text) - 1);
                         Solve("Correct main page selected!");
+                        HSBG.oldtimeysay.SetActive(false);
                     }else{
                         Strike("Strike! Correct main page was {0}",correctMainPage+1);
                     }
