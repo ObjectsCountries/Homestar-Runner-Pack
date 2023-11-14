@@ -20,7 +20,8 @@ public class _smtscript:ModdedModule{
     internal bool playing=true;
     public List<string>onesylwords=new List<string>(){"JUICE","PULSE","CAKE","CHARM","NIGHT","CURLS"};
     private string onesylword;
-    public List<string>multisylwords;
+    public List<string>multisylwords=new List<string>(){"SWEETYCAKES","CHEDDAR","DOUGLAS","GARBLEDINA","MANTIS","DIAPER","PROXIMITY","MOVIE","HORSES","WORKING","CASSEROLE","AROUND","DELUISE","BATTLESHIP","MOTORCYCLES","TRAINWRECK"};
+    private List<string>allWords=new List<string>(){"JUICE","PULSE","CAKE","CHARM","NIGHT","CURLS","SWEETYCAKES","CHEDDAR","DOUGLAS","GARBLEDINA","MANTIS","DIAPER","PROXIMITY","MOVIE","HORSES","WORKING","CASSEROLE","AROUND","DELUISE","BATTLESHIP","MOTORCYCLES","TRAINWRECK"};
     private int onesylposition;
     private string TheDecoy;
     List<int>usedWords=new List<int>();
@@ -33,7 +34,15 @@ public class _smtscript:ModdedModule{
     private int decoyPos;
     internal settings SMTSettings;
     private bool doneSpeaking=true;
-    private List<int>[]checkOrders;
+    private List<int>[]checkOrders=new List<int>[]{
+        new List<int>(){0,1,2,3,4,5},
+        new List<int>(){0,1,2,3,4,5},
+        new List<int>(){0,1,2,3,4,5},
+        new List<int>(){0,1,2,3,4,5}
+    };
+    
+    private string[]absolutePositions=new string[]{"TL","TR","ML","MR","BL","BR"};
+    private string[]relativePositions=new string[]{"L","R","A","B"};
 
     public sealed class settings{
         public bool SMT_LogPlayingModeInteractions=true;
@@ -66,12 +75,26 @@ public class _smtscript:ModdedModule{
         PSToggle.Set(onInteract:PS);
     }
 
+    
+
     void Start(){
         var rnd=rs.GetRNG();
-        if(rnd.Seed==1)
+        if(rnd.Seed==1){
             onesylwords=new List<string>(){"JUICE","PULSE","CAKE","CHARM"};
-        else
+            checkOrders=new List<int>[]{
+                new List<int>(){0,1,2,3,4,5},
+                new List<int>(){0,3,1,4,2,5},
+                new List<int>(){2,3,4,1,0,5},
+                new List<int>(){2,3,1,0,5,4}
+            };
+            multisylwords=new List<string>(){"SWEETYCAKES","PROXIMITY","CHEDDAR","MOVIE","DOUGLAS","CASSEROLE","GARBLEDINA","WORKING","MANTIS","AROUND","DIAPER","HORSES"};
+        }else{
             rnd.ShuffleFisherYates(onesylwords);
+            foreach(List<int>order in checkOrders)
+                rnd.ShuffleFisherYates(order);
+            rnd.ShuffleFisherYates(multisylwords);
+        }
+        rnd.ShuffleFisherYates(allWords);
         SMTSettings=new Config<settings>("strongmadtalker-settings.json").Read();
         foreach(GameObject star in stars)
             star.SetActive(false);
@@ -85,6 +108,103 @@ public class _smtscript:ModdedModule{
         if(TheDecoy=="MANTIS")
             pressingOrder(mantis);
         else pressingOrder(TheDecoy);
+    }
+
+    private List<string>pickWordSelectors(MonoRandom r,bool can1Syl, bool canThis){
+        List<string>selectors=new List<string>(){absolutePositions[r.Next(0,6)],relativePositions[r.Next(0,4)],(r.Next(1,7)-1).ToString()};
+        if(can1Syl)
+            selectors.Add("1SYL");
+        if(canThis)
+            selectors.Add("THIS");
+        return r.ShuffleFisherYates(selectors);
+    }
+    
+    private string decideWordsForContainsRule(MonoRandom r){
+        int contains=r.Next(0,2);
+        int mode=r.Next(0,3);
+        int numWords=r.Next(3,6);
+        switch(mode){
+            case 0:
+                if(contains==0)
+                    return "ONLY "+allWords[0];
+                else
+                    return "nONLY "+allWords[0];
+            case 1:
+                if(contains==0)
+                    return "ANY "+string.Join(" ", allWords.GetRange(0,numWords+1).ToArray());
+                else
+                    return "nANY "+string.Join(" ", allWords.GetRange(0,numWords+1).ToArray());
+            case 2:
+            default:
+                List<string>newMultiSylWords=new List<string>();
+                foreach(string word in multisylwords)
+                    newMultiSylWords.Add(word);
+                if(contains==0)
+                    return "ALL "+newMultiSylWords.GetRange(0,numWords+1).ToArray();
+                else
+                    return "nALL "+newMultiSylWords.GetRange(0,numWords+1).ToArray();
+        }
+    }
+    
+    private bool CHECKadjacent(MonoRandom r){
+        List<string>w=pickWordSelectors(r,true,true);
+        string[]adjacentType=new string[]{"O","D","OD"};
+        string adj=adjacentType[r.Next(0,3)];
+        string[]looping=new string[]{"L","NL"};
+        string loop=looping[r.Next(0,2)];
+        List<string>tempWordList=new List<string>();
+        for(int i=0;i<6;i++){
+            tempWordList.Add(buttons[i].GetComponentInChildren<TextMesh>().text);
+        }
+        int word0=tempWordList.IndexOf(w[0]);
+        int word1=tempWordList.IndexOf(w[1]);
+        switch(adj){
+            case "O":
+                if(loop=="L")
+                    return (
+                                (word0==(word1+2)%6)
+                              ||(word0==(word1+4)%6)
+                              ||(word0%2==0&&word0==word1-1)
+                              ||(word0%2==1&&word0==word1+1)
+                           );
+                else
+                    return (
+                                (word1<4&&word0==word1+2)
+                              ||(word1>1&&word0==word1-2)
+                              ||(word0%2==0&&word0==word1-1)
+                              ||(word0%2==1&&word0==word1+1)
+                           );
+            case "D":
+                if(loop=="L")
+                    return (
+                                (word0%2==0&&word1==(word0+3)%6)
+                              ||(word0%2==0&&word1==(word0+5)%6)
+                              ||(word0%2==1&&word1==(word0+1)%6)
+                              ||(word0%2==1&&word1==(word0+3)%6)
+                           );
+                else
+                    return (
+                                (word0==0&&word1==3)
+                              ||(word0==1&&word1==2)
+                              ||(word0==2&&word1==1)
+                              ||(word0==2&&word1==5)
+                              ||(word0==3&&word1==0)
+                              ||(word0==3&&word1==4)
+                              ||(word0==4&&word1==3)
+                              ||(word0==5&&word1==2)
+                           );
+            case "OD":
+            default:
+                if(loop=="L")
+                    return true;
+                else
+                    return (
+                                (word0!=0&&word1!=5)
+                              ||(word0!=1&&word1!=4)
+                              ||(word0!=4&&word1!=1)
+                              ||(word0!=5&&word1!=0)
+                           );
+        }
     }
 
     internal void PS(){
@@ -122,13 +242,7 @@ public class _smtscript:ModdedModule{
     }
 
     List<int>OrderCheck(string word){
-        if(word=="PULSE")
-            return new List<int>{0,2,4,1,3,5};
-        if(word=="CAKE")
-            return new List<int>{4,3,0,1,2,5};
-        if(word=="CHARM")
-            return new List<int>{3,2,0,1,5,4};
-        return new List<int>{0,1,2,3,4,5};
+        return checkOrders[onesylwords.IndexOf(word)];
     }
 
     string Decoy(List<int>Order){
@@ -231,7 +345,7 @@ public class _smtscript:ModdedModule{
     }
 
     internal void Press(KMSelectable button){
-        Shake(button,1,Sound.BigButtonPress);
+        Shake(button,.5f,Sound.BigButtonPress);
         string word=button.GetComponentInChildren<TextMesh>().text;
         StartCoroutine(mouthAnimation(word));
         string message="Pressed "+word;

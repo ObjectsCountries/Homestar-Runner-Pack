@@ -97,7 +97,7 @@
 				rnd => { return decideWordsForContainsRule(rnd); },
 				rnd => { let w = pickWordSelectors(rnd, true, true); return `the serial number shares any letters with ${w[0]}`; },
 				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is ${['longer than', 'shorter than', 'the same length as'][rnd.next(0, 3)]} ${w[1]}`; },
-				rnd => { let w = pickWordSelectors(rnd, false, false); return `${w[0]} has (already/not yet) been checked`; },
+				rnd => { let w = pickWordSelectors(rnd, false, false); return `${w[0]} has ${['already', 'not yet'][rnd.next(0, 2)]} been checked`; },
 				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is in the ${['left column', 'right column', 'upper half', 'lower half'][rnd.next(0, 4)]} of this table`; },
 				rnd => { let w = pickWordSelectors(rnd, true, true); return `${[w[0], 'any word on the module'][rnd.next(0, 2)]} is ${['at least 10 letters long', 'exactly 8 letters long', 'at most 6 letters long'][rnd.next(0, 3)]}`; },
 				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is word ${orStr(rnd.shuffleFisherYates(Array(6).fill(null).map((_, c) => c+1)).slice(0, rnd.next(1, 4)))} in the checking sequence`; },
