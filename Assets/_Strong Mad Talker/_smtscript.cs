@@ -11,13 +11,14 @@ using KModkit;
 public class _smtscript:ModdedModule{
     public KMSelectable[] buttons;
     public KMSelectable PSToggle;
+    public KMRuleSeedable rs;
     public Material[] PSColors;
     public TextMesh PSText;
     public Renderer lipsync;
     public Material[]mouthShapes;
     public GameObject eyesclosed;
     internal bool playing=true;
-    public List<string>onesylwords;
+    public List<string>onesylwords=new List<string>(){"JUICE","PULSE","CAKE","CHARM","NIGHT","CURLS"};
     private string onesylword;
     public List<string>multisylwords;
     private int onesylposition;
@@ -32,6 +33,7 @@ public class _smtscript:ModdedModule{
     private int decoyPos;
     internal settings SMTSettings;
     private bool doneSpeaking=true;
+    private List<int>[]checkOrders;
 
     public sealed class settings{
         public bool SMT_LogPlayingModeInteractions=true;
@@ -65,6 +67,11 @@ public class _smtscript:ModdedModule{
     }
 
     void Start(){
+        var rnd=rs.GetRNG();
+        if(rnd.Seed==1)
+            onesylwords=new List<string>(){"JUICE","PULSE","CAKE","CHARM"};
+        else
+            rnd.ShuffleFisherYates(onesylwords);
         SMTSettings=new Config<settings>("strongmadtalker-settings.json").Read();
         foreach(GameObject star in stars)
             star.SetActive(false);

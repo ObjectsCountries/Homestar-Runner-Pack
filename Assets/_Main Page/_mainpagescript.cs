@@ -14,7 +14,7 @@ public class _mainpagescript:ModdedModule{
     public KMSelectable[] menuButtons;
     public Renderer messageButton;
     public Material[] messageColors;
-    private string[] messageColorNames=new string[]{"blue","green","red","yellow"};
+    public string[] messageColorNames=new string[]{"blue","green","red","yellow"};//public for Souvenir
     public Shader transparentshader;
     public _mpHsBg HSBG;
     public _mpTextures TXTRs;
@@ -28,7 +28,7 @@ public class _mainpagescript:ModdedModule{
     internal string[] buttonNames={"Toons","Games","Characters","Downloads","Store","E-mail"};
     internal char[] buttonLetters={'T','G','C','D','S','E'};
     internal bool blinkstop = false;
-    internal int message1,message2,message3,color1,color2,color3;
+    public int message1,message2,message3,color1,color2,color3;//public for Souvenir
     string colorNotPresent;
     private enum colorCondition{
         COLOR_PRESENT,
@@ -50,9 +50,9 @@ public class _mainpagescript:ModdedModule{
     private turnCondition turnCond;
     private turnType turnIf,turnElse;
     private bool caesarHS;
-    internal int correctMainPage;
-    private int[]effects=new int[6]{-1,-1,-1,-1,-1,-1};
-    private string[,]messages=new string[,]
+    public int correctMainPage;//public for Souvenir
+    public int[]effects=new int[6]{-1,-1,-1,-1,-1,-1};//public for Souvenir
+    public string[,]messages=new string[,]//public for Souvenir
         {
             {"play a game", "latest toon", "latest merch"},
             {"new strong bad email", "new sbemail a comin", "email soon"},
@@ -328,7 +328,7 @@ public class _mainpagescript:ModdedModule{
             }else if(serialLetters[0]==serialLettersAlphabetized[1]){
                 if(serialLetters[1]==serialLettersAlphabetized[2]){
                     Log("The third letter should be placed at the beginning.");
-                    code=""+code[2]+code[0]+code[1];
+                    code=""+code[1]+code[2]+code[0];
                 }else{
                     Log("The first and second letters need to be swapped.");
                     code=""+code[1]+code[0]+code[2];
@@ -339,7 +339,7 @@ public class _mainpagescript:ModdedModule{
                     code=""+code[2]+code[1]+code[0];
                 }else{
                     Log("The first letter should be placed at the end.");
-                    code=""+code[1]+code[2]+code[0];
+                    code=""+code[2]+code[0]+code[1];
                 }
             }
             Log("The code has been rearranged to "+code+".");
@@ -463,20 +463,34 @@ public class _mainpagescript:ModdedModule{
                 bubble.GetComponentInChildren<TextMesh>().color=Color.gray;
             }
         }
-        while(true){
+        var old=Time.time;
+        while(!Status.IsSolved){
+            old=Time.time;
             messageButton.material=messageColors[color1];
             colorblindColorToggle(color1);
             messageButton.GetComponentInChildren<TextMesh>().text=chosenFirstMessages[message1];
-            yield return new WaitForSeconds(2);
+            yield return new WaitWhile(()=>old+2>Time.time&&!Status.IsSolved);
+            if(Status.IsSolved)
+                break;
+            old=Time.time;
             messageButton.material=messageColors[color2];
             colorblindColorToggle(color2);
             messageButton.GetComponentInChildren<TextMesh>().text=messages[message2%5,message2/5];
-            yield return new WaitForSeconds(2);
+            yield return new WaitWhile(()=>old+2>Time.time&&!Status.IsSolved);
+            if(Status.IsSolved)
+                break;
+            old=Time.time;
             messageButton.material=messageColors[color3];
             colorblindColorToggle(color3);
             messageButton.GetComponentInChildren<TextMesh>().text=messages[message3%5,message3/5];
-            yield return new WaitForSeconds(2);
+            yield return new WaitWhile(()=>old+2>Time.time&&!Status.IsSolved);
+            if(Status.IsSolved)
+                break;
         }
+        messageButton.GetComponentInChildren<TextMesh>().text="solved!";
+        messageButton.material=messageColors[1];
+        colorblindColorToggle(1);
+        
     }
     private void colorblindColorToggle(int index){
         foreach(MeshRenderer bubble in colorblindBubbles){
