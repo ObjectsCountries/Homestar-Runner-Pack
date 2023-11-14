@@ -14,6 +14,8 @@ The texture used as a placeholder for the blink texture for Main Page Homestars 
 
 ## To Do
 
+General
+
 * Screenshot all 5 modules for workshop thumbnail
 * Test Twitch Plays support & autosolver
 * Determine whether to create separate tutorials for each mod
@@ -24,7 +26,8 @@ Strong Mad Talker
 
 Main Page
 
-* Capitalize color name when logging 
+* Capitalize color name when logging
+* Fix [this issue](https://github.com/ObjectsCountries/Homestar-Runner-Pack/issues/1)
 * Add LFA support (Table)
 * Add Souvenir support (make message and color variables public)
 
