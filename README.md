@@ -14,6 +14,7 @@ The texture used as a placeholder for the blink texture for Main Page Homestars 
 
 ## To Do
 
+* Screenshot all 5 modules for workshop thumbnail
 * Test Twitch Plays support & autosolver
 * Determine whether to create separate tutorials for each mod
 
