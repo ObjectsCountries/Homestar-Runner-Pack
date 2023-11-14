@@ -219,13 +219,13 @@ public class _mainpagescript:ModdedModule{
                 if(condTrue)
                     Log(messageColorNames[c1].Substring(0,1).ToUpper()+messageColorNames[c1].Substring(1)+" and "+messageColorNames[c2]+" are both present, skewing left.");
                 else
-                    Log("Either "+messageColorNames[c1].Substring(0,1).ToUpper()+messageColorNames[c1].Substring(1)+" or "+messageColorNames[c2]+" is not present, skewing right.");
+                    Log("Either "+messageColorNames[c1]+" or "+messageColorNames[c2]+" is not present, skewing right.");
                 break;
             case colorCondition.EITHER_COLOR_NOT_PRESENT:
             default:
                 condTrue=!((color1==c1||color2==c1||color3==c1)&&(color1==c2||color2==c2||color3==c2));
                 if(condTrue)
-                    Log("Either "+messageColorNames[c1].Substring(0,1).ToUpper()+messageColorNames[c1].Substring(1)+" or "+messageColorNames[c2]+" is not present, skewing left.");
+                    Log("Either "+messageColorNames[c1]+" or "+messageColorNames[c2]+" is not present, skewing left.");
                 else
                     Log(messageColorNames[c1].Substring(0,1).ToUpper()+messageColorNames[c1].Substring(1)+" and "+messageColorNames[c2]+" are both present, skewing right.");
                 break;
@@ -491,7 +491,7 @@ public class _mainpagescript:ModdedModule{
         messageButton.GetComponentInChildren<TextMesh>().text="solved!";
         messageButton.material=messageColors[1];
         colorblindColorToggle(1);
-        
+
     }
     private void colorblindColorToggle(int index){
         foreach(MeshRenderer bubble in colorblindBubbles){
