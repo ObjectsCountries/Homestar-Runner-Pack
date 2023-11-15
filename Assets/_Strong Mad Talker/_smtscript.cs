@@ -45,7 +45,7 @@ public class _smtscript:ModdedModule{
         new List<int>(){0,1,2,3,4,5},
         new List<int>(){0,1,2,3,4,5}
     };
-
+    private bool useDetDecoy=false;
     private string[]absolutePositions=new string[]{"TL","TR","ML","MR","BL","BR"};
     private string[]relativePositions=new string[]{"L","R","A","B"};
 
@@ -153,8 +153,8 @@ public class _smtscript:ModdedModule{
         decoys=new string[]{decoy0,decoy1,decoy2,decoy3,decoy4,decoy5,decoy6,decoy7,decoy8,decoy9,decoy10,decoy11};
         checkingOrders=new List<int>[]{checkingOrder0,checkingOrder1,checkingOrder2,checkingOrder3,checkingOrder4,checkingOrder5,checkingOrder6,checkingOrder7,checkingOrder8,checkingOrder9,checkingOrder10,checkingOrder11};
         for(int i=0;i<12;i++){
-            Log("Condition for "+multisylwords[i]+": "+checks[i]);
-            Log("Decoy position for "+multisylwords[i]+": "+decoys[i]);
+            Log("DEBUG: Condition for "+multisylwords[i]+": "+checks[i]);
+            Log("DEBUG: Decoy position for "+multisylwords[i]+": "+decoys[i]);
         }
         TheDecoy=Decoy(OrderCheck(onesylword));
         Log("{0} is the decoy.",TheDecoy);
@@ -245,10 +245,10 @@ public class _smtscript:ModdedModule{
             case 2:
                 if(index>=0&&index<=5)
                     Log("DEBUG: "+tempWordList[index]+" has case 2");
-                if(OrderCheck(onesylword).IndexOf(index)==0)
+                if(OrderCheck(onesylword).IndexOf(index)<=0)
                     return OrderCheck(onesylword).IndexOf(index).ToString();
                 else
-                    return (OrderCheck(onesylword).IndexOf(index)-1).ToString();
+                    return (OrderCheck(onesylword).IndexOf(index-1)).ToString();
             case 3:
             default:
                 if(index>=0&&index<=5)
@@ -259,9 +259,13 @@ public class _smtscript:ModdedModule{
                 return order[r.Next(0,3)]+table[r.Next(0,2)]+check[r.Next(0,2)];
         }
     }
-
+    int order=0;
     private List<int>pickOrder(MonoRandom r){
-        switch(r.Next(0,6)){
+        if(useDetDecoy)
+            order=r.Next(0,5);
+        else
+            order=r.Next(0,6);
+        switch(order){
             case 0:
                 int order=r.Next(0,6);
                 int moduleOrTable=r.Next(0,2);
@@ -352,6 +356,8 @@ public class _smtscript:ModdedModule{
                                     tempWordList.IndexOf(multisylwords[ 3]),
                                     tempWordList.IndexOf(multisylwords[ 1])}
                 };
+                foreach(List<int> j in ordersTable)
+                    Log(j);
                 if(moduleOrTable==0)
                     return ordersModule[order];
                 else
@@ -361,7 +367,7 @@ public class _smtscript:ModdedModule{
                 List<string>tempTempWordList1=new List<string>(tempWordList);
                 tempTempWordList1.Sort((x,y)=>string.Compare(x,y));
                 for(int i=0;i<6;i++)
-                    result1.Add(tempTempWordList1.IndexOf(tempWordList[i]));
+                    result1.Add(tempWordList.IndexOf(tempTempWordList1[i]));
                 int reverse=r.Next(0,2);
                 if(reverse==1)
                     result1.Reverse();
@@ -369,43 +375,51 @@ public class _smtscript:ModdedModule{
             case 2:
                 List<int>result2=new List<int>();
                 List<string>tempTempWordList2=new List<string>(tempWordList);
-                tempTempWordList2.Sort((x,y)=>string.Compare(x,y));
-                tempTempWordList2.OrderBy(x=>x.Length).ToList();
-                for(int i=0;i<6;i++)
-                    result2.Add(tempTempWordList2.IndexOf(tempWordList[i]));
                 int incOrDec2=r.Next(0,2);
+                tempTempWordList2.Sort((x,y)=>string.Compare(x,y));
                 if(incOrDec2==1)
-                    result2.Reverse();
+                    tempTempWordList2=tempTempWordList2.OrderBy(x=>-1*x.Length).ToList();
+                else
+                    tempTempWordList2=tempTempWordList2.OrderBy(x=>x.Length).ToList();
+                for(int i=0;i<6;i++)
+                    result2.Add(tempWordList.IndexOf(tempTempWordList2[i]));
                 return result2;
             case 3:
                 List<int>result3=new List<int>();
-                List<int>rearrange=r.ShuffleFisherYates(Enumerable.Range(0,3).ToList());
+                List<int>rearrange=r.ShuffleFisherYates(Enumerable.Range(0,4).ToList());
                 List<string>tempTempWordList3=new List<string>(tempWordList);
-                tempTempWordList3.Sort((x,y)=>string.Compare(x,y));
-                tempTempWordList3.OrderBy(x=>x.Length).ToList();
-                for(int i=0;i<6;i++)
-                    result3.Add(tempTempWordList3.IndexOf(tempWordList[i]));
                 int incOrDec3=r.Next(0,2);
+                tempTempWordList3.Sort((x,y)=>string.Compare(x,y));
                 if(incOrDec3==1)
-                    result3.Reverse();
+                    tempTempWordList3=tempTempWordList3.OrderBy(x=>-1*x.Length).ToList();
+                else
+                    tempTempWordList3=tempTempWordList3.OrderBy(x=>x.Length).ToList();
+                for(int i=0;i<6;i++)
+                    result3.Add(tempWordList.IndexOf(tempTempWordList3[i]));
                 result3.Add(-2);//to separate rearrangement numbers
                 foreach(int rea in rearrange)
                     result3.Add(rea);
                 return result3;
             case 4:
-                List<int>order4=r.ShuffleFisherYates(Enumerable.Range(0,5).ToList());
+                List<int>temp4=r.ShuffleFisherYates(Enumerable.Range(0,6).ToList());
+                List<int>order4=new List<int>();
+                for(int i=0;i<6;i++)
+                    order4.Add(temp4.IndexOf(i));
                 return order4;
             case 5:
             default:
+                useDetDecoy=true;
                 return new List<int>(){-3};
         }
     }
 
-    private int wToWord(string input,int pos,int index=0){
+    private int wToWord(string input,int pos,int index=-1){
         int[]geometricModule=new int[]{4,5,2,3,0,1};
         int[]geometricTable =new int[]{10,11,8,9,6,7,4,5,2,3,0,1};
         int[]chineseModule  =new int[]{1,3,5,0,2,4};
         int[]chineseTable   =new int[]{1,3,5,7,9,11,0,2,4,6,8,10};
+        if(input.Length==3&&index==0)
+            return pos;
         switch(input){
             case "RMB":
                 for(int i=0;i<6;i++){
@@ -422,13 +436,13 @@ public class _smtscript:ModdedModule{
             case "RTB":
                 for(int i=0;i<12;i++){
                     if(tempWordList.Contains(multisylwords[i])&&OrderCheck(onesylword).IndexOf(tempWordList.IndexOf(multisylwords[i]))<index)
-                        return i;
+                        return tempWordList.IndexOf(multisylwords[i]);
                 }
                 return -1;
             case "RTN":
                 for(int i=0;i<12;i++){
                     if(tempWordList.Contains(multisylwords[i])&&OrderCheck(onesylword).IndexOf(tempWordList.IndexOf(multisylwords[i]))>index)
-                        return i;
+                        return tempWordList.IndexOf(multisylwords[i]);
                 }
                 return -1;
             case "GMB":
@@ -721,14 +735,14 @@ public class _smtscript:ModdedModule{
     private bool CHECKseqIndex(MonoRandom r,int pos){
         List<string>w=pickWordSelectors(r,true,true);
         int word0=wToWord(w[0],pos);
-        int[]indices=r.ShuffleFisherYates(Enumerable.Range(0,5).ToArray());
+        int[]indices=r.ShuffleFisherYates(Enumerable.Range(0,6).ToArray());
         int[]indicesSlice=new int[r.Next(1,4)];
         if(pos<0)
             return false;
         for(int i=0;i<indicesSlice.Length;i++)
             indicesSlice[i]=indices[i];
         foreach(int index in indicesSlice){
-            if(OrderCheck(onesylword)[index]==word0)
+            if(OrderCheck(onesylword).IndexOf(index)==word0)
                 return true;
         }
         return false;
@@ -757,7 +771,7 @@ public class _smtscript:ModdedModule{
     }
 
     private bool CHECKalphOrder(MonoRandom r,int pos){
-        List<string>w=pickWordSelectors(r,true,true);
+        List<string>w=pickWordSelectors(r,true,false);
         string[]beforeAfter=new string[]{"B","A"};
         string ba=beforeAfter[r.Next(0,2)];
         if(pos<0)
@@ -766,10 +780,10 @@ public class _smtscript:ModdedModule{
         string word1=tempWordList[wToWord(w[1],pos)];
         switch(ba){
             case "B":
-                return string.Compare(word0,word1)<0;
+                return string.Compare(word0,word1)>0;
             case "A":
             default:
-                return string.Compare(word0,word1)>0;
+                return string.Compare(word0,word1)<0;
         }
     }
 
@@ -825,11 +839,12 @@ public class _smtscript:ModdedModule{
             fulllist.Add(buttons[i].GetComponentInChildren<TextMesh>().text);
         }
         Log("The words are, in reading order: {0}",string.Join(", ",wordlist.ToArray()));
+        string word="";
         for(int i=0;i<6;i++){
-            string word=buttons[Order.IndexOf(i)].GetComponentInChildren<TextMesh>().text;
+            word=buttons[Order.IndexOf(i)].GetComponentInChildren<TextMesh>().text;
             decoyPos=DecoyChecking(word,Order.IndexOf(i),i);
             if(decoyPos!=6){
-                Log("DEBUG: "+word+" declared the decoy");
+                Log(word+" declared the decoy.");
                 if(decoyPos==onesylposition){
                     if(onesylposition%2==0)
                         return mantising(buttons[(onesylposition+1)%6].GetComponentInChildren<TextMesh>().text,word,false);
@@ -841,8 +856,8 @@ public class _smtscript:ModdedModule{
         Log("None of the conditions were true.");
         noneTrue=true;
         if(onesylposition%2==0)
-            return mantising(buttons[(onesylposition+1)%6].GetComponentInChildren<TextMesh>().text,"SWEETYCAKES",true);
-        else return mantising(buttons[(onesylposition-1)%6].GetComponentInChildren<TextMesh>().text,"SWEETYCAKES",true);
+            return mantising(buttons[(onesylposition+1)%6].GetComponentInChildren<TextMesh>().text,word,true);
+        else return mantising(buttons[(onesylposition-1)%6].GetComponentInChildren<TextMesh>().text,word,true);
     }
 
     string mantising(string mantistest,string word,bool sweetyfakes){
@@ -850,9 +865,12 @@ public class _smtscript:ModdedModule{
             mantis=word;
             //wordlist defaults to reading order so i didn't need to specifically use "SWEETYCAKES" but. come on. how could i pass up this pun
             if(sweetyfakes)
-                Log("Because "+mantistest+" is the decoy and it was not declared the decoy by another word (or it declared itself the decoy), the buttons must be pressed in reading order.");
-            else Log("Because "+mantistest+" is the decoy, the order from the word that declared it the decoy will be used, which is {0}.",mantis);
-            decoyPos=wordlist.IndexOf("MANTIS");
+                Log("Because "+mantistest+" is the decoy and it was not declared the decoy by another word, the buttons must be pressed in reading order.");
+            else if(mantistest==word)
+                Log("Because "+mantistest+" declared itself the decoy, the buttons must be pressed in reading order.");
+            else
+                Log("Because "+mantistest+" is the decoy, the order from the word that declared it the decoy will be used, which is {0}.",mantis);
+            decoyPos=wordlist.IndexOf(mantistest);
         }
         return mantistest;
     }
@@ -933,10 +951,10 @@ public class _smtscript:ModdedModule{
         List<int>checkList=checkingOrders[multisylwords.IndexOf(decoy)];
         List<int>orderList=new List<int>();
         if(checkList.Contains(-2)){
-            orderList=checkList.GetRange(checkList.IndexOf(-2),checkList.Count()-checkList.IndexOf(-2));
+            orderList=checkList.GetRange(checkList.IndexOf(-2)+1,checkList.Count()-checkList.IndexOf(-2)-1);
             checkList=checkList.GetRange(0,checkList.IndexOf(-2));
         }
-        if(checkList.Contains(-3)||noneTrue)
+        if(checkList.Contains(-3)&&((TheDecoy==mantis||noneTrue)))
             checkList=new List<int>(){0,1,2,3,4,5};
         if(checkList.Count()==12){
             for(int i=11;i>=0;i--){
@@ -949,8 +967,16 @@ public class _smtscript:ModdedModule{
                 }
             }
         }
-        checkList.Remove(tempWordList.IndexOf(TheDecoy));
-        checkList.Remove(tempWordList.IndexOf(onesylword));
+        if(checkList.Contains(tempWordList.IndexOf(TheDecoy)))
+            checkList.Remove(tempWordList.IndexOf(TheDecoy));
+        if(checkList.Contains(tempWordList.IndexOf(onesylword)))
+            checkList.Remove(tempWordList.IndexOf(onesylword));
+        if(orderList.Count()!=0){
+            List<int>checkListCopy=new List<int>();
+            for(int i=0;i<4;i++)
+                checkListCopy.Add(checkList[orderList[i]]);
+            checkList=checkListCopy;
+        }
         wordlist.Clear();
         foreach(int ch in checkList)
             wordlist.Add(tempWordList[ch]);

@@ -47,7 +47,7 @@
 			{
 				let selectors = [
 					`the ${['top left', 'top right', 'middle left', 'middle right', 'bottom left', 'bottom right'][rnd.next(0, 6)]} word`,
-					`the word ${['to the left of', 'to the right of', 'above', 'below'][rnd.next(0, 4)]} this word`,
+					`the word ${['to the left of', 'to the right of', 'above', 'below'][rnd.next(0, 4)]} this word on the module`,
 					`word ${rnd.next(1, 7)} in the checking sequence`
 				];
 				if (can1Syl)
@@ -91,7 +91,7 @@
 				rnd => { let w = pickWordSelectors(rnd, false, false); return `${[w[0], 'any word on the module'][rnd.next(0, 2)]} is ${['at least 10 letters long', 'exactly 8 letters long', 'at most 6 letters long'][rnd.next(0, 3)]}`; },
 				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is word ${orStr(rnd.shuffleFisherYates(Array(6).fill(null).map((_, c) => c+1)).slice(0, rnd.next(1, 4)))} in the checking sequence`; },
 				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is in the ${['left column', 'right column', 'top row', 'middle row', 'bottom row'][rnd.next(0, 5)]} of the module`; },
-				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} comes ${['before', 'after'][rnd.next(0, 2)]} ${w[1]} in alphabetical order`; },
+				rnd => { let w = pickWordSelectors(rnd, true, false); return `${w[0]} comes ${['before', 'after'][rnd.next(0, 2)]} ${w[1]} in alphabetical order`; },
 				rnd => { return `there are at least 2 lit indicators`; },
 				rnd => { return `there is an empty port plate`; }
 			];
@@ -118,13 +118,18 @@
 					case 2:
 						return `the previous word checked (or, if this is the first word being checked and the condition applies, this word)`;
 					case 3:
-						return `the first word in ${['reading order', 'geometric order', 'Chinese reading order'][rnd.next(0, 3)]} on the ${['module', 'table'][rnd.next(0, 2)]} that has ${['been checked', 'not been checked'][rnd.next(0, 2)]}`;
+						return `the first word in ${['reading order', 'geometric order', 'Chinese reading order'][rnd.next(0, 3)]} on the ${['module', 'table'][rnd.next(0, 2)]} that has ${['been checked', 'not been checked'][rnd.next(0, 2)]} (or, if this is the first word being checked and the condition applies, this word)`;
 				}
 			}
-
+            let useDetDecoy=false;
+            let order=0;
 			function pickOrder(rnd)
 			{
-				switch (rnd.next(0, 6))
+			    if(useDetDecoy)
+			        order=rnd.next(0,5);
+			    else
+			        order=rnd.next(0,6);
+				switch (order)
 				{
 					case 0:
 						return `Use ${[
@@ -151,6 +156,7 @@
 						return `<table><tr><td>${r[0]}<${''}/td><td>${r[1]}<${''}/td><${''}/tr><tr><td>${r[2]}<${''}/td><td>${r[3]}<${''}/td><${''}/tr><tr><td>${r[4]}<${''}/td><td>${r[5]}<${''}/td><${''}/tr><${''}/table>`;
 
 					case 5:
+					    useDetDecoy=true;
 					    return `Use the order from the word that determined the decoy. If none of the conditions were true, or the word declared itself the decoy, use normal reading order.`;
 				}
 			}
@@ -170,7 +176,7 @@
 			text-align: center;
 		}
 		.table-2 {
-			font-size: 11pt;
+			font-size: 9.5pt;
 		}
 		.table-2 div, .table-3 div {
 			margin: .5em 0;
@@ -239,6 +245,7 @@
         </div>
         <div class="page-content">
           <h3>Table 2</h3>
+          <p>If a position relative to "this word" is mentioned, looping around is allowed unless stated otherwise. The "previous word checked" can be the one-syllable word.</p>
           <table class='table-2'>
             <tr>
               <td><strong></strong><div></div></td>

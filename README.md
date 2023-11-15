@@ -17,12 +17,8 @@ The texture used as a placeholder for the blink texture for Main Page Homestars 
 General
 
 * Screenshot all 5 modules together for workshop thumbnail
-* Test Twitch Plays support & autosolver
+* Test ruleseed support, Twitch Plays support & autosolver
 * Determine whether to create separate tutorials for each mod or to have one long tutorial
-
-Strong Mad Talker
-
-* Finish implementing ruleseed support
 
 Main Page
 
