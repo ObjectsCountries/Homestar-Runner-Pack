@@ -61,7 +61,7 @@
 			{
 				let contains = rnd.next(0, 2);
 				let mode = rnd.next(0, 3);
-				let numWords = rnd.next(3, 6);
+				let numWords = rnd.next(2, 5);
 				switch (mode)
 				{
 					case 0: // a specific word
@@ -81,7 +81,7 @@
 				return numbers.length === 1 ? numbers[0] : `${numbers.slice(0, numbers.length-1).join(', ')} or ${numbers[numbers.length-1]}`;
 			}
 
-			let booleanConditions = [
+			let tempBooleanConditions = [
 				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is ${['orthogonally', 'diagonally', 'orthogonally or diagonally'][rnd.next(0, 3)]} adjacent to ${w[1]} ${['looping around', 'not looping around'][rnd.next(0, 2)]}`; },
 				rnd => { return decideWordsForContainsRule(rnd); },
 				rnd => { let w = pickWordSelectors(rnd, true, true); return `the serial number shares any letters with ${w[0]}`; },
@@ -96,7 +96,11 @@
 				rnd => { return `there is an empty port plate`; }
 			];
 
-			rnd.shuffleFisherYates(booleanConditions);
+            let tempList=[0,1,2,3,4,5,6,7,8,9,10,11];
+			rnd.shuffleFisherYates(tempList);
+			let booleanConditions=[];
+			for(let i=0;i<12;i++)
+			    booleanConditions.push(tempBooleanConditions[tempList[i]]);
 
 			function pickDeclaration(rnd)
 			{

@@ -112,46 +112,44 @@ public class _smtscript:ModdedModule{
             tempWordList.Add(buttons[i].GetComponentInChildren<TextMesh>().text);
         List<int>checkShuffle=new List<int>(){0,1,2,3,4,5,6,7,8,9,10,11};
         rnd.ShuffleFisherYates(checkShuffle);
-        bool adjacent      =CHECKadjacent      (rnd,tempWordList.IndexOf(multisylwords[ 0]));
-        string decoy0      =pickDeclaration    (rnd,tempWordList.IndexOf(multisylwords[ 0]));
+        List<bool>tempChecks=new List<bool>();
+        tempChecks.Add(router         (rnd,tempWordList.IndexOf(multisylwords[0]),checkShuffle[0]));
+        string decoy0 =pickDeclaration(rnd,tempWordList.IndexOf(multisylwords[0]));
         List<int>checkingOrder0=new List<int>(pickOrder(rnd));
-        bool contains      =CHECKcontains      (rnd                                        );
-        string decoy1      =pickDeclaration    (rnd,tempWordList.IndexOf(multisylwords[ 1]));
+        tempChecks.Add(         router(rnd,tempWordList.IndexOf(multisylwords[1]),checkShuffle[1]));
+        string decoy1 =pickDeclaration(rnd,tempWordList.IndexOf(multisylwords[1]));
         List<int>checkingOrder1=new List<int>(pickOrder(rnd));
-        bool serialshare   =CHECKserialshare   (rnd,tempWordList.IndexOf(multisylwords[ 2]));
-        string decoy2      =pickDeclaration    (rnd,tempWordList.IndexOf(multisylwords[ 2]));
+        tempChecks.Add(         router(rnd,tempWordList.IndexOf(multisylwords[2]),checkShuffle[2]));
+        string decoy2 =pickDeclaration(rnd,tempWordList.IndexOf(multisylwords[2]));
         List<int>checkingOrder2=new List<int>(pickOrder(rnd));
-        bool length        =CHECKlength        (rnd,tempWordList.IndexOf(multisylwords[ 3]));
-        string decoy3      =pickDeclaration    (rnd,tempWordList.IndexOf(multisylwords[ 3]));
+        tempChecks.Add(         router(rnd,tempWordList.IndexOf(multisylwords[3]),checkShuffle[3]));
+        string decoy3 =pickDeclaration(rnd,tempWordList.IndexOf(multisylwords[3]));
         List<int>checkingOrder3=new List<int>(pickOrder(rnd));
-        bool beenChecked   =CHECKbeenChecked   (rnd,tempWordList.IndexOf(multisylwords[ 4]));
-        string decoy4      =pickDeclaration    (rnd,tempWordList.IndexOf(multisylwords[ 4]));
+        tempChecks.Add(         router(rnd,tempWordList.IndexOf(multisylwords[4]),checkShuffle[4]));
+        string decoy4 =pickDeclaration(rnd,tempWordList.IndexOf(multisylwords[4]));
         List<int>checkingOrder4=new List<int>(pickOrder(rnd));
-        bool manualTable   =CHECKmanualTable   (rnd,tempWordList.IndexOf(multisylwords[ 5]));
-        string decoy5      =pickDeclaration    (rnd,tempWordList.IndexOf(multisylwords[ 5]));
+        tempChecks.Add(         router(rnd,tempWordList.IndexOf(multisylwords[5]),checkShuffle[5]));
+        string decoy5 =pickDeclaration(rnd,tempWordList.IndexOf(multisylwords[5]));
         List<int>checkingOrder5=new List<int>(pickOrder(rnd));
-        bool lengthRanges  =CHECKlengthRanges  (rnd,tempWordList.IndexOf(multisylwords[ 6]));
-        string decoy6      =pickDeclaration    (rnd,tempWordList.IndexOf(multisylwords[ 6]));
+        tempChecks.Add(         router(rnd,tempWordList.IndexOf(multisylwords[6]),checkShuffle[6]));
+        string decoy6 =pickDeclaration(rnd,tempWordList.IndexOf(multisylwords[6]));
         List<int>checkingOrder6=new List<int>(pickOrder(rnd));
-        bool seqIndex      =CHECKseqIndex      (rnd,tempWordList.IndexOf(multisylwords[ 7]));
-        string decoy7      =pickDeclaration    (rnd,tempWordList.IndexOf(multisylwords[ 7]));
+        tempChecks.Add(         router(rnd,tempWordList.IndexOf(multisylwords[7]),checkShuffle[7]));
+        string decoy7 =pickDeclaration(rnd,tempWordList.IndexOf(multisylwords[7]));
         List<int>checkingOrder7=new List<int>(pickOrder(rnd));
-        bool moduleTable   =CHECKmoduleTable   (rnd,tempWordList.IndexOf(multisylwords[ 8]));
-        string decoy8      =pickDeclaration    (rnd,tempWordList.IndexOf(multisylwords[ 8]));
+        tempChecks.Add(         router(rnd,tempWordList.IndexOf(multisylwords[8]),checkShuffle[8]));
+        string decoy8 =pickDeclaration(rnd,tempWordList.IndexOf(multisylwords[8]));
         List<int>checkingOrder8=new List<int>(pickOrder(rnd));
-        bool alphOrder     =CHECKalphOrder     (rnd,tempWordList.IndexOf(multisylwords[ 9]));
-        string decoy9      =pickDeclaration    (rnd,tempWordList.IndexOf(multisylwords[ 9]));
+        tempChecks.Add(         router(rnd,tempWordList.IndexOf(multisylwords[9]),checkShuffle[9]));
+        string decoy9 =pickDeclaration(rnd,tempWordList.IndexOf(multisylwords[9]));
         List<int>checkingOrder9=new List<int>(pickOrder(rnd));
-        bool n2Lit         =CHECK2Lit          (                                           );
-        string decoy10     =pickDeclaration    (rnd,tempWordList.IndexOf(multisylwords[10]));
+        tempChecks.Add(          router(rnd,tempWordList.IndexOf(multisylwords[10]),checkShuffle[10]));
+        string decoy10 =pickDeclaration(rnd,tempWordList.IndexOf(multisylwords[10]));
         List<int>checkingOrder10=new List<int>(pickOrder(rnd));
-        bool emptyPortPlate=CHECKemptyPortPlate(                                           );
-        string decoy11     =pickDeclaration    (rnd,tempWordList.IndexOf(multisylwords[11]));
+        tempChecks.Add(          router(rnd,tempWordList.IndexOf(multisylwords[11]),checkShuffle[11]));
+        string decoy11 =pickDeclaration(rnd,tempWordList.IndexOf(multisylwords[11]));
         List<int>checkingOrder11=new List<int>(pickOrder(rnd));
-        bool[]tempChecks=new bool[]{adjacent,contains,serialshare,length,beenChecked,manualTable,lengthRanges,seqIndex,moduleTable,alphOrder,n2Lit,emptyPortPlate};
-        checks=new bool[12];
-        for(int i=0;i<12;i++)
-            checks[i]=tempChecks[checkShuffle.IndexOf(i)];
+        checks=tempChecks.ToArray();
         decoys=new string[]{decoy0,decoy1,decoy2,decoy3,decoy4,decoy5,decoy6,decoy7,decoy8,decoy9,decoy10,decoy11};
         checkingOrders=new List<int>[]{checkingOrder0,checkingOrder1,checkingOrder2,checkingOrder3,checkingOrder4,checkingOrder5,checkingOrder6,checkingOrder7,checkingOrder8,checkingOrder9,checkingOrder10,checkingOrder11};
         for(int i=0;i<12;i++){
@@ -163,6 +161,36 @@ public class _smtscript:ModdedModule{
         if(checkingOrders[multisylwords.IndexOf(TheDecoy)][0]==-3)
             pressingOrder(mantis);
         else pressingOrder(TheDecoy);
+    }
+
+    private bool router(MonoRandom r,int pos,int index){
+        switch(index){
+            case 0:
+                return CHECKadjacent(r,pos);
+            case 1:
+                return CHECKcontains(r);
+            case 2:
+                return CHECKserialshare(r,pos);
+            case 3:
+                return CHECKlength(r,pos);
+            case 4:
+                return CHECKbeenChecked(r,pos);
+            case 5:
+                return CHECKmanualTable(r,pos);
+            case 6:
+                return CHECKlengthRanges(r,pos);
+            case 7:
+                return CHECKseqIndex(r,pos);
+            case 8:
+                return CHECKmoduleTable(r,pos);
+            case 9:
+                return CHECKalphOrder(r,pos);
+            case 10:
+                return CHECK2Lit();
+            case 11:
+            default:
+                return CHECKemptyPortPlate();
+        }
     }
 
     private List<string>pickWordSelectors(MonoRandom r,bool can1Syl, bool canThis){
@@ -177,7 +205,7 @@ public class _smtscript:ModdedModule{
     private string decideWordsForContainsRule(MonoRandom r){
         int contains=r.Next(0,2);
         int mode=r.Next(0,3);
-        int numWords=r.Next(3,6);
+        int numWords=r.Next(2,5);
         switch(mode){
             case 0:
                 if(contains==0)
@@ -202,22 +230,29 @@ public class _smtscript:ModdedModule{
     }
 
     private string pickDeclaration(MonoRandom r,int index){
-        int num=r.Next(0,4);
-        switch(num){
+        switch(r.Next(0,4)){
             case 0:
+                if(index>=0&&index<=5)
+                    Log("DEBUG: "+tempWordList[index]+" has case 0");
                 List<string>w=pickWordSelectors(r,false,true);
                 return w[0];
             case 1:
+                if(index>=0&&index<=5)
+                    Log("DEBUG: "+tempWordList[index]+" has case 1");
                 int[]edgeworkNumbers=new int[]{Get<KMBombInfo>().GetSerialNumberNumbers().Sum(x=>Convert.ToInt32(x.ToString())),Get<KMBombInfo>().GetOnIndicators().ToArray().Length};
                 int edgeworkNumber=edgeworkNumbers[r.Next(0,2)]%6;
-                return edgeworkNumber.ToString();
+                return OrderCheck(onesylword).IndexOf(edgeworkNumber).ToString();
             case 2:
-                if(index==0)
-                    return index.ToString();
+                if(index>=0&&index<=5)
+                    Log("DEBUG: "+tempWordList[index]+" has case 2");
+                if(OrderCheck(onesylword).IndexOf(index)==0)
+                    return OrderCheck(onesylword).IndexOf(index).ToString();
                 else
-                    return (index-1).ToString();
+                    return (OrderCheck(onesylword).IndexOf(index)-1).ToString();
             case 3:
             default:
+                if(index>=0&&index<=5)
+                    Log("DEBUG: "+tempWordList[index]+" has case 3");
                 string[]order=new string[]{"R","G","C"};
                 string[]table=new string[]{"M","T"};
                 string[]check=new string[]{"B","N"};
@@ -226,8 +261,7 @@ public class _smtscript:ModdedModule{
     }
 
     private List<int>pickOrder(MonoRandom r){
-        int num=r.Next(0,6);
-        switch(num){
+        switch(r.Next(0,6)){
             case 0:
                 int order=r.Next(0,6);
                 int moduleOrTable=r.Next(0,2);
@@ -906,6 +940,10 @@ public class _smtscript:ModdedModule{
             checkList=new List<int>(){0,1,2,3,4,5};
         if(checkList.Count()==12){
             for(int i=11;i>=0;i--){
+                if(checkList[i]==-1)
+                    checkList.RemoveAt(i);
+            }
+            for(int i=checkList.Count()-1;i>=0;i--){
                 if(!tempWordList.Contains(multisylwords[checkList[i]])){
                     checkList.RemoveAt(i);
                 }
