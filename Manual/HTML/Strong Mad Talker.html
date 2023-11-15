@@ -18,20 +18,11 @@
 		function setRules(rnd)
 		{
 			let singleSylWordThs = Array.from(document.querySelectorAll('.single-syl-word'));
-			let singleSylWord = rnd.seed === 1
-				? [ 'JUICE', 'PULSE', 'CAKE', 'CHARM' ]
-				: rnd.shuffleFisherYates([ 'JUICE', 'PULSE', 'CAKE', 'CHARM', 'NIGHT', 'CURLS' ]);
+			let singleSylWord = rnd.shuffleFisherYates([ 'JUICE', 'PULSE', 'CAKE', 'CHARM', 'NIGHT', 'CURLS' ]);
 
 			let checkOrderTds = Array.from(document.querySelectorAll('.check-order'))
 				.map(table => table.querySelectorAll('td'));
-			let checkOrders = rnd.seed === 1
-				? [
-					[ 1, 2, 3, 4, 5, 6 ],
-					[ 1, 4, 2, 5, 3, 6 ],
-					[ 3, 4, 5, 2, 1, 6 ],
-					[ 3, 4, 2, 1, 6, 5 ]
-				]
-				: Array(4).fill(null).map(_ =>
+			let checkOrders = Array(4).fill(null).map(_ =>
 					rnd.shuffleFisherYates(Array(6).fill(null).map((_, c) => c + 1))
 				);
 			for (let i = 0; i < 4; i++)
@@ -48,9 +39,7 @@
 			let conditionDivs = table2.querySelectorAll('div');
 			let orderDivs = table3.querySelectorAll('div');
 
-			let multiSylWords = rnd.seed === 1
-				? [ 'SWEETYCAKES', 'PROXIMITY', 'CHEDDAR', 'MOVIE', 'DOUGLAS', 'CASSEROLE', 'GARBLEDINA', 'WORKING', 'MANTIS', 'AROUND', 'DIAPER', 'HORSES' ]
-				: rnd.shuffleFisherYates([ 'SWEETYCAKES', 'CHEDDAR', 'DOUGLAS', 'GARBLEDINA', 'MANTIS', 'DIAPER', 'PROXIMITY', 'MOVIE', 'HORSES', 'WORKING', 'CASSEROLE', 'AROUND', 'DELUISE', 'BATTLESHIP', 'MOTORCYCLES', 'TRAINWRECK' ])
+			let multiSylWords = rnd.shuffleFisherYates([ 'SWEETYCAKES', 'CHEDDAR', 'DOUGLAS', 'GARBLEDINA', 'MANTIS', 'DIAPER', 'PROXIMITY', 'MOVIE', 'HORSES', 'WORKING', 'CASSEROLE', 'AROUND', 'DELUISE', 'BATTLESHIP', 'MOTORCYCLES', 'TRAINWRECK' ])
 
 			let allWords = rnd.shuffleFisherYates([...singleSylWord, ...multiSylWords]);
 
@@ -58,7 +47,7 @@
 			{
 				let selectors = [
 					`the ${['top left', 'top right', 'middle left', 'middle right', 'bottom left', 'bottom right'][rnd.next(0, 6)]} word`,
-					`the word ${['to the left of', 'to the right of', 'above', 'below'][rnd.next(0, 4)]} this word (looping around)`,
+					`the word ${['to the left of', 'to the right of', 'above', 'below'][rnd.next(0, 4)]} this word`,
 					`word ${rnd.next(1, 7)} in the checking sequence`
 				];
 				if (can1Syl)
