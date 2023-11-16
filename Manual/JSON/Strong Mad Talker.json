@@ -11,12 +11,12 @@
   "ModuleID": "strongmadtalker",
   "Name": "Strong Mad Talker",
   "Origin": "Mods",
-  "Published": "2023-12-31",
+  "Published": "2023-11-15",
   "RuleSeedSupport": "Supported",
   "SortKey": "STRONGMADTALKER",
   "SourceUrl": "https://github.com/ObjectsCountries/Homestar-Runner-Pack",
   "Souvenir": { "Status": "NotACandidate" },
-  "SteamID": "0",
+  "SteamID": "3084812507",
   "Symbol": "Stmt",
   "Type": "Regular"
 }
