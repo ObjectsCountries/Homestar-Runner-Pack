@@ -5297,7 +5297,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 669b2c5c998cc4fecb2b618ad63edcfe, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7031,7 +7031,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: b48b590f622f14c44a48fcfd9279e4df, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8153,7 +8153,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ec4d1eb9cb0754ffeaa0b5317fdba657, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12820,6 +12820,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 3414e191091ed48a686944872054dfdc, type: 2}
   - {fileID: 2100000, guid: d11991e01d7dc437988ddf11615c2439, type: 2}
   - {fileID: 2100000, guid: a4f0f921a17b14a21891d5505b43bde5, type: 2}
+  messageColorNames:
+  - blue
+  - green
+  - red
+  - yellow
   transparentshader: {fileID: 10751, guid: 0000000000000000f000000000000000, type: 0}
   HSBG: {fileID: 114487428647521780}
   TXTRs: {fileID: 114212643484987562}
@@ -12833,6 +12838,14 @@ MonoBehaviour:
   - {fileID: 23889909170690364}
   colorblindUNHL: {fileID: 2100000, guid: 93469a7aeb80e40e6ac2cb2352e370d9, type: 2}
   colorblindHL: {fileID: 2100000, guid: 6fee39c4a8a1040bfa4877600bb47273, type: 2}
+  message1: 0
+  message2: 0
+  message3: 0
+  color1: 0
+  color2: 0
+  color3: 0
+  correctMainPage: 0
+  effects: ffffffffffffffffffffffffffffffffffffffffffffffff
 --- !u!114 &114465051160626084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12984,6 +12997,8 @@ MonoBehaviour:
   hsBody: {fileID: 23190243163946486}
   hsHead: {fileID: 23888984546270054}
   pagemenu: {fileID: 23775820497678202}
+  HSnumber: 0
+  BGnumber: 0
   MP: {fileID: 114445816197079716}
   semi: {fileID: 10750, guid: 0000000000000000f000000000000000, type: 0}
   oldtimeysay: {fileID: 1221826925032262}

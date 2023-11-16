@@ -88,7 +88,7 @@
 				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is ${['longer than', 'shorter than', 'the same length as'][rnd.next(0, 3)]} ${w[1]}`; },
 				rnd => { let w = pickWordSelectors(rnd, false, false); return `${w[0]} has ${['already', 'not yet'][rnd.next(0, 2)]} been checked`; },
 				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is in the ${['left column', 'right column', 'upper half', 'lower half'][rnd.next(0, 4)]} of this table`; },
-				rnd => { let w = pickWordSelectors(rnd, false, false); return `${[w[0], 'any word on the module'][rnd.next(0, 2)]} is ${['at least 10 letters long', 'exactly 8 letters long', 'at most 6 letters long'][rnd.next(0, 3)]}`; },
+				rnd => { let w = pickWordSelectors(rnd, false, false); return `${[w[0], 'any word on the module'][rnd.next(0, 2)]} is ${['at least 6', 'exactly 7', 'at most 4'][rnd.next(0, 3)]} letters long`; },
 				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is word ${orStr(rnd.shuffleFisherYates(Array(6).fill(null).map((_, c) => c+1)).slice(0, rnd.next(1, 4)))} in the checking sequence`; },
 				rnd => { let w = pickWordSelectors(rnd, true, true); return `${w[0]} is in the ${['left column', 'right column', 'top row', 'middle row', 'bottom row'][rnd.next(0, 5)]} of the module`; },
 				rnd => { let w = pickWordSelectors(rnd, true, false); return `${w[0]} comes ${['before', 'after'][rnd.next(0, 2)]} ${w[1]} in alphabetical order`; },
@@ -157,7 +157,7 @@
 
 					case 5:
 					    useDetDecoy=true;
-					    return `Use the order from the word that determined the decoy. If none of the conditions were true, or the word declared itself the decoy, use normal reading order.`;
+					    return `Use the order from the word that determined the decoy. If none of the conditions were true, or the word declared itself the decoy, use normal reading order. <b>Note that this word is still considered the decoy.`;
 				}
 			}
 

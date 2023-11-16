@@ -152,10 +152,6 @@ public class _smtscript:ModdedModule{
         checks=tempChecks.ToArray();
         decoys=new string[]{decoy0,decoy1,decoy2,decoy3,decoy4,decoy5,decoy6,decoy7,decoy8,decoy9,decoy10,decoy11};
         checkingOrders=new List<int>[]{checkingOrder0,checkingOrder1,checkingOrder2,checkingOrder3,checkingOrder4,checkingOrder5,checkingOrder6,checkingOrder7,checkingOrder8,checkingOrder9,checkingOrder10,checkingOrder11};
-        for(int i=0;i<12;i++){
-            Log("DEBUG: Condition for "+multisylwords[i]+": "+checks[i]);
-            Log("DEBUG: Decoy position for "+multisylwords[i]+": "+decoys[i]);
-        }
         TheDecoy=Decoy(OrderCheck(onesylword));
         Log("{0} is the decoy.",TheDecoy);
         if(checkingOrders[multisylwords.IndexOf(TheDecoy)][0]==-3)
@@ -232,27 +228,22 @@ public class _smtscript:ModdedModule{
     private string pickDeclaration(MonoRandom r,int index){
         switch(r.Next(0,4)){
             case 0:
-                if(index>=0&&index<=5)
-                    Log("DEBUG: "+tempWordList[index]+" has case 0");
                 List<string>w=pickWordSelectors(r,false,true);
                 return w[0];
             case 1:
-                if(index>=0&&index<=5)
-                    Log("DEBUG: "+tempWordList[index]+" has case 1");
                 int[]edgeworkNumbers=new int[]{Get<KMBombInfo>().GetSerialNumberNumbers().Sum(x=>Convert.ToInt32(x.ToString())),Get<KMBombInfo>().GetOnIndicators().ToArray().Length};
                 int edgeworkNumber=edgeworkNumbers[r.Next(0,2)]%6;
-                return OrderCheck(onesylword).IndexOf(edgeworkNumber).ToString();
+                return edgeworkNumber.ToString();
             case 2:
-                if(index>=0&&index<=5)
-                    Log("DEBUG: "+tempWordList[index]+" has case 2");
-                if(OrderCheck(onesylword).IndexOf(index)<=0)
-                    return OrderCheck(onesylword).IndexOf(index).ToString();
-                else
-                    return (OrderCheck(onesylword).IndexOf(index-1)).ToString();
+                if(index>=0&&index<=5){
+                    if(OrderCheck(onesylword)[index]==0)
+                        return index.ToString();
+                    else
+                        return OrderCheck(onesylword).IndexOf(OrderCheck(onesylword)[index]-1).ToString();
+                }
+                return "";
             case 3:
             default:
-                if(index>=0&&index<=5)
-                    Log("DEBUG: "+tempWordList[index]+" has case 3");
                 string[]order=new string[]{"R","G","C"};
                 string[]table=new string[]{"M","T"};
                 string[]check=new string[]{"B","N"};
@@ -356,8 +347,6 @@ public class _smtscript:ModdedModule{
                                     tempWordList.IndexOf(multisylwords[ 3]),
                                     tempWordList.IndexOf(multisylwords[ 1])}
                 };
-                foreach(List<int> j in ordersTable)
-                    Log(j);
                 if(moduleOrTable==0)
                     return ordersModule[order];
                 else
@@ -418,78 +407,78 @@ public class _smtscript:ModdedModule{
         int[]geometricTable =new int[]{10,11,8,9,6,7,4,5,2,3,0,1};
         int[]chineseModule  =new int[]{1,3,5,0,2,4};
         int[]chineseTable   =new int[]{1,3,5,7,9,11,0,2,4,6,8,10};
-        if(input.Length==3&&index==0)
+        if(input.Length==3&&(index==0||(index==1&&OrderCheck(onesylword)[onesylposition]==0)))
             return pos;
         switch(input){
             case "RMB":
                 for(int i=0;i<6;i++){
-                    if(OrderCheck(onesylword).IndexOf(i)<index)
+                    if(OrderCheck(onesylword)[i]<index)
                         return i;
                 }
                 return -1;
             case "RMN":
                 for(int i=0;i<6;i++){
-                    if(OrderCheck(onesylword).IndexOf(i)>index)
+                    if(OrderCheck(onesylword)[i]>index)
                         return i;
                 }
                 return -1;
             case "RTB":
                 for(int i=0;i<12;i++){
-                    if(tempWordList.Contains(multisylwords[i])&&OrderCheck(onesylword).IndexOf(tempWordList.IndexOf(multisylwords[i]))<index)
+                    if(tempWordList.Contains(multisylwords[i])&&OrderCheck(onesylword)[tempWordList.IndexOf(multisylwords[i])]<index)
                         return tempWordList.IndexOf(multisylwords[i]);
                 }
                 return -1;
             case "RTN":
                 for(int i=0;i<12;i++){
-                    if(tempWordList.Contains(multisylwords[i])&&OrderCheck(onesylword).IndexOf(tempWordList.IndexOf(multisylwords[i]))>index)
+                    if(tempWordList.Contains(multisylwords[i])&&OrderCheck(onesylword)[tempWordList.IndexOf(multisylwords[i])]>index)
                         return tempWordList.IndexOf(multisylwords[i]);
                 }
                 return -1;
             case "GMB":
                 for(int i=0;i<6;i++){
-                    if(OrderCheck(onesylword).IndexOf(geometricModule[i])<index)
+                    if(OrderCheck(onesylword)[geometricModule[i]]<index)
                         return geometricModule[i];
                 }
                 return -1;
             case "GMN":
                 for(int i=0;i<6;i++){
-                    if(OrderCheck(onesylword).IndexOf(geometricModule[i])>index)
+                    if(OrderCheck(onesylword)[geometricModule[i]]>index)
                         return geometricModule[i];
                 }
                 return -1;
             case "GTB":
                 for(int i=0;i<12;i++){
-                    if(tempWordList.Contains(multisylwords[geometricTable[i]])&&OrderCheck(onesylword).IndexOf(tempWordList.IndexOf(multisylwords[geometricTable[i]]))<index)
+                    if(tempWordList.Contains(multisylwords[geometricTable[i]])&&OrderCheck(onesylword)[tempWordList.IndexOf(multisylwords[geometricTable[i]])]<index)
                         return tempWordList.IndexOf(multisylwords[geometricTable[i]]);
                 }
                 return -1;
             case "GTN":
                 for(int i=0;i<12;i++){
-                    if(tempWordList.Contains(multisylwords[geometricTable[i]])&&OrderCheck(onesylword).IndexOf(tempWordList.IndexOf(multisylwords[geometricTable[i]]))>index)
+                    if(tempWordList.Contains(multisylwords[geometricTable[i]])&&OrderCheck(onesylword)[tempWordList.IndexOf(multisylwords[geometricTable[i]])]>index)
                         return tempWordList.IndexOf(multisylwords[geometricTable[i]]);
                 }
                 return -1;
             case "CMB":
                 for(int i=0;i<6;i++){
-                    if(OrderCheck(onesylword).IndexOf(chineseModule[i])<index)
+                    if(OrderCheck(onesylword)[chineseModule[i]]<index)
                         return chineseModule[i];
                 }
                 return -1;
             case "CMN":
                 for(int i=0;i<6;i++){
-                    if(OrderCheck(onesylword).IndexOf(chineseModule[i])>index)
+                    if(OrderCheck(onesylword)[chineseModule[i]]>index)
                         return chineseModule[i];
                 }
                 return -1;
             case "CTB":
                 for(int i=0;i<12;i++){
-                    if(tempWordList.Contains(multisylwords[chineseTable[i]])&&OrderCheck(onesylword).IndexOf(tempWordList.IndexOf(multisylwords[chineseTable[i]]))<index)
+                    if(tempWordList.Contains(multisylwords[chineseTable[i]])&&OrderCheck(onesylword)[tempWordList.IndexOf(multisylwords[chineseTable[i]])]<index)
                         return tempWordList.IndexOf(multisylwords[chineseTable[i]]);
                 }
                 return -1;
             case "CTN":
                 for(int i=0;i<12;i++){
-                    if(tempWordList.Contains(multisylwords[chineseTable[i]])&&OrderCheck(onesylword).IndexOf(tempWordList.IndexOf(multisylwords[chineseTable[i]]))>index)
+                    if(tempWordList.Contains(multisylwords[chineseTable[i]])&&OrderCheck(onesylword)[tempWordList.IndexOf(multisylwords[chineseTable[i]])]>index)
                         return tempWordList.IndexOf(multisylwords[chineseTable[i]]);
                 }
                 return -1;
@@ -531,10 +520,10 @@ public class _smtscript:ModdedModule{
         string adj=adjacentType[r.Next(0,3)];
         string[]looping=new string[]{"L","NL"};
         string loop=looping[r.Next(0,2)];
-        if(pos<0)
-            return false;
         int word0=wToWord(w[0],pos);
         int word1=wToWord(w[1],pos);
+        if(pos<0||word0==word1)
+            return false;
         switch(adj){
             case "O":
                 if(loop=="L")
@@ -659,10 +648,10 @@ public class _smtscript:ModdedModule{
             return false;
         switch(ct){
             case "C":
-                return OrderCheck(onesylword).IndexOf(word0)<OrderCheck(onesylword).IndexOf(pos);
+                return OrderCheck(onesylword).IndexOf(word0)>OrderCheck(onesylword).IndexOf(pos);
             case "NC":
             default:
-                return OrderCheck(onesylword).IndexOf(word0)>OrderCheck(onesylword).IndexOf(pos);
+                return OrderCheck(onesylword).IndexOf(word0)<OrderCheck(onesylword).IndexOf(pos);
         }
     }
 
@@ -695,17 +684,17 @@ public class _smtscript:ModdedModule{
         string word0=tempWordList[wToWord(w[0],pos)];
         string[]rangeType=new string[]{word0,"ANY"};
         string rt=rangeType[rtN];
-        string[]ranges=new string[]{">=10","==8","<=6"};
+        string[]ranges=new string[]{">=6","==7","<=4"};
         string range=ranges[rangeN];
         if(rt==word0){
             switch(range){
-                case ">=10":
-                    return word0.Length>=10;
-                case "==8":
-                    return word0.Length==8;
-                case "<=6":
+                case ">=6":
+                    return word0.Length>=6;
+                case "==7":
+                    return word0.Length==7;
+                case "<=4":
                 default:
-                    return word0.Length<=6;
+                    return word0.Length<=4;
             }
         }else{
             switch(range){
@@ -780,10 +769,10 @@ public class _smtscript:ModdedModule{
         string word1=tempWordList[wToWord(w[1],pos)];
         switch(ba){
             case "B":
-                return string.Compare(word0,word1)>0;
+                return string.Compare(word0,word1)<0;
             case "A":
             default:
-                return string.Compare(word0,word1)<0;
+                return string.Compare(word0,word1)>0;
         }
     }
 
@@ -792,7 +781,7 @@ public class _smtscript:ModdedModule{
     }
 
     private bool CHECKemptyPortPlate(){
-        return true;//placeholder
+        return Get<KMBombInfo>().GetPortPlates().Any(p=>p.Length==0);
     }
 
     internal void PS(){
@@ -960,11 +949,6 @@ public class _smtscript:ModdedModule{
             for(int i=11;i>=0;i--){
                 if(checkList[i]==-1)
                     checkList.RemoveAt(i);
-            }
-            for(int i=checkList.Count()-1;i>=0;i--){
-                if(!tempWordList.Contains(multisylwords[checkList[i]])){
-                    checkList.RemoveAt(i);
-                }
             }
         }
         if(checkList.Contains(tempWordList.IndexOf(TheDecoy)))

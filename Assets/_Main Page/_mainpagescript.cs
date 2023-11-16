@@ -14,7 +14,7 @@ public class _mainpagescript:ModdedModule{
     public KMSelectable[] menuButtons;
     public Renderer messageButton;
     public Material[] messageColors;
-    public string[] messageColorNames=new string[]{"blue","green","red","yellow"};//public for Souvenir
+    private string[] messageColorNames=new string[]{"blue","green","red","yellow"};//for Souvenir
     public Shader transparentshader;
     public _mpHsBg HSBG;
     public _mpTextures TXTRs;
@@ -28,7 +28,7 @@ public class _mainpagescript:ModdedModule{
     internal string[] buttonNames={"Toons","Games","Characters","Downloads","Store","E-mail"};
     internal char[] buttonLetters={'T','G','C','D','S','E'};
     internal bool blinkstop = false;
-    public int message1,message2,message3,color1,color2,color3;//public for Souvenir
+    private int message1,message2,message3,color1,color2,color3;//for Souvenir
     string colorNotPresent;
     private enum colorCondition{
         COLOR_PRESENT,
@@ -50,9 +50,9 @@ public class _mainpagescript:ModdedModule{
     private turnCondition turnCond;
     private turnType turnIf,turnElse;
     private bool caesarHS;
-    public int correctMainPage;//public for Souvenir
-    public int[]effects=new int[6]{-1,-1,-1,-1,-1,-1};//public for Souvenir
-    public string[,]messages=new string[,]//public for Souvenir
+    internal int correctMainPage;//for Souvenir
+    private int[]effects=new int[6]{-1,-1,-1,-1,-1,-1};//for Souvenir
+    private string[,]messages=new string[,]//for Souvenir
         {
             {"play a game", "latest toon", "latest merch"},
             {"new strong bad email", "new sbemail a comin", "email soon"},

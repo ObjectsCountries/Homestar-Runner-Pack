@@ -220,14 +220,14 @@ public class _sidhoffrenchmanscript:ModdedModule{
             yield return new WaitForSeconds(1.5f);
             playing = false;
             Log("Selected Sid {0}man.",chosen?"Hoff":"French");
-            if (hoff != chosen){
-                Strike("No, I'm sorry. The correct answer... was \"E-mail\".");
-                Solve();
-            }else{
+            if (hoff == chosen){
+                Solve("Hooway!");
                 score++;
                 scoreCount.text = "score:" + score;
                 Play(new Sound("AUDIO_sid_ding"));
-                Solve("Hooway!");
+            }else{
+                Strike("No, I'm sorry. The correct answer... was \"E-mail\".");
+                Solve();
             }
             HideChars();
         }

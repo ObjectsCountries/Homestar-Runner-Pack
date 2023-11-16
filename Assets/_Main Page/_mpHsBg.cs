@@ -11,8 +11,8 @@ public class _mpHsBg : MonoBehaviour{
     public Renderer hsBody;
     public Renderer hsHead;
     public Renderer pagemenu;
-    public int HSnumber;//public for Souvenir
-    public int BGnumber;//public for Souvenir
+    internal int HSnumber;//for Souvenir
+    internal int BGnumber;//for Souvenir
     internal Material bgmat;
     internal Material hsmat;
     internal Material menumat;

@@ -35,6 +35,7 @@ public sealed class _mpTP:Twitch<_mainpagescript>{
     }
 
     public override IEnumerable<Instruction>ForceSolve(){
-        yield return new[]{Module.numberButtons[Module.correctMainPage-1]};
+        Module.numberButtons[Module.correctMainPage].OnInteract();
+        yield return Instruction.Pause;
     }
 }
