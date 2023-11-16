@@ -221,14 +221,14 @@ public class _sidhoffrenchmanscript:ModdedModule{
             playing = false;
             Log("Selected Sid {0}man.",chosen?"Hoff":"French");
             if (hoff == chosen){
-                Solve("Hooway!");
+                Log("Hooway!");
                 score++;
                 scoreCount.text = "score:" + score;
                 Play(new Sound("AUDIO_sid_ding"));
             }else{
                 Strike("No, I'm sorry. The correct answer... was \"E-mail\".");
-                Solve();
             }
+            Get<KMNeedyModule>().HandlePass();
             HideChars();
         }
     }

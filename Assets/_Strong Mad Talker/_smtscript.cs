@@ -190,7 +190,7 @@ public class _smtscript:ModdedModule{
     }
 
     private List<string>pickWordSelectors(MonoRandom r,bool can1Syl, bool canThis){
-        List<string>selectors=new List<string>(){absolutePositions[r.Next(0,6)],relativePositions[r.Next(0,4)],(r.Next(1,7)-1).ToString()};
+        List<string>selectors=new List<string>(){absolutePositions[r.Next(0,6)],relativePositions[r.Next(0,4)],OrderCheck(onesylword).IndexOf(r.Next(1,7)-1).ToString()};
         if(can1Syl)
             selectors.Add("1SYL");
         if(canThis)
@@ -233,7 +233,7 @@ public class _smtscript:ModdedModule{
             case 1:
                 int[]edgeworkNumbers=new int[]{Get<KMBombInfo>().GetSerialNumberNumbers().Sum(x=>Convert.ToInt32(x.ToString())),Get<KMBombInfo>().GetOnIndicators().ToArray().Length};
                 int edgeworkNumber=edgeworkNumbers[r.Next(0,2)]%6;
-                return edgeworkNumber.ToString();
+                return OrderCheck(onesylword).IndexOf(edgeworkNumber).ToString();
             case 2:
                 if(index>=0&&index<=5){
                     if(OrderCheck(onesylword)[index]==0)
@@ -644,14 +644,14 @@ public class _smtscript:ModdedModule{
         string[]checkedType=new string[]{"C","NC"};
         string ct=checkedType[r.Next(0,2)];
         int word0=wToWord(w[0],pos);
-        if(pos<0)
+        if(pos<0||pos>5||word0<0||word0>5)
             return false;
         switch(ct){
             case "C":
-                return OrderCheck(onesylword).IndexOf(word0)>OrderCheck(onesylword).IndexOf(pos);
+                return OrderCheck(onesylword)[word0]<OrderCheck(onesylword)[pos];
             case "NC":
             default:
-                return OrderCheck(onesylword).IndexOf(word0)<OrderCheck(onesylword).IndexOf(pos);
+                return OrderCheck(onesylword)[word0]>OrderCheck(onesylword)[pos];
         }
     }
 

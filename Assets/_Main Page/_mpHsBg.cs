@@ -258,10 +258,8 @@ public class _mpHsBg : MonoBehaviour{
                 redmat.mainTexture = TXTRs.redButtons[0];
                 hsHead.transform.localScale = new Vector3(-1 * hsHead.transform.localScale.x, hsHead.transform.localScale.y, hsHead.transform.localScale.z);
                 hsBody.transform.localScale = new Vector3(-1 * hsBody.transform.localScale.x, hsBody.transform.localScale.y, hsBody.transform.localScale.z);
-                bl.transform.localScale = new Vector3(-1 * bl.transform.localScale.x, bl.transform.localScale.y, bl.transform.localScale.z);
                 hsHead.transform.localPosition = new Vector3(-1 * hsHead.transform.localPosition.x, hsHead.transform.localPosition.y, hsHead.transform.localPosition.z);
                 hsBody.transform.localPosition = new Vector3(-1 * hsBody.transform.localPosition.x, hsBody.transform.localPosition.y, hsBody.transform.localPosition.z);
-                bl.transform.localPosition = new Vector3(-1 * bl.transform.localPosition.x, bl.transform.localPosition.y, bl.transform.localPosition.z);
                 break;
             case 23:
             case 24:
