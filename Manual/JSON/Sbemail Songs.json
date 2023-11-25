@@ -9,9 +9,13 @@
     "Developer": [ "ObjectsCountries" ]
   },
   "DefuserDifficulty": "Medium",
-  "Description": "Each time a module is solved, associate a voiceline with a number, then turn it into a hexadecimal digit. At the end, submit the resulting sequence of digits. Tags: boss, email, voice, 17-buttons, play-button",
+  "Description": "Each time a module is solved, associate a voiceline with a number, then turn it into a hexadecimal digit. At the end, submit the resulting sequence of digits. Tags: email, voice, 17-buttons, play-button, words, sentences, 0-9, a-f, display, stages",
   "ExpertDifficulty": "Hard",
-  "Ignore": [ "+SolvesAtEnd, +SolvesWithOthers, +TimeDependent" ],
+  "Ignore": [
+    "+SolvesAtEnd",
+    "+SolvesWithOthers",
+    "+TimeDependent"
+  ],
   "ModuleID": "sbemailsongs",
   "MysteryModule": "MustNotBeHidden",
   "Name": "Sbemail Songs",
@@ -27,5 +31,9 @@
   },
   "SteamID": "3084812507",
   "Symbol": "Sbs",
+  "TutorialVideos": [ {
+    "Language": "English",
+    "Url": "https://www.youtube.com/watch?v=MEayyChNqBk&t=1260"
+  } ],
   "Type": "Regular"
 }

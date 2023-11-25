@@ -565,10 +565,14 @@ public class _smtscript:ModdedModule{
                     return true;
                 else
                     return (
-                                (word0!=0&&word1!=5)
-                              ||(word0!=1&&word1!=4)
-                              ||(word0!=4&&word1!=1)
-                              ||(word0!=5&&word1!=0)
+                                (word0==2)
+                              ||(word0==3)
+                              ||(word1==2)
+                              ||(word1==3)
+                              ||(word0<2&&word1<4)
+                              ||(word1<2&&word0<4)
+                              ||(word0>4&&word1>2)
+                              ||(word1>2&&word0>2)
                            );
         }
     }
