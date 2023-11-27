@@ -14,34 +14,22 @@ MonoBehaviour:
   id: theHRpack
   title: The Homestar Runner Pack
   author: ObjectsCountries
-  description: 'Five whole modules based off of my favorite webseries, Homestar Runner.
-
-
-    - Main Page (mainpage) ([url=https://ktane.timwi.de/HTML/Main%20Page.html]HTML[/url])
-    ([url=https://ktane.timwi.de/PDF/Main%20Page.pdf]PDF[/url])
-
-    - Boss: Sbemail Songs (sbemailsongs) ([url=https://ktane.timwi.de/HTML/Sbemail%20Songs.html]HTML[/url])
-    ([url=https://ktane.timwi.de/PDF/Sbemail%20Songs.pdf]PDF[/url])
-
-    - Strong Mad Talker (strongmadtalker) ([url=https://ktane.timwi.de/HTML/Strong%20Mad%20Talker.html]HTML[/url])
-    ([url=https://ktane.timwi.de/PDF/Strong%20Mad%20Talker.pdf]PDF[/url])
-
-    - Needy: Sid Hoffrenchman (sidhoffrenchman) ([url=https://ktane.timwi.de/HTML/Sid%20Hoffrenchman.html]HTML[/url])
-    ([url=https://ktane.timwi.de/PDF/Sid%20Hoffrenchman.pdf]PDF[/url])
-
-    - Needy: Bronco Trolleys (broncotrolleys) ([url=https://ktane.timwi.de/HTML/Bronco%20Trolleys.html]HTML[/url])
-    ([url=https://ktane.timwi.de/PDF/Bronco%20Trolleys.pdf]PDF[/url])
-
-
-    All except Bronco Trolleys have TP and ruleseed support.
-
-    Strong Mad Talker has a TP-relevant setting that automatically resets inputs if
-    the user makes a typo; this can be disabled.
-
-
-    Credits: myself, as well as Timwi and Kuro for helping w/ ruleseed support for
-    SMT and MP respectively'
-  version: 1.02
+  description: "Five whole modules based off of my favorite webseries, Homestar Runner.\n[list]\n
+    \   [*]Main Page (mainpage) ([url=https://ktane.timwi.de/HTML/Main%20Page.html]HTML[/url])
+    ([url=https://ktane.timwi.de/PDF/Main%20Page.pdf]PDF[/url])\n    [*]Boss: Sbemail
+    Songs (sbemailsongs) ([url=https://ktane.timwi.de/HTML/Sbemail%20Songs.html]HTML[/url])
+    ([url=https://ktane.timwi.de/PDF/Sbemail%20Songs.pdf]PDF[/url])\n    [*]Strong
+    Mad Talker (strongmadtalker) ([url=https://ktane.timwi.de/HTML/Strong%20Mad%20Talker.html]HTML[/url])
+    ([url=https://ktane.timwi.de/PDF/Strong%20Mad%20Talker.pdf]PDF[/url])\n    [*]Needy:
+    Sid Hoffrenchman (sidhoffrenchman) ([url=https://ktane.timwi.de/HTML/Sid%20Hoffrenchman.html]HTML[/url])
+    ([url=https://ktane.timwi.de/PDF/Sid%20Hoffrenchman.pdf]PDF[/url])\n    [*]Needy:
+    Bronco Trolleys (broncotrolleys) ([url=https://ktane.timwi.de/HTML/Bronco%20Trolleys.html]HTML[/url])
+    ([url=https://ktane.timwi.de/PDF/Bronco%20Trolleys.pdf]PDF[/url])\n[/list]\nAll
+    except Bronco Trolleys have TP and ruleseed support. Strong Mad Talker has a TP-relevant
+    setting that automatically resets inputs if the user makes a typo; this can be
+    disabled.\nCredits: myself, as well as Timwi and Kuro for helping w/ ruleseed
+    support for SMT and MP respectively"
+  version: 1.05
   outputFolder: /home/objectscountries/.local/share/Steam/steamapps/common/Keep Talking
     and Nobody Explodes/mods
   previewImage: {fileID: 2800000, guid: 16c81a6f1da6047d08f9de9a4101863e, type: 3}

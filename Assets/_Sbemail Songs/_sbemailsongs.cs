@@ -144,7 +144,7 @@ public class _sbemailsongs:ModdedModule{
         "Come on guys! Get your heads\nin the game.",
         "Oooh! Check it out! Another\none of those… sbemails!",
         "Email, women, email, girls!\nEmail, women, email, girls!",
-        "This email is brought to you\nby a grant from The Cheat and\nthe support of Viewers Like You.",
+        "This email is brought to you\nby a grant from The Cheat and\nthe support of Viewers Like\nYou.",
         "strongbad, underscore, email,\ndot e-x-e. Enter.",
         "OHHHHHHHHHHHHHHHH EMAIL!!! <i>{Rock\nguitar solo starts up and then\nends after a few seconds}</i> Whoa--\nthat ruled. What function key do I\ngotta press to get <i>that</i> to happen\nagain?",
         "Hoo! Cha! Cheritiza!\nHooritajuzu-duh-email!",
@@ -331,6 +331,7 @@ public class _sbemailsongs:ModdedModule{
         "Gimme some of this and gimme some of thiiiiis…",
         "Oooh, duh doo doo doo, my email left me, duh doo doo…",
         "I'm hooome! Okay, let's see here…",
+        "Doo doo do doo, doo duh doo doo!",
         "All the ladies want to know…",
         "I check email from the front to the back…",
         "It's the email, the email…",
@@ -630,7 +631,7 @@ public class _sbemailsongs:ModdedModule{
                         playbutton.GetComponent<MeshRenderer>().material=playMat;
                     if(!Status.IsSolved)
                         playSbs(false);
-                    if(struck)
+                    if(struck&&!bomb.GetSolvableModuleNames().Contains("Souvenir"))
                         Play(new Sound("AUDIO_ss_"+stages[currentSubmissionIndex]));
                 }
                 else{
@@ -657,7 +658,7 @@ public class _sbemailsongs:ModdedModule{
                     Log("Stage 01");
                     Log("There are "+totalNonIgnored+" non-ignored modules present.");
                     Log("0 non-ignored modules have been solved.");
-                    Log("The chosen sbemail song is "+chosenSong+".");
+                    Log("The chosen sbemail song is "+chosenSong+": “"+transcriptionsAbridged[chosenSong-1]+"”.");
                     playSbs(true);
                 }else{
                     stageNum.text="";
@@ -717,7 +718,7 @@ public class _sbemailsongs:ModdedModule{
                 else
                     stageNum.text=(numSolved+1).ToString("X");
                 chosenSong=UnityEngine.Random.Range(1,210);
-                Log("The chosen sbemail song is "+chosenSong+".");
+                Log("The chosen sbemail song is "+chosenSong+": “"+transcriptionsAbridged[chosenSong-1]+"”.");
                 stages.Add(chosenSong);
                 StartCoroutine(newStageWhilePlaying());
             }
@@ -759,7 +760,8 @@ public class _sbemailsongs:ModdedModule{
         }else{
             Strike("Entered "+digit+" instead of "+finalSequence.Substring(currentSubmissionIndex,1)+" for stage "+Convert.ToString(currentSubmissionIndex,16).ToUpper()+" (hexadecimal).");
             stageNum.text=finalSequence.Substring(currentSubmissionIndex,1);
-            Play(new Sound("AUDIO_ss_"+stages[currentSubmissionIndex]));
+            if(!bomb.GetSolvableModuleNames().Contains("Souvenir"))
+                Play(new Sound("AUDIO_ss_"+stages[currentSubmissionIndex]));
             struck=true;
         }
     }
