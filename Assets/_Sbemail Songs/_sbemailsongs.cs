@@ -274,7 +274,7 @@ public class _sbemailsongs:ModdedModule{
         "If everybody in the world checked\ntheir email, the Internet would\nprobably break.",
         "Girl, where's my money that you owe\nme from all those emails that you\nwrote me?",
         "Junk it, and check it, send me an\nemail and I'll wreck it!",
-        "Another freakin' email, another freakin' email song.",
+        "Another freakin' email, another\nfreakin' email song.",
         "I'm gonna check my <i>{grunt}</i>, and\nthen I'll check my <i>{grunt}</i> and then\nwe'll turn it out.",
         "I had to pay the doctor just to\nhave this email removed. A-so\nsmooth.",
         "<b>THE POOPSMITH:</b> <i>{singing}</i> Two hundred sbemails,\nexhausting just to think about. How can we face two\nhundred sbemails? The thought of all those sbemails\nmakes me weak!\n<b>STRONG BAD:</b> Puke!",
