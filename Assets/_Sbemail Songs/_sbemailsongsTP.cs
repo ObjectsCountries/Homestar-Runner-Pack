@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Wawa.TwitchPlays;
-using Wawa.TwitchPlays.Domains;
+using wawa.TwitchPlays;
+using wawa.TwitchPlays.Domains;
 
 public sealed class _sbemailsongsTP:Twitch<_sbemailsongs>{
     private readonly string hexDigits="0123456789ABCDEF";

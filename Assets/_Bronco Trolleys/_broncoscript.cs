@@ -1,12 +1,8 @@
-﻿using Wawa.Modules;
-using Wawa.Extensions;
-using Wawa.IO;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using wawa.Modules;
+using wawa.Extensions;
+using wawa.IO;
+using wawa.Schemas;
 using UnityEngine;
-using KModkit;
 
 public class _broncoscript:ModdedModule{
     public GameObject button;
@@ -20,8 +16,21 @@ public class _broncoscript:ModdedModule{
     private Config<settings>broncoSettings;
     private int scoreNeeded;
 
-    public sealed class settings{public int BT_MinimumNumberRequired = 10;}
+    public sealed class settings{
+        [TweaksSetting.Number("Minimum Number of Bronco Trolleys Required", "Can range from 10 to 15.")]
+        public int BT_MinimumNumberRequired = 10;
 
+        public settings(){}
+
+        public settings(int minimum){
+            BT_MinimumNumberRequired = Mathf.Clamp(minimum, 10, 15);
+        }
+    }
+
+    static readonly TweaksEditorSettings TweaksEditorSettings = TweaksEditorSettings.CreateListing("Bronco Trolleys", "broncotrolleys").Register<settings>().BuildAndClear();
+
+
+    /*
     public static Dictionary<string,object>[]TweaksEditorSettings=new Dictionary<string,object>[]{
     new Dictionary<string,object>{
         {"Filename","broncotrolleys-settings.json"},
@@ -31,6 +40,7 @@ public class _broncoscript:ModdedModule{
             }
         }}
     };
+    */
 
     protected override void Awake(){
         Get<KMNeedyModule>().OnNeedyActivation += OnNeedyActivation;
@@ -42,7 +52,7 @@ public class _broncoscript:ModdedModule{
     private void Start(){
         broncoSettings=new Config<settings>("broncotrolleys-settings.json");
         scoreNeeded = Mathf.Clamp(broncoSettings.Read().BT_MinimumNumberRequired,10,15);
-        broncoSettings.Write("{\"BT_MinimumNumberRequired\":"+scoreNeeded+"}");
+        broncoSettings.Write(new settings(broncoSettings.Read().BT_MinimumNumberRequired));
         if (scoreNeeded < 10) scoreNeeded = 10;
         if (scoreNeeded > 15) scoreNeeded = 15;
         score.SetActive(false);

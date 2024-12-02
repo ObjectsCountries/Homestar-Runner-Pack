@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Wawa.TwitchPlays;
-using Wawa.TwitchPlays.Domains;
+using wawa.TwitchPlays;
+using wawa.TwitchPlays.Domains;
 
 public sealed class _sidTP:Twitch<_sidhoffrenchmanscript>{
 	private string[]hoffOptions=new string[]{"h","hoff","hoffman"};
 	private string[]frenchOptions=new string[]{"f","french","frenchman"};
 	[Command("")]
-    public override IEnumerator ProcessTwitchCommand(string command){
+    public IEnumerator Select(string command){
         if (!Module.active){
             yield return TwitchString.SendToChatError("{0}, the module isn't currently active.");
             yield break;

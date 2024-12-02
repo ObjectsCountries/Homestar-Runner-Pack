@@ -1,6 +1,7 @@
-﻿using Wawa.Modules;
-using Wawa.Extensions;
-using Wawa.IO;
+﻿using wawa.Modules;
+using wawa.Extensions;
+using wawa.IO;
+using wawa.Schemas;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -50,11 +51,17 @@ public class _smtscript:ModdedModule{
     private string[]relativePositions=new string[]{"L","R","A","B"};
 
     public sealed class settings{
-        public bool SMT_LogPlayingModeInteractions=true;
-        public bool SMT_LogPlayingSolvingSwitch=true;
+        [TweaksSetting.Checkbox("Log Playing Mode Interactions")]
+        public bool SMT_LogPlayingModeInteractions=false;
+        [TweaksSetting.Checkbox("Log Switching Between Playing and Solving Modes")]
+        public bool SMT_LogPlayingSolvingSwitch=false;
+        [TweaksSetting.Checkbox("Twitch Plays: Reset Input on Typo")]
         public bool SMT_TPResetOnTypo=false;
     }
 
+    static readonly TweaksEditorSettings TweaksEditorSettings = TweaksEditorSettings.CreateListing("Strong Mad Talker", "strongmadtalker").Register<settings>().BuildAndClear();
+
+    /*
     public static Dictionary<string,object>[]TweaksEditorSettings=new Dictionary<string,object>[]{
     new Dictionary<string,object>{
         {"Filename","strongmadtalker-settings.json"},
@@ -66,6 +73,7 @@ public class _smtscript:ModdedModule{
             }
         }}
     };
+    */
 
     protected override void OnActivate(){
         foreach(KMSelectable button in buttons){

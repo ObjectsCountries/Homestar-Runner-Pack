@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Audio;
-using Wawa.Extensions;
-using Wawa.Modules;
-using Wawa.Optionals;
+using wawa.Extensions;
+using wawa.Modules;
+using wawa.Optionals;
 
 public class _sbemailsongs:ModdedModule{
     public KMSelectable playbutton;
