@@ -1078,6 +1078,51 @@
         <member name="T:wawa.Schemas.NamespaceDoc">
             <summary>Contains the core functionality of the library.</summary>
         </member>
+        <member name="T:wawa.Schemas.TweaksEditorSettings">
+            <summary>The class for holding the settings schema object used by tweaks for the mod settings.<p /><c>[PublicAPI]</c></summary>
+        </member>
+        <member name="T:wawa.Schemas.TweaksEditorSettings.Builder">
+            <summary>The builder class for creating the settings schema object used by tweaks for the mod settings.</summary>
+        </member>
+        <member name="F:wawa.Schemas.TweaksEditorSettings.Builder.Suffix">
+            <summary>The suffix for the default file name for mod settings.</summary>
+        </member>
+        <member name="M:wawa.Schemas.TweaksEditorSettings.Builder.BuildAndClear">
+            <inheritdoc />
+        </member>
+        <member name="M:wawa.Schemas.TweaksEditorSettings.Builder.CreateSeparateListing(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:wawa.Schemas.TweaksEditorSettings.Builder.Section(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:wawa.Schemas.TweaksEditorSettings.Builder.Register``1">
+            <inheritdoc />
+        </member>
+        <member name="M:wawa.Schemas.TweaksEditorSettings.Builder.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:wawa.Schemas.TweaksEditorSettings.Builder.Add(System.String,System.String)">
+            <summary>Starts a new listing in the <see cref="T:wawa.Schemas.TweaksEditorSettings" />.</summary>
+            <param name="name">The name of the new listing.</param>
+            <param name="fileName">The file name of the new listing.</param>
+            <returns></returns>
+        </member>
+        <member name="M:wawa.Schemas.TweaksEditorSettings.CreateListing(System.String,System.String)">
+            <summary>Creates the new builder.<p /><c>[PublicAPI]</c></summary>
+            <param name="name">The name of the initial listing.<p /><c>[NotNull]</c></param>
+            <param name="modId">
+            The mod id to get the file name from.
+            If <see langword="null" />, implicitly gets the file name of the mod from the name of the assembly.
+            <p /><c>[CanBeNull]</c></param>
+            <returns>Itself.</returns>
+        </member>
+        <member name="M:wawa.Schemas.TweaksEditorSettings.System#Collections#Generic#IEnumerable{System#Collections#Generic#Dictionary{System#String,System#Object}}#GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:wawa.Schemas.TweaksEditorSettings.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc />
+        </member>
         <member name="T:wawa.Schemas.TweaksSetting">
             <summary>Explicitly defines the type of listing to use for a setting.</summary>
         </member>
@@ -1193,51 +1238,6 @@
             <summary>Converts the <see cref="T:wawa.Schemas.TweaksSettingAttribute" /> to the <see cref="T:System.Collections.Generic.Dictionary`2" />.</summary>
             <param name="member">The member to use to infer <see cref="F:wawa.Schemas.TweaksSettingAttribute.Key" /> and <see cref="P:wawa.Schemas.TweaksSettingAttribute.Text" />.</param>
             <returns>The dictionary for the <see cref="T:wawa.Schemas.TweaksEditorSettings" />.</returns>
-        </member>
-        <member name="T:wawa.Schemas.TweaksEditorSettings">
-            <summary>The class for holding the settings schema object used by tweaks for the mod settings.<p /><c>[PublicAPI]</c></summary>
-        </member>
-        <member name="T:wawa.Schemas.TweaksEditorSettings.Builder">
-            <summary>The builder class for creating the settings schema object used by tweaks for the mod settings.</summary>
-        </member>
-        <member name="F:wawa.Schemas.TweaksEditorSettings.Builder.Suffix">
-            <summary>The suffix for the default file name for mod settings.</summary>
-        </member>
-        <member name="M:wawa.Schemas.TweaksEditorSettings.Builder.BuildAndClear">
-            <inheritdoc />
-        </member>
-        <member name="M:wawa.Schemas.TweaksEditorSettings.Builder.CreateSeparateListing(System.String,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:wawa.Schemas.TweaksEditorSettings.Builder.Section(System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:wawa.Schemas.TweaksEditorSettings.Builder.Register``1">
-            <inheritdoc />
-        </member>
-        <member name="M:wawa.Schemas.TweaksEditorSettings.Builder.System#Collections#IEnumerable#GetEnumerator">
-            <inheritdoc />
-        </member>
-        <member name="M:wawa.Schemas.TweaksEditorSettings.Builder.Add(System.String,System.String)">
-            <summary>Starts a new listing in the <see cref="T:wawa.Schemas.TweaksEditorSettings" />.</summary>
-            <param name="name">The name of the new listing.</param>
-            <param name="fileName">The file name of the new listing.</param>
-            <returns></returns>
-        </member>
-        <member name="M:wawa.Schemas.TweaksEditorSettings.CreateListing(System.String,System.String)">
-            <summary>Creates the new builder.<p /><c>[PublicAPI]</c></summary>
-            <param name="name">The name of the initial listing.<p /><c>[NotNull]</c></param>
-            <param name="modId">
-            The mod id to get the file name from.
-            If <see langword="null" />, implicitly gets the file name of the mod from the name of the assembly.
-            <p /><c>[CanBeNull]</c></param>
-            <returns>Itself.</returns>
-        </member>
-        <member name="M:wawa.Schemas.TweaksEditorSettings.System#Collections#Generic#IEnumerable{System#Collections#Generic#Dictionary{System#String,System#Object}}#GetEnumerator">
-            <inheritdoc />
-        </member>
-        <member name="M:wawa.Schemas.TweaksEditorSettings.System#Collections#IEnumerable#GetEnumerator">
-            <inheritdoc />
         </member>
     </members>
 </doc>
