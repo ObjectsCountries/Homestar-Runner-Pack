@@ -12,8 +12,9 @@ public sealed class _mpTP:Twitch<_mainpagescript>{
             yield return null;
             foreach (KMSelectable button in Module.menuButtons){
                 button.OnHighlight();
+                yield return new WaitForSeconds(1.0f);
                 button.OnHighlightEnded();
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(.5f);
             }
             yield break;
         } int i;
@@ -28,8 +29,9 @@ public sealed class _mpTP:Twitch<_mainpagescript>{
             if (Array.Exists(Module.buttonLetters, x => x == char.ToUpperInvariant(c))){
                 containsatall = true;
                 Module.menuButtons[Array.IndexOf(Module.buttonLetters,char.ToUpperInvariant(c))].OnHighlight();
+                yield return new WaitForSeconds(1.0f);
                 Module.menuButtons[Array.IndexOf(Module.buttonLetters,char.ToUpperInvariant(c))].OnHighlightEnded();
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(.5f);
             }
         } if (!containsatall) yield return TwitchString.SendToChatError("{0}, invalid command. Use the letters t, g, c, d, s, and e for each button.");
     }

@@ -7,7 +7,7 @@ public sealed class _sidTP:Twitch<_sidhoffrenchmanscript>{
 	private string[]hoffOptions=new string[]{"h","hoff","hoffman"};
 	private string[]frenchOptions=new string[]{"f","french","frenchman"};
 	[Command("")]
-    public IEnumerable<Instruction> Select(string command){
+    IEnumerable<Instruction> Select(string command){
         if (!Module.active){
             yield return TwitchString.SendToChatError("{0}, the module isn't currently active.");
             yield break;
